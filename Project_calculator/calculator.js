@@ -13,7 +13,8 @@ for (let i = 0; i < 10; i++) {
 }
 div.innerHTML = div.innerHTML + '<button class="operacao" >'+'+'+'</button>'+'<button class="operacao">'+'-'+'</button>';
 div.innerHTML = div.innerHTML + '<button class="operacao">'+'*'+'</button>'+'<button class="operacao">'+'/'+'</button>';
-div.innerHTML = div.innerHTML + '<button onclick=equalSign()>'+'='+'</button>';
+div.innerHTML = div.innerHTML + '<button>'+'x²'+'</button>'+'<button>'+'pow'+'</button>'+'<button>'+'sqrt'+'</button>'+ '<button>'+'root'+'</button>';
+div.innerHTML = div.innerHTML + '<button>'+'R'+'</button>'+'<button onclick=equalSign()>'+'='+'</button>';
 //console.log(div);
 //listar os 'buttons' de 0 a 9
 const elements = document.querySelectorAll('.number');
