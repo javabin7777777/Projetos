@@ -1,41 +1,41 @@
 
 /* inicialização de variáveis */
 
-var control=false; // valor default
-var aux;
-var tempo;
-var equal=true;
+//var control=false; // valor default
+//var aux;
+//var tempo;
+//var equal=true;
 var A="";
-var zero = um =0;
-const texto1="Zero,não vale!"; 
-const texto2="Não é número!";
+var  texto1 = "Not a number!";
+//var zero = um =0;
 const input = document.querySelector("#input");
 const div= document.querySelector("#containerButton");
 input.value="";
 //console.log(div);
 
-//criar os 'buttons' de '0 a 9' e os '+,-,*,/,x²,pow,sqrt,root,R,='
+//criar os 'buttons' de '0 a 9'
 for (let i = 0; i < 10; i++) {
     div.innerHTML = div.innerHTML + `<button class="number">${i}</button>`;
 }
+
+//criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,R,=' .
 div.innerHTML = div.innerHTML + '<button class="operator" >'+'+'+'</button>'+'<button class="operator">'+'-'+'</button>';
 div.innerHTML = div.innerHTML + '<button class="operator">'+'*'+'</button>'+'<button class="operator">'+'/'+'</button>';
-div.innerHTML = div.innerHTML + '<button onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+'pow'+'</button>';
-div.innerHTML = div.innerHTML +'<button onclick="rootSquare()">'+'sqrt'+'</button>'+'<button>'+'root'+'</button>';
+div.innerHTML = div.innerHTML + '<button onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+'x<sup>y</sup>'+'</button>';
+div.innerHTML = div.innerHTML +'<button onclick="rootSquare()">'+'sqrt'+'</button>'+'<button onclick="root()">'+'root'+'</button>';
 div.innerHTML = div.innerHTML + '<button onclick="window.location.reload()">'+'R'+'</button>'+'<button onclick=equalSign()>'+'='+'</button>';
 console.log(div);
 
-//listar os 'buttons' de 0 a 9
-const elements = document.querySelectorAll('.number');
-// listar os operadores
+//obter os 'buttons' de 0 a 9 e insere na lista elements .
+const elements = document.querySelectorAll('.number');//'elements': Lista do tipo NodeList(Não é array) com todos buttons de 0 a 9 .
+//obter os 'buttons' '+,-,*,/' e insere na lista operator .
 const operator = document.querySelectorAll('.operator');
-//'elements': Lista do tipo NodeList(Não é array) com todos buttons de 0 a 9 .
 
-console.log(elements);
+//console.log(elements);
 //console.log(elements[0]);//<button class="number">0</button>
 //console.log(elements[0].nextElementSibling);//<button class="number">1</button>
-console.log(operator);
-console.log(operator[0].innerText);
+//console.log(operator);
+//console.log(operator[0].innerText);
 
 //adicionar eventos aos 'buttons' de 0 a 9 .
 elements.forEach( (item) => {
@@ -44,7 +44,7 @@ elements.forEach( (item) => {
     //console.log(i.innerText);
 });
 
-//adicionar eventos aos operadores '+,-,*,/' .
+//adicionar eventos aos 'buttons' '+,-,*,/' e obtém o primeiro operando .
 operator.forEach( (item) => {
     item.addEventListener('click',() => {
         A=input.value; // primeiro operando .
@@ -54,35 +54,44 @@ operator.forEach( (item) => {
 });
 
 function pow() {
-    A = input.value;
-    input.value = input.value+'pow';
+    //if(typeof(input.value) != 'number') return input.value = 'Not a number!';
+    A = input.value; // obtém o primeiro operando .
+    input.value = input.value + '^';
+    //input.value = input.value+'pow';
 }
 function pow2() {
-    if(typeof(input.value) != 'number') return input.value = 'Not a number!'
+    if(typeof(input.value) != 'number') return input.value = 'Not a number!';
     if(inpu.value == 0) return input.value = 0;
     input.value = Math.pow(Number(input.value),2).toFixed(4);       
 }
-
 function rootSquare() {
-    if(typeof(input.value) != 'number') return input.value = 'Not a number!'
+    if(typeof(input.value) != 'number') return input.value = 'Not a number!';
     if(input.value < 0) return input.value = 'There is no!'  
     if(inpu.value == 0) return input.value = 0;
     input.value = Math.sqrt(input.value).toFixed(10);
 }
+function root() {
+   if(validation()) return input.value = 'Not a number!';   
+   if(input.value < 0 && input.value%2 == 0) return input.value = 'There is no!';// número negativo com índice par . 
+   A = input.value;
+   input.value = input.value + 'r';
+   
+}
 
-//executa a operação escolhida,entre dois operandos A e B .
-function equalSign() { 
+//executa a operação escolhida,entre dois operandos A e B ao pressionar o 'button' '=' .
+function equalSign() {   
     const decimal=10;
     let B=""; // segundo operando .
     let array = [...input.value];
     console.log(array);    
     console.log(A.length);
-    console.log(array.indexOf(array[A.length])+1);//índice do operador .
-    //obter o segundo operando .
+    console.log(array.indexOf(array[A.length])+1);//índice do operador escolhido.
+
+    //obter o segundo operando B .
     for(let i=array.indexOf(array[A.length])+1;i<array.length;i++){
          B=B+array[i];
     }
-    if(typeof(A)!='number' || typeof(B)!='number') return input.value='Not a number!';
+    if(typeof(Number(A))!='number' && typeof(Number(B))!='number') return input.value='Not a number!';
     console.log('A= '+ A);
     console.log('B= '+ B);
     console.log(array[A.length]);
@@ -91,15 +100,24 @@ function equalSign() {
         case '-':input.value = (Number(A)-Number(B)).toFixed(decimal);break;
         case '*':input.value = (Number(A)*Number(B)).toFixed(decimal);break;
         case '/':input.value = (Number(A)/Number(B)).toFixed(decimal);break;
-        //case 'pow':input.value = Math.pow(Number(A),Number(B));break;
-        //case 'sqrt':input.value = Math.sqrt(Number(A));break;
-
+        case '^':input.value = (Math.pow(Number(A),Number(B))).toFixed(decimal);break;
+        case 'r':input.value = (Math.pow( Number(A),Number((1/Number(B).toFixed(decimal))) ) ).toFixed(decimal);break;
     }   
     A="";
 }
+function overLoad(argument) {
+    // body...
+}
 
-
-
+function validation() {
+    for(let i=0;i<input.length;i++){
+        console.log(i);
+        if( !(input.value.codepointAt(i) > 48  && input.value.codepointAt(i) < 56)  ){            
+            return true;
+        }
+    }
+    return false;
+}
 /*
 function getB() {
     let B=""; // segundo operando .
