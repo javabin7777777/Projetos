@@ -19,7 +19,7 @@ const respostas=["sim.","não.","provávelmente.","pode ser.","Certeza!",
 "Sinais apontam que sim.","Passa manhã.","É bom não saber.","Está tudo bem,vai em frente.","Viva La Vida."];
    // array com as respostas possíveis
 const elementH3=document.querySelector("#answer"); 
-const campoTexto=document.querySelector("#input");
+const input=document.querySelector("#input");
 const elementDiv=document.querySelector("#chronometer");
 const h1=document.querySelector("h1");
 
@@ -27,37 +27,33 @@ h1.innerText = h1.innerText.toUpperCase();
 
 function ask(){   // button "Question" .           
     elementH3.style.opacity = 1;
-    if(campoTexto.value == ""){  
+    if(input.value == ""){  
         window.alert("Type something in the question field");
         return;
     }
-    if(campoTexto !=""){
-        chronometer();
-        setTimeout(function(){ // insert the answer and disable the buttons .                   
-            elementH3.innerHTML = "<div>"+campoTexto.value+"</div>" + respostas[Math.floor(Math.random()*respostas.length)];
-            campoTexto.value="";
-           // campoTexto.setAttribute("disabled",true);
-           // button.setAttribute("disabled",true);          
-            setTimeout(function(){ //  set opacity of the <h3> element .
-                elementH3.style.opacity = 0;              
-            },5000)
-            setInterval(function(){ // enables the buttons .
-                campoTexto.removeAttribute("disabled"); 
-                button.removeAttribute("disabled");
-                elementH3.innerHTML="" 
-            },8000)
-            elementDiv.innerHTML="";
-        },7000)            
-    } 
+    
+    chronometer();
+    setTimeout(()=> { // insert the answer and enable the button and input .                  
+        elementH3.innerHTML = "<div>"+input.value+"</div>" + respostas[Math.floor(Math.random()*respostas.length)];
+        input.value="";                
+        setTimeout(()=> elementH3.style.opacity = 0,5000); //  set opacity of the <h3> element .
+        setInterval(()=> { 
+            input.removeAttribute("disabled"); 
+            button.removeAttribute("disabled");
+            //elementH3.innerHTML="" ;
+        },8000);
+        elementDiv.innerHTML="";
+    },7000);            
+     
 }
 
-// elapsed time to get the answer .
+// elapsed time to get the answer .Disable the button and input .
 function chronometer(){ 
-    campoTexto.setAttribute("disabled",true);
+    input.setAttribute("disabled",true);
     button.setAttribute("disabled",true);  
     let tempo=5;
     elementDiv.style.opacity=1;
-    let id=setInterval(function(){         
+    let id=setInterval(()=> {         
         elementDiv.innerHTML = tempo;
         --tempo;
         if(tempo==0){
@@ -66,4 +62,3 @@ function chronometer(){
         }
     },1000)    
 }
-
