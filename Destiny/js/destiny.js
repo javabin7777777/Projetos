@@ -1,4 +1,4 @@
-const respostas=["sim.","não.","provávelmente.","pode ser.","Certeza!",
+const answer=["sim.","não.","provávelmente.","pode ser.","Certeza!",
 "Não tenho tanta certeza.",
 "É decididamente assim.",
 "Não conte com isso.",
@@ -17,7 +17,7 @@ const respostas=["sim.","não.","provávelmente.","pode ser.","Certeza!",
 "Sim.","A vida é um caminho,faça disso uma aventura.",
 "Concentre-se e pergunte novamente.",
 "Sinais apontam que sim.","Passa manhã.","É bom não saber.","Está tudo bem,vai em frente.","Viva La Vida."];
-   // array com as respostas possíveis
+   // array of possible answers .
 const elementH3=document.querySelector("#answer"); 
 const input=document.querySelector("#input");
 const elementDiv=document.querySelector("#chronometer");
@@ -34,7 +34,7 @@ function ask(){   // button "Question" .
     
     chronometer();
     setTimeout(()=> { // insert the answer and enable the button and input .                  
-        elementH3.innerHTML = "<div>"+input.value+"</div>" + respostas[Math.floor(Math.random()*respostas.length)];
+        elementH3.innerHTML = "<div>"+input.value+"</div>" + answer[Math.floor(Math.random()*answer.length)];
         input.value="";                
         setTimeout(()=> elementH3.style.opacity = 0,5000); //  set opacity of the <h3> element .
         setInterval(()=> { 

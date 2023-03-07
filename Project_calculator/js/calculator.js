@@ -1,10 +1,12 @@
 
+"use strict";
 /* inicialização de variáveis */
 
 //var control=false; // valor default
 //var aux;
 //var tempo;
 //var equal=true;
+let array=['0','1','2','3','4','5','6','7','8','9','*','/','+','-','^','sqrt','r'];
 var A="";
 var  texto1 = "Not a number!";
 //var zero = um =0;
@@ -19,11 +21,19 @@ for (let i = 0; i < 10; i++) {
 }
 
 //criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,R,=' .
-div.innerHTML = div.innerHTML + '<button class="operator" >'+'+'+'</button>'+'<button class="operator">'+'-'+'</button>';
-div.innerHTML = div.innerHTML + '<button class="operator">'+'*'+'</button>'+'<button class="operator">'+'/'+'</button>';
-div.innerHTML = div.innerHTML + '<button onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+'x<sup>y</sup>'+'</button>';
-div.innerHTML = div.innerHTML +'<button onclick="rootSquare()">'+'sqrt'+'</button>'+'<button onclick="root()">'+'root'+'</button>';
-div.innerHTML = div.innerHTML + '<button onclick="window.location.reload()">'+'R'+'</button>'+'<button onclick=equalSign()>'+'='+'</button>';
+div.innerHTML = div.innerHTML + '<button class="operator" >'+'+'+'</button>'+'<button class="operator">'+'-'+
+'</button>';
+div.innerHTML = div.innerHTML + '<button class="operator">'+'*'+'</button>'+'<button class="operator">'+'/'+
+'</button>';
+div.innerHTML = div.innerHTML + '<button onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+
+'x<sup>y</sup>'+'</button>';
+div.innerHTML = div.innerHTML +'<button onclick="rootSquare()">'+'sqrt'+'</button>'+'<button onclick="root()">'+
+'root'+'</button>';
+div.innerHTML = div.innerHTML + '<button onclick="window.location.reload()">'+'R'+'</button>'+
+'<button onclick=equalSign()>'+'='+'</button>';
+div.innerHTML = div.innerHTML +'<button onclick="signMinus()">'+'+/-'+'</button>'+
+'<button onclick="signPoint()">'+'.'+'</button>'+'<button onclick="clear()">'+'CL'+'</button>'+
+'<button onclick="signSlash()">'+'/'+'</button>';
 console.log(div);
 
 //obter os 'buttons' de 0 a 9 e insere na lista elements .
@@ -39,7 +49,7 @@ const operator = document.querySelectorAll('.operator');
 
 //adicionar eventos aos 'buttons' de 0 a 9 .
 elements.forEach( (item) => {
-    item.addEventListener('click',() => {input.value = input.value + item.innerText;});
+    item.addEventListener('click',() => input.value = input.value + item.innerText);
     console.log(item);//<button class="number">0</button>
     //console.log(i.innerText);
 });
@@ -56,55 +66,75 @@ operator.forEach( (item) => {
 function pow() {
     //if(typeof(input.value) != 'number') return input.value = 'Not a number!';
     A = input.value; // obtém o primeiro operando .
+    console.log('A= '+A);
     input.value = input.value + '^';
+    console.log('A-> '+A); 
+    console.log(input.value);
     //input.value = input.value+'pow';
 }
 function pow2() {
-    if(typeof(input.value) != 'number') return input.value = 'Not a number!';
+   // if(typeof(input.value) != 'number') return input.value = 'Not a number!';
     if(inpu.value == 0) return input.value = 0;
     input.value = Math.pow(Number(input.value),2).toFixed(4);       
 }
 function rootSquare() {
-    if(typeof(input.value) != 'number') return input.value = 'Not a number!';
+   // if(typeof(input.value) != 'number') return input.value = 'Not a number!';
     if(input.value < 0) return input.value = 'There is no!'  
-    if(inpu.value == 0) return input.value = 0;
+    if(input.value == 0) return input.value = 0;
     input.value = Math.sqrt(input.value).toFixed(10);
 }
+
 function root() {
    if(validation()) return input.value = 'Not a number!';   
-   if(input.value < 0 && input.value%2 == 0) return input.value = 'There is no!';// número negativo com índice par . 
    A = input.value;
-   input.value = input.value + 'r';
-   
+   input.value = input.value + 'r';  
+
 }
 
+
 //executa a operação escolhida,entre dois operandos A e B ao pressionar o 'button' '=' .
-function equalSign() {   
+function equalSign() {  
+console.log('A: '+A); 
     const decimal=10;
     let B=""; // segundo operando .
     let array = [...input.value];
-    console.log(array);    
+    console.log(array); // (4) ['8', '^', '-', '2'] 
+      
+    
     console.log(A.length);
-    console.log(array.indexOf(array[A.length])+1);//índice do operador escolhido.
-
+    console.log(array.indexOf(array[A.length]) +1);//índice do último operando .
     //obter o segundo operando B .
     for(let i=array.indexOf(array[A.length])+1;i<array.length;i++){
          B=B+array[i];
     }
-    if(typeof(Number(A))!='number' && typeof(Number(B))!='number') return input.value='Not a number!';
+    //if(typeof(Number(A))!='number' && typeof(Number(B))!='number') return input.value='Not a number!';
     console.log('A= '+ A);
-    console.log('B= '+ B);
+    console.log('B= '+B);
     console.log(array[A.length]);
-    switch(array[A.length]){
+    console.log();
+    switch(array[A.length]){ // selecionar o operador escolhido .
         case '+':input.value = (Number(A)+Number(B)).toFixed(decimal);break;
         case '-':input.value = (Number(A)-Number(B)).toFixed(decimal);break;
         case '*':input.value = (Number(A)*Number(B)).toFixed(decimal);break;
         case '/':input.value = (Number(A)/Number(B)).toFixed(decimal);break;
-        case '^':input.value = (Math.pow(Number(A),Number(B))).toFixed(decimal);break;
-        case 'r':input.value = (Math.pow( Number(A),Number((1/Number(B).toFixed(decimal))) ) ).toFixed(decimal);break;
-    }   
+        case '^':input.value = (eval(A)**eval(B)).toFixed(decimal);break;
+        case 'r': // if(Number(A) < 0 && Number(B)%2 == 0) input.value = 'There is no!';break; // número negativo com índice par . 
+                   console.log('PASSOU AQUI!');
+                   console.log(Number(A));
+                   console.log(Number(B));
+                   let num = Number(A);                   
+                   let index = 1/(Number(B));//The Math.fround() static method returns the nearest 32-bit single precision float representation of a number.
+                   console.log(typeof(num));
+                   console.log(typeof(index));
+                   console.log(num);
+                   console.log(index);
+                   console.log((num) ** index);
+                   input.value = ((num) ** index).toFixed(decimal);
+                   break;
+    }             
     A="";
 }
+
 function overLoad(argument) {
     // body...
 }
@@ -112,11 +142,19 @@ function overLoad(argument) {
 function validation() {
     for(let i=0;i<input.length;i++){
         console.log(i);
-        if( !(input.value.codepointAt(i) > 48  && input.value.codepointAt(i) < 56)  ){            
+        console.log(codepointAt(i));
+        if( !(input.value.codepointAt(i) > 48 && input.value.codepointAt(i) < 56)){            
             return true;
         }
     }
     return false;
+}
+
+function signMinus() {
+    input.value=input.value+'-';
+}
+function signSlash() {
+  input.value=input.value+'/';
 }
 /*
 function getB() {
