@@ -14,7 +14,7 @@ body {
 
 #container{ 
    width:80%; 
-   max-width:400px;
+   max-width:750px;
    margin:150px auto; 
    display: block; 
 }
@@ -58,7 +58,7 @@ button#button,button{
 }
 */
 
-.number,.operator{   
+.number{   
     width: 50px;
     height: 50px;
     margin: 10px 5px;
@@ -76,7 +76,7 @@ button#button,button{
     background-color: lightcoral;
 
 }
-button{
+.operator1,button{
     width: 50px;  
     margin: 10px 5px;
     border-radius: 10px;
@@ -86,9 +86,7 @@ button{
     font-size: 20px;
     font-weight: 900;  
     color: black;
-    background-color:lightblue;    
-    
-
+    background-color:lightblue;
 }
 
 #buttonMais {

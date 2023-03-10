@@ -6,7 +6,9 @@
 //var aux;
 //var tempo;
 //var equal=true;
-let array=['0','1','2','3','4','5','6','7','8','9','*','/','+','-','^','sqrt','r'];
+var array=[];
+var permit=['0','1','2','3','4','5','6','7','8','9','*','/','+','-','^','sqrt','r'];
+var algarism=['0','1','2','3','4','5','6','7','8','9']
 var A="";
 var  texto1 = "Not a number!";
 //var zero = um =0;
@@ -21,134 +23,218 @@ for (let i = 0; i < 10; i++) {
 }
 
 //criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,R,=' .
-div.innerHTML = div.innerHTML + '<button class="operator" >'+'+'+'</button>'+'<button class="operator">'+'-'+
+div.innerHTML = div.innerHTML + '<button class="operator1" >'+'+'+'</button>'+'<button class="operator1">'+'-'+
 '</button>';
-div.innerHTML = div.innerHTML + '<button class="operator">'+'*'+'</button>'+'<button class="operator">'+'/'+
+div.innerHTML = div.innerHTML + '<button class="operator1">'+'*'+'</button>'+'<button class="operator1">'+'/'+
 '</button>';
-div.innerHTML = div.innerHTML + '<button onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+
-'x<sup>y</sup>'+'</button>';
-div.innerHTML = div.innerHTML +'<button onclick="rootSquare()">'+'sqrt'+'</button>'+'<button onclick="root()">'+
-'root'+'</button>';
-div.innerHTML = div.innerHTML + '<button onclick="window.location.reload()">'+'R'+'</button>'+
-'<button onclick=equalSign()>'+'='+'</button>';
-div.innerHTML = div.innerHTML +'<button onclick="signMinus()">'+'+/-'+'</button>'+
-'<button onclick="signPoint()">'+'.'+'</button>'+'<button onclick="clear()">'+'CL'+'</button>'+
-'<button onclick="signSlash()">'+'/'+'</button>';
-console.log(div);
+div.innerHTML = div.innerHTML + '<button  onclick="pow2()">'+'x²'+'</button>'+
+'<button onclick="pow()">'+'x<sup>y</sup>'+'</button>';
+div.innerHTML = div.innerHTML +'<button onclick="squareRoot()">'+'<img src="img/square-root-variable-icon-128.png">'+'</button>'+
+'<button  onclick="root()">'+'root'+'</button>'+'<button  onclick="root()">'+'Log'+'</button>'+
+'<button  onclick="root()">'+'Ln'+'</button>';
+div.innerHTML = div.innerHTML + '<button  onclick="signMinus()">'+'+/-'+'</button>';
+div.innerHTML = div.innerHTML +'<button class="operator1">'+'.'+'</button>'+
+'<button class="operator1">'+'('+'</button>'+'<button class="operator1">'+')'+'</button>'+
+'<button onclick=equalSign()>'+'='+'</button>'+'<button  onclick="clearAll()">'+'CL'+'</button>'+
+'<button  onclick="window.location.reload()">'+'R'+'</button>';
 
+console.log(div);
+const buttons = document.querySelectorAll('button');
+console.log('buttons: ');
+console.log(buttons);
 //obter os 'buttons' de 0 a 9 e insere na lista elements .
 const elements = document.querySelectorAll('.number');//'elements': Lista do tipo NodeList(Não é array) com todos buttons de 0 a 9 .
-//obter os 'buttons' '+,-,*,/' e insere na lista operator .
-const operator = document.querySelectorAll('.operator');
+//obter os 'buttons' '+,-,*,/' e insere na lista operator1 .
+const operator1 = document.querySelectorAll('.operator1');
 
-//console.log(elements);
+console.log(elements);
 //console.log(elements[0]);//<button class="number">0</button>
 //console.log(elements[0].nextElementSibling);//<button class="number">1</button>
-//console.log(operator);
-//console.log(operator[0].innerText);
+//console.log(operator1);
+//console.log(operator1[0].innerText);
 
 //adicionar eventos aos 'buttons' de 0 a 9 .
 elements.forEach( (item) => {
-    item.addEventListener('click',() => input.value = input.value + item.innerText);
+    item.addEventListener('click',() => {
+        array.push(item.innerText);
+        input.value = input.value + item.innerText;
+    });
     console.log(item);//<button class="number">0</button>
-    //console.log(i.innerText);
+    //console.log(item.innerText);
 });
 
 //adicionar eventos aos 'buttons' '+,-,*,/' e obtém o primeiro operando .
-operator.forEach( (item) => {
+operator1.forEach( (item) => {
     item.addEventListener('click',() => {
-        A=input.value; // primeiro operando .
+        array.push(item.innerText);
+        //A=input.value; // primeiro operando .
         input.value = input.value + item.innerText;
     });
-    //console.log(item);//<button class="operator">+</button> 
+    //console.log(item);//<button class="operator1">+</button> 
 });
 
+function pow2() {
+    // validação da entrada .
+    for(let i of input.value){
+        if(!algarism.includes(i)){
+            input.value = 'Not a number!'.toUpperCase();
+            lock();
+            return false;
+        } 
+    }   
+    if(input.value == 0) return input.value = 0;
+    let num=(Math.pow(Number(input.value),2)).toFixed(4);
+    array.length=0;//para caso o 'button =' for pressionado .
+    if (num==Infinity){
+        input.value = 'OverLoad'.toUpperCase();
+        lock();
+        return false;       
+    }
+    else input.value = num;       
+}
 function pow() {
     //if(typeof(input.value) != 'number') return input.value = 'Not a number!';
-    A = input.value; // obtém o primeiro operando .
-    console.log('A= '+A);
-    input.value = input.value + '^';
-    console.log('A-> '+A); 
-    console.log(input.value);
+    //A = input.value; // obtém o primeiro operando .
+    //console.log('A= '+A);
+    array.length=0;
+
+    array.push(input.value+'**');
+    input.value=input.value+'^';
+    // = input.value + '^';
+    //console.log('A-> '+A); 
+   //console.log(input.value);
     //input.value = input.value+'pow';
 }
-function pow2() {
-   // if(typeof(input.value) != 'number') return input.value = 'Not a number!';
-    if(inpu.value == 0) return input.value = 0;
-    input.value = Math.pow(Number(input.value),2).toFixed(4);       
-}
-function rootSquare() {
+
+function squareRoot() {
    // if(typeof(input.value) != 'number') return input.value = 'Not a number!';
     if(input.value < 0) return input.value = 'There is no!'  
     if(input.value == 0) return input.value = 0;
-    input.value = Math.sqrt(input.value).toFixed(10);
+    input.value = (Math.sqrt(Number(input.value))).toFixed(10);
 }
 
 function root() {
-   if(validation()) return input.value = 'Not a number!';   
+   //if(validation()) return input.value = 'Not a number!';   
    A = input.value;
    input.value = input.value + 'r';  
 
 }
 
-
-//executa a operação escolhida,entre dois operandos A e B ao pressionar o 'button' '=' .
+//executa a operação ao pressionar o 'button =' .
 function equalSign() {  
-console.log('A: '+A); 
+//console.log('A: '+A); 
     const decimal=10;
+    if(input.value != 'OverLoad') input.value = eval(array.join('')).toFixed(decimal);    
+}
+ 
+//desabilta o campo texto e os 'buttons' exceto 'button R' .
+function lock() {
+    input.style.color = "green";
+    input.style.fontweight ="bold";
+    input.disabled = true;
+    buttons.forEach((item)=>{
+        console.log(item);
+        if(!(item.innerText == 'R')) item.disabled= true;        
+        console.log(item);
+    });
+}
+
+function clearAll() {
+   // console.log("clearAll");
+    input.value="";
+    array.length=0;   
+}
+
+// validação da expressão entrada .
+function validation() {
+    for(let i of input.value){
+        if(!Permit.includes(i)){
+            return false;
+        }
+    }
+    return true;
+} 
+
+// validação da expressão entrada .
+function validation() {
+    for(let i of input.value){
+        if(!Permit.includes(i)){
+            return false;
+        }
+    }
+    return true;
+} 
+
+ /*
+  array.length=0;
+   
     let B=""; // segundo operando .
-    let array = [...input.value];
-    console.log(array); // (4) ['8', '^', '-', '2'] 
+    let array1 = [...input.value];
+    console.log(array1); // (4) ['8', '^', '-', '2'] 
       
     
     console.log(A.length);
-    console.log(array.indexOf(array[A.length]) +1);//índice do último operando .
+    console.log(array1.indexOf(array1[A.length]) +1);//índice do último operando .
     //obter o segundo operando B .
-    for(let i=array.indexOf(array[A.length])+1;i<array.length;i++){
-         B=B+array[i];
+    for(let i=array1.indexOf(array1[A.length])+1;i<array1.length;i++){
+         B=B+array1[i];
     }
     //if(typeof(Number(A))!='number' && typeof(Number(B))!='number') return input.value='Not a number!';
     console.log('A= '+ A);
     console.log('B= '+B);
-    console.log(array[A.length]);
+    console.log(array1[A.length]);
     console.log();
-    switch(array[A.length]){ // selecionar o operador escolhido .
+    switch(array1[A.length]){ // selecionar o operador escolhido .
         case '+':input.value = (Number(A)+Number(B)).toFixed(decimal);break;
         case '-':input.value = (Number(A)-Number(B)).toFixed(decimal);break;
         case '*':input.value = (Number(A)*Number(B)).toFixed(decimal);break;
         case '/':input.value = (Number(A)/Number(B)).toFixed(decimal);break;
-        case '^':input.value = (eval(A)**eval(B)).toFixed(decimal);break;
-        case 'r': // if(Number(A) < 0 && Number(B)%2 == 0) input.value = 'There is no!';break; // número negativo com índice par . 
+        case '^':input.value = (eval(A)**eval(B)).toFixed(decimal);break; // potenciação
+        case 'r': // raiz (índices inteiros ou decimais,positivos ou negativos) .                 
+                    if(Number(A) < 0 ){
+                        if(Number(B)%2 != 0){
+                            let num = eval(A)*(-1); 
+                            input.value = ((num ** (1/eval(B)))*(-1)).toFixed(decimal);    
+                        }else input.value = 'There is no!';                      
+
+                    }else input.value = (eval(A) ** (1/eval(B))).toFixed(decimal);                    
+                    break;
+                   /*
+
+
+                   
                    console.log('PASSOU AQUI!');
                    console.log(Number(A));
                    console.log(Number(B));
-                   let num = Number(A);                   
-                   let index = 1/(Number(B));//The Math.fround() static method returns the nearest 32-bit single precision float representation of a number.
+                                     
+                   let index = 1/(Number(B));
                    console.log(typeof(num));
                    console.log(typeof(index));
                    console.log(num);
                    console.log(index);
                    console.log((num) ** index);
-                   input.value = ((num) ** index).toFixed(decimal);
+                   
                    break;
-    }             
+                   
+    }                 
     A="";
-}
+   //The Math.fround() static method returns the nearest 32-bit single precision float representation of a number.
 
-function overLoad(argument) {
-    // body...
-}
 
-function validation() {
-    for(let i=0;i<input.length;i++){
-        console.log(i);
-        console.log(codepointAt(i));
-        if( !(input.value.codepointAt(i) > 48 && input.value.codepointAt(i) < 56)){            
-            return true;
-        }
-    }
-    return false;
-}
+
+function overLoad() {
+    input.style.color = "green";
+    input.style.fontweight ="bold";
+    input.value='OverLoad'.toUpperCase();
+    // desabilta o campo texto e os 'buttons' exceto 'button R' .
+    input.disabled = true;
+    buttons.forEach((item)=>{
+        console.log(item);
+        if(!item.innerText == 'R') item.disabled= true;
+        console.log(item);
+    })
+} 
+
 
 function signMinus() {
     input.value=input.value+'-';
@@ -159,11 +245,21 @@ function signSlash() {
 /*
 function getB() {
     let B=""; // segundo operando .
-    let array = [...input.value];
+    let array1 = [...input.value];
      //obter o segundo operando .
     for(let i=array.indexOf(array[A.length])+1;i<array.length;i++){
          B=B+array[i];
     } 
+}
+
+for(let i=0;i<input.length;i++){
+        console.log(i);
+        console.log(codepointAt(i));
+        if( !(input.value.codepointAt(i) > 48 && input.value.codepointAt(i) < 56)){            
+            return true;
+        }
+    }
+    return false;
 }
 */
 
