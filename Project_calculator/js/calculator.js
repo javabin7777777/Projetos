@@ -1,25 +1,13 @@
-
-
 "use strict";
 
 /* inicialização de variáveis */
 
-//var control=false; // valor default
-//var aux;
-//var tempo;
-//var equal=true;
-//const  text = "not a number!";
-//var zero = um =0;
 var asteriskDouble = false;//somente para operação raiz .
-var idAsterisk_1=-1;
-var idAsterisk_2=-1;
-var A=[];
 const DECIMAL=10;
 const algarism=['0','1','2','3','4','5','6','7','8','9'];
-const permit=['0','1','2','3','4','5','6','7','8','9','.','*','/','+','-','sqrt','radix',
-              '(',')','[',']','{','}','e','E'];    
+const permit=['0','1','2','3','4','5','6','7','8','9','.','*','/','+','-','sqrt','radix','(',')','[',']','{','}','e','E'];    
 const especials=['(',')','[',']','{','}'];
-const operation=['*','/','+','-'];
+const operator=['*','/','+','-'];
 const input = document.querySelector("#input");//campo texto .
 const div= document.querySelector("#containerButton");// div dos 'buttons' .
 input.value="";
@@ -91,86 +79,81 @@ operator1.forEach( (item) => {
 function equalSign() {  
     console.log('input: '+input.value);
     console.log('A= '+A);
-    if(validation()) input.value = eval(A.join('')); 
-    A.length=0;
-    idAsterisk_1=idAsterisk_2=-1;
-    asteriskDouble=false;
-    console.log('A= '+A);
+    if(validation()) input.value = Number(eval(input.value).toFixed(DECIMAL));   
 }
 
-// validar a expressão de entrada .
-// saída é a variável A,usada para o cálculo conforme a operação determinada.
-function validation() {
-    let a=false;
-    let asterisk=0;  
-    let array=[...input.value];  
-    let begin = input.value[0];
+// validar a string de entrada .
+// saída é uma string que será usada para o cálculo .
+function validation() {  
 
-    for(let item of input.value) { // procura por caracteres operadores
-        if(operation.includes(item)) a=true;
-        if(item=='*') asterisk+=1;
-    } 
-    if(a && asterisk<3){// string de entrada com tamanho maior que três,e,iniciar com número ou com caracteres especiais .
-        if(!((input.value.length>2&&!algarism.includes(begin)&&especials.includes(begin)) || (input.value.length>2 && algarism.includes(begin)))) {
-            nAn();
-            console.log('aqui');
-            return false; 
-        }
-    }else {
+   // verificação preliminar da string de entrada . 
+    let begin = input.value[0];
+    let a=input.value.length>2;
+    let b=algarism.includes(begin);
+    let c=especials.includes(begin);
+    console.log(a);
+    console.log(b);
+    console.log(c);
+     // string de entrada com tamanho maior que dois,e,iniciar com número ou com caracteres especiais .
+    if(!((a&&(!b)&&c) || (a && b))) {
         nAn();
         console.log('aqui');
         return false; 
-    }
-
-    // garante que o último caracter seja número .   
-    if(!algarism.includes(input.value[input.value.length-1])) { 
+    }     
+    a=algarism.includes(input.value[input.value.length-1]);// garante que o último caracter seja número .
+    b=input.value.startsWith('(');// string que inicia e finaliza com parênteses .
+    c=input.value.endsWith(')');
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    if((a||(!b)||(!c)) && ((!a)||b||c)) {
         nAn();
-       console.log('aqui');
+        console.log('aqui');
         return false;
-    }
+    }   
 
-    // achar e marcar os caracteres dobrados '**' para operações potência e raiz .
-    if(asteriskDouble) { 
-        for(let [index,i] of input.value.entries()) {
-            if((index+1)<input.value.length-1){
-               if(input.value.charAt(index) == '*' && input.value.charAt(index+1) == '*') {
-                    //asteriskDouble=false;
-                    idAsterisk_1=index;
-                    idAsterisk_2=index+1;
-                    //A.push(input.value.charAt(index));
-                    //A.push(input.value.charAt(index+1));
-                    break;
-                }  
-            }
+    // verificar se string de entrada está no formato numero+operator+numero ...  
+    for(let i=1;i<input.value.length;i++) { 
+       
+        if(i!=input.value.length-1) {
+            switch(input.value[i]) {
+                case'+': 
+                    if( !(algarism.includes(input.value[i-1]) && algarism.includes(input.value[i+1])) ) {
+                        nAn();
+                        console.log('aqui');
+                        return false;
+                    };break;
+
+                case'-': 
+                    if( !(algarism.includes(input.value[i-1]) && algarism.includes(input.value[i+1])) ) {
+                        nAn();
+                        console.log('aqui');
+                        return false;
+                    };break;
+
+                case'/': 
+                    if( !(algarism.includes(input.value[i-1]) && algarism.includes(input.value[i+1])) ) {
+                        nAn();
+                        console.log('aqui');
+                        return false;
+                    };break;
+
+                case'*':                    
+                    if((input.value[i]=='*') && (input.value[i+1]=='*')) i+=1; // caracteres '**'
+
+                    else {
+                        if( !(algarism.includes(input.value[i-1]) && algarism.includes(input.value[i+1]))) {
+                            nAn();
+                            console.log('aqui');
+                            return false;
+                        } 
+                    }
+            }   
         }
     }
-    // verificar todos caracteres de entrada.Exceto os caracteres '**',caso seja as operações potência ou raiz .
-    console.log(input.value);
-    for(let index=0;index<array.length;index++) {   
-          console.log(array[index]);
-          console.log(index);
-        if(permit.includes(array[index])) { // verificar se cada caracter é permitido .
-            if(!(array[index] == '*' && array[index+1] == '*')) {// && asteriskDouble)) {
-                if (A.includes(array[index])) { // verificar se existe caracter repetido,exceto número .
-                    if(!(algarism.includes(array[index]))) {
-                        nAn();
-                        return false;
-                    }
-                }
-                A.push(array[index]);
-            }          
-
-        }else {
-            console.log('aqui');
-            nAn();
-            return false; 
-        } 
-    }
-    console.log(A);
-    A=[...input.value];    
-    console.log('A= '+A);
-    return true;// passou
+    return true; // passou
 }
+
 
 function Asterisk(argument) { // permitir '**' (operação potência e raiz) .
     if(!(argument+1 > input.value.length-1)) {
