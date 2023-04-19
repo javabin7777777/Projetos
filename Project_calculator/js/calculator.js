@@ -1,19 +1,20 @@
 "use strict";
 
 /* inicialização de variáveis */
-const DECIMAL=10;// usada para precisão do resultado de uma operação.
-//arrays usados para validação da string de entrada.
+const DECIMAL=10;
 const algarism=['0','1','2','3','4','5','6','7','8','9'];
 const operator=['*','/','+','-'];    
 const special_O=['(','[','{',];
 const special_C=[')',']','}'];
 const others=['.','e','E'];
 const permit=[...algarism,...operator,...special_O,...special_C,'.','sqrt','radix','e','E'];
+console.log(permit);
 const input = document.querySelector("#input");//campo texto .
 const div= document.querySelector("#containerButton");// div dos 'buttons'.
-let aux=""; // usada pela memory
-let callCount=0; // usada pela signMinus 
-let radix=false; // usada para pela root
+let aux="";
+let callCount=0;
+let radix=false;
+let radical;
 input.value="";
 
 //criar os 'buttons' de '0 a 9'
@@ -21,12 +22,12 @@ for (let i = 0; i < 10; i++) {
     div.innerHTML = div.innerHTML + `<button class="number">${i}</button>`;
 }
 
-//criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,Log,Ln,+-,.,(,),=,CL,DEL,MR,R'.
+//criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,Log,Ln,+-,.,(,),=,CL,DEL,R'.
 div.innerHTML = div.innerHTML+'<button class="operator1" >'+'+'+'</button>'+'<button class="operator1">'+'-'+'</button>';
 div.innerHTML = div.innerHTML + '<button class="operator1">'+'*'+'</button>'+'<button class="operator1">'+'/'+'</button>';
 div.innerHTML = div.innerHTML + '<button  onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+'x<sup>y</sup>'+'</button>';
 div.innerHTML = div.innerHTML +'<button onclick="squareRoot()">'+'<img src="img/square-root-50.png" alt="square root icon ">'+
-'</button>'+'<button  onclick="root()">'+'<img src="img/square-root-50-N.png" alt="generic root icon ">'+'</button>'+
+'</button>'+'<button  id="root" onclick="root()">'+'<img src="img/square-root-50-N.png" alt="generic root icon ">'+'</button>'+
 '<button  onclick="log()">'+'Log'+'</button>'+'<button  onclick="ln()">'+'Ln'+'</button>'+'<button>'+'sen'+'</button>'+
 '<button>'+'cos'+'</button>'+'<button>'+'tag'+'</button>'+'<button>'+'ctag'+'</button>'+'<button>'+'sec'+'</button>'+
 '<button>'+'csec'+'</button>';
@@ -47,18 +48,18 @@ const combined = [...elements,...operators];
 //adicionar eventos aos 'buttons' de 0 a 9 e aos 'buttons' '+,-,*,/,.,(,)' .
 combined.forEach( (item) => {
     item.addEventListener('click',() => {
-        input.value = input.value + item.innerText;      
+        input.value = input.value + item.innerText;
     }); 
 });
 
 //executa a operação ao pressionar o 'button =' .
-function equalSign() { 
+function equalSign() {    
     let str2="";// índice.
-    let str1="";// radicando.
-    aux=input.value;  
-    if(validation()) {  
-        if(radix) { // raiz de índice(número) qualquer de um radicando(número) qualquer.Relacionado com a funçãp root.
-            for (let index = 0; index < input.value.length; index++) {
+    let str1="";// radicando.    
+    if(validation() || radix) { // para deixar passar o segundo valor(str2),que é o índice,quando for negativo.Na validação será filtrado. 
+        if(radix) { // raiz de índice(número) qualquer de um radicando(número) qualquer.Relacionado com a função root.
+            input.value=aux+input.value;//string que será validada,em seguida calculada a raiz.           
+            for (let index = 0; index < input.value.length; index++) {// separação da string para obter os dois valores(índice e radicando).
                 if(input.value[index]=='*' && input.value[index+1]=='*') {
                     str1=input.value.substring(0,index);
                     str2=input.value.substring(index+2,input.value.length);
@@ -66,25 +67,29 @@ function equalSign() {
                 }               
             }           
             // validação da string de entrada.
-            let number=(Number(str2))-(Math.trunc(Number(str2)));           
-            let a=Number(str1)>0;
-            let b=Number(str2)>=2;
-            let c=Number(str2)%2==0;
-            let d=number==0;
+            let number=(Number(str2))-(Math.trunc(Number(str2)));            
+            let a=Number(str1)>0;// str1(radicando) poderá ser positivo ou negativo,conforme for str2(c).
+            let b=Number(str2)>=2;// somente índice maior ou igual a 2.
+            let c=Number(str2)%2==0;// quando for par str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
+            let d=number==0;// str2 deverá ser inteiro.
             if(!((a&&b&&d) || (b&&(!c)&&d))) { 
                 input.value='There is no'.toUpperCase();
                 lock();
                 return false;
             }
-            if((!a) && (!c)) { // índice ímpar e radicando negativo.
-                input.value=(-1)*( Number(((Math.abs(Number(str1)))**(1/Number(str2))).toFixed(DECIMAL)) );                
+            if((!a) && (!c)) { // radicando negativo e índice ímpar. 
+                input.value=(-1)*( Number(((Math.abs(Number(str1)))**(1/Number(str2))).toFixed(DECIMAL)) );                               
             }else {
                 input.value=Number( (Number(str1)**(1/(Number(str2)))).toFixed(DECIMAL) );// para outros casos.
-            }           
+            } 
+            aux=input.value; // para memory. 
+            radical.disabled=false;  
+            radical.style.background="lightblue";       
             radix=false;
             return;
         }
 
+        aux=input.value; 
         let number = Number(eval(input.value).toFixed(DECIMAL));
         if (number==Infinity) {
             input.value = 'OverLoad'.toUpperCase();
@@ -99,9 +104,8 @@ function equalSign() {
 }
 
 // validar a string de entrada.
-function validation() {   
-   // início da verificação preliminar da string de entrada .
-    console.log(input.value);
+function validation() {    
+   // início da verificação preliminar da string de entrada .   
     let counter_O=0;
     let counter_C=0;
     let number=true;
@@ -119,7 +123,7 @@ function validation() {
         let a=input.value.length>2;
         let b=algarism.includes(begin) || special_O.includes(begin) || begin == '-';
         let c=algarism.includes(end) || special_C.includes(end);       
-        let d;let e;let f;let g;let h;let j;let k;let before;let after; 
+        let d;let e;let f;let g;let h;let j;let k;let before;let after;
 
         // string de entrada com tamanho maior que dois.
         // iniciar com número ou com um dos caracteres 'special_O'.
@@ -147,40 +151,39 @@ function validation() {
                 h=special_C.includes(input.value[i+1]);
                 k=others.includes(input.value[i+1]); 
 
+               // let last = i+1 == input.value.length-1;
+
                 //caso input.value[i] seja número:antes dele pode ser número,ou operador,ou caracter special aberto.
                 //caso input.value[i] seja número:depois dele pode ser número,ou operador,ou caracter special fechado.
                 before = a || b || c || j;
                 after =  e || f || h || k;
                 console.log('i= '+i);
-                if(algarism.includes(input.value[i])) {
-                    console.log('before: '+before);
-                    console.log('after: '+after);
-                    if(!(before && after)) return false;
-                    console.log('passou aqui');
+                if(algarism.includes(input.value[i])) {                   
+                    if(!(before && after)) return false;                   
                 }
 
                 // caso input.value[i] seja operador:antes dele pode ser número ou special fechado.
                 // caso input.value[i] seja operador:depois dele pode ser número ou special aberto,exceto para o operador '**'.
                 before = a || d;
                 after =  e || g;
-                if(operator.includes(input.value[i])) {                   
+                if(operator.includes(input.value[i])) {                  
                     if(!(before && after)) {
                         if(input.value[i+1]=='*') i+=1;//caso seja os caracteres '**'.
-                        else return false;                       
+                        else return false;                        
                     }
                 }
 
                 // caso input.value[i] seja caracter special_O: antes dele pode ser operador e depois pode ser número.
                 before =  b;
                 after =  e;
-                if(special_O.includes(input.value[i])) {                  
+                if(special_O.includes(input.value[i])) {                     
                     if(!(before && after)) return false;                  
                 }
                 // caso input.value[i] seja caracter special_C: antes dele pode ser número e depois pode ser operador.
                 before =  a ;
                 after =  f;
-                if(special_C.includes(input.value[i])) { 
-                    if(!(before && after)) return false;
+                if(special_C.includes(input.value[i])) {                     
+                    if(!(before && after)) return false;                 
                 }
             }else {
                 // último caracter da string de entrada.
@@ -214,6 +217,7 @@ function pow() {
 }
 
 function validationPow() {
+    console.log(input.value);
     const permitPow=['0','1','2','3','4','5','6','7','8','9','.','-','e','E','+'];
     if(input.value.length==0){
         nAn();
@@ -259,8 +263,8 @@ function lock() {
     input.style.color = "green";
     input.style.fontweight ="bold";
     input.disabled = true;
-    buttons.forEach((item)=> {         
-        if(!(item.innerText == 'R' || item.innerText == 'MR')) item.disabled= true;
+    buttons.forEach((item)=> {       
+        if(!(item.innerText == 'R' || item.innerText == 'MR')) item.disabled= true;      
     });
 }
 
@@ -275,8 +279,12 @@ function squareRoot() {
 }
 
 function root() {     
-    input.value = input.value+'**';
+    aux= input.value+'**';
+    input.value="";
     radix=true;
+    radical=document.querySelector("#root");
+    radical.style.background="#867E7D";
+    radical.disabled=true;
 }
 
 function clearAll() {  
@@ -289,7 +297,7 @@ function clearAll() {
 function delAll() {
     let array=[...input.value];
     array.pop();
-    input.value=array.join('');   
+    input.value=array.join('');    
 }
  
 function memory() {
@@ -297,8 +305,8 @@ function memory() {
     input.value=aux;
 }
 
-function signMinus() { 
-   let arr=[...input.value];   
+function signMinus() {  
+   let arr=[...input.value];  
     if(callCount%2==0) {
         arr.unshift('-');
         input.value=arr.join('');
