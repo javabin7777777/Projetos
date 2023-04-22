@@ -7,60 +7,71 @@ const operator=['*','/','+','-'];
 const special_O=['(','[','{',];
 const special_C=[')',']','}'];
 const others=[',','.','e','E'];
-const permit=[...algarism,...operator,...special_O,...special_C,'.','e','E'];
-
+const permit=[...algarism,...operator,...special_O,...special_C,...others];
+//
 const input = document.querySelector("#input");//campo texto .
 const div= document.querySelector("#containerButton");// div dos 'buttons'.
-let aux="";
-let callCount=0;
+let aux="";// usada pela memory.
+// usadas para mostrar os caracteres +,-,e,E,(,) de forma alternada.
+let callCount0=0;
 let callCount1=0;
 let callCount2=0;
+// controla as operações raiz e a porcentagem.
 let operControl=false;
 let radical;
+//mensagens de avisos de erros.
 let message0='not a number';
 let message1='overload';
 let message2='there is no';
 input.value="";
-
+//
 
 //criar os 'buttons' de '0 a 9'
 for (let i = 0; i < 10; i++) {
     div.innerHTML = div.innerHTML + `<button class="number">${i}</button>`;
 }
 
-//criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,Log,Ln,+-,.,(,),=,CL,DEL,R'.
+//criar os 'buttons' '+,-,*,/,x²,pow,sqrt,root,Log,Ln,+-,.,(),=,CL,DEL,R'.
 div.innerHTML = div.innerHTML+'<button class="operator1" >'+'+'+'</button>'+'<button class="operator1">'+'-'+'</button>';
+
 div.innerHTML = div.innerHTML + '<button class="operator1">'+'*'+'</button>'+'<button class="operator1">'+'/'+'</button>'+
-'<button onclick="real()">'+'R$'+'</button>'+'<button onclick="percentage()">'+'%'+'</button>';
+'<button onclick="generic(\'real\')">'+'R$'+'</button>'+'<button onclick="generic(\'%\')">'+'%'+'</button>';
+
 div.innerHTML = div.innerHTML + '<button  onclick="pow2()">'+'x²'+'</button>'+'<button onclick="pow()">'+'x<sup>y</sup>'+'</button>';
-div.innerHTML = div.innerHTML +'<button onclick="squareRoot()">'+'<img src="img/square-root-50.png" alt="square root icon ">'+
-'</button>'+'<button  id="root" onclick="root()">'+'<img src="img/square-root-50-N.png" alt="generic root icon ">'+'</button>'+
-'<button    onclick="generic(\'ln\')">'+'ln'+'</button>'+'<button onclick="generic(\'log\')">'+'log'+'</button>'+
-'<button onclick="generic(\'euler\')">'+'e'+'</button>'+'<button onclick="generic(\'pi\')">'+'PI'+'</button>'+
-'<button onclick="generic(\'sin\')">'+'sin'+'</button>'+'<button onclick="generic(\'cos\')">'+'cos'+'</button>'+
+
+div.innerHTML = div.innerHTML +'<button onclick="squareRoot()">'+'<img src="img/square-root-50.png" alt="square root icon ">';
+div.innerHTML = div.innerHTML+'</button>'+'<button  id="root" onclick="root()">'+'<img src="img/square-root-50-N.png" alt="generic root icon ">'+'</button>';
+div.innerHTML = div.innerHTML+'<button    onclick="generic(\'ln\')">'+'ln'+'</button>'+'<button onclick="generic(\'log\')">'+'log'+'</button>';
+div.innerHTML = div.innerHTML+'<button onclick="generic(\'euler\')">'+'e'+'</button>'+'<button onclick="generic(\'pi\')">'+'PI'+'</button>';
+div.innerHTML = div.innerHTML+'<button onclick="generic(\'sin\')">'+'sin'+'</button>'+'<button onclick="generic(\'cos\')">'+'cos'+'</button>'+
 '<button onclick="generic(\'tan\')">'+'tan'+'</button>';
-div.innerHTML = div.innerHTML + '<button  onclick="signMinus()">'+'+/-'+'</button>'+
-'<button  onclick=signE()>'+'E'+'</button>'+'<button class="operator1">'+','+'</button>';
-div.innerHTML = div.innerHTML +'<button class="operator1">'+'.'+'</button>'+'<button onclick="signBrackets()">'+'( )'+'</button>'+
-'<button onclick=equalSign()>'+'='+'</button>'+'<button  onclick="clearAll()">'+'CL'+'</button>'+
-'<button  onclick="delAll()">'+'DEL'+'</button>'+'<button onclick="memory()">'+'MR'+'</button>'+
-'<button  onclick="window.location.reload()">'+'R'+'</button>';
 
+div.innerHTML = div.innerHTML + '<button  onclick="sign(\'+\',\'-\')">'+'+/-'+'</button>';
+div.innerHTML = div.innerHTML+'<button  onclick="signE()">'+'E'+'</button>';
+div.innerHTML = div.innerHTML+'<button onclick="sign(\'(\',\')\')">'+'( )'+'</button>';
 
+div.innerHTML = div.innerHTML +'<button class="operator1">'+'.'+'</button>'+'<button class="operator1">'+','+'</button>';
+
+div.innerHTML = div.innerHTML+'<button  onclick="clearAll()">'+'CL'+'</button>'+'<button  onclick="delAll()">'+'DEL'+'</button>';
+
+div.innerHTML = div.innerHTML+'<button onclick="memory()">'+'MR'+'</button>'+
+'<button  onclick="window.location.reload()">'+'R'+'</button>'+'<button onclick=equalSign()>'+'='+'</button>';
+
+//
 const buttons = document.querySelectorAll('button');
-
-
+//
+//
 //obter os 'buttons' de 0 a 9 e insere na lista elements .
 const elements = document.querySelectorAll('.number');//'elements': Lista do tipo NodeList(Não é array) com todos buttons de 0 a 9 .
 //obter os 'buttons' '+,-,*,/,.,(,)' e insere na lista operators .
 const operators = document.querySelectorAll('.operator1');
 const combined = [...elements,...operators];
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
 
 //adicionar eventos aos 'buttons' de 0 a 9 e aos 'buttons' '+,-,*,/,.,(,)'.
 // para que os respectivos valores desses 'buttons' sejam inseridos no campo texto
@@ -68,15 +79,15 @@ combined.forEach( (item) => {
     item.addEventListener('click',() => {
         //array.push(item.innerText);
         input.value = input.value + item.innerText;
-        
+        //
     });    
     // 
-    
+    //
 });
 
 //executa a operação ao pressionar o 'button =' .
 function equalSign() {  
-    
+    //
     if(validation()) { // para operação porcentagem
         if(operControl) {
             input.value=Number(eval(aux+input.value).toFixed(DECIMAL));
@@ -90,7 +101,8 @@ function equalSign() {
         return false;
     }
    // 
-    if(validation() || operControl) { // quando for raiz de qualquer número(opercontrol=true),a entrada será validado em separado. 
+   //para operação raiz e outras operações que não raiz. 
+    if(validation() || operControl) { // para raiz de qualquer número(opercontrol=true),a entrada será validado em separado. 
        
         if(operControl) { // raiz de índice(número) qualquer de um radicando(número) qualquer.Relacionado com a função root.
             input.value=aux+input.value;//string que será validada,em seguida calculada a raiz a partir dela.
@@ -153,33 +165,40 @@ function validation() {
     let counter_O=0;
     let counter_C=0;
     let number=true;
-    //contagem dos caracteres special_O e special_C.
+    let a;
+    let b=input.value[0] == '-';
+      //
+    //contagem dos caracteres special_O e special_C.  
     for(let i=0;i<input.value.length;i++) {
         if(special_O.includes(input.value[i])) ++counter_O;    
         else  if(special_C.includes(input.value[i])) ++counter_C;
         // verifica se a string de entrada é somente número positivo ou negativo.
-        if(!(algarism.includes(input.value[i]) || input.value[0] == '-')) number=false;    
+        a=algarism.includes(input.value[i]);
+            // 
+            // 
+        if( (!a&&!b) || (!a&&b) ) number=false;    
     }
-    if(number) return true;
+    //
+    if(number) return true;// verifica se a string de entrada é somente número positivo ou negativo.
+            // 
     if(counter_O == counter_C) {
         let begin = input.value[0];
         let end = input.value[input.value.length-1];
-        let a=input.value.length>2;
-        let b=algarism.includes(begin) || special_O.includes(begin) || begin == '-';
-        let c=algarism.includes(end) || special_C.includes(end);       
+        a=input.value.length>2;
+        b=algarism.includes(begin) || special_O.includes(begin) || begin == '-';       
+        let c=algarism.includes(end) || special_C.includes(end) || begin=='+' ;       
         let d;let e;let f;let g;let h;let j;let k;let before;let after;
-       // 
-       // 
-       // 
-       // 
-       // 
+            // 
+            // 
+            // 
+            // 
+            // 
 
         // string de entrada com tamanho maior que dois.
-        // iniciar com número ou com um dos caracteres 'special_O'.
+        // iniciar com número ou um dos caracteres 'special_O',ou '+',ou '-'.
         // finalizar com número ou com um dos caracteres 'special_C'.
-        if(!(a && b && c)) {       
-           // 
-            return false; 
+        if(!(a && b && c )) { 
+           return false; 
         }
         // término da verificação preliminar da string de entrada .  
 
@@ -200,14 +219,14 @@ function validation() {
                 h=special_C.includes(input.value[i+1]);
                 k=others.includes(input.value[i+1]);               
 
-                //caso input.value[i] seja número:antes dele pode ser número,ou operador,ou caracter special aberto,ou caracteres others.
-                //caso input.value[i] seja número:depois dele pode ser número,ou operador,ou caracter special fechado,ou caracteres others.
+                //caso input.value[i] seja número:antecessor dele pode ser número,ou operador,ou caracter special aberto,ou caracteres others.
+                //caso input.value[i] seja número:sucessor dele pode ser número,ou operador,ou caracter special fechado,ou caracteres others.
                 before = a || b || c || j; // antecessor do caracters input.value[i];
                 after =  e || f || h || k; // sucessor do caracter input.value[i];
                // 
                 if(algarism.includes(input.value[i])) {
-                    
-                    
+                    //
+                    //
                     if(!(before && after)) return false;
                    // 
                 }
@@ -217,8 +236,8 @@ function validation() {
                 before = a || d || j;
                 after =  e || g;
                 if(operator.includes(input.value[i])) {
-                    
-                    
+                    //
+                    //
                     if(!(before && after)) {
                         if(input.value[i+1]=='*') i+=1;//caso seja os caracteres '**'.
                         else return false;
@@ -230,8 +249,8 @@ function validation() {
                 before =  a;
                 after = e || input.value[i]=='-' ;
                 if(special_O.includes(input.value[i])) {
-                    
-                    
+                    //
+                    //
                     if(!(before && after)) return false;
                    // 
                 }
@@ -240,8 +259,8 @@ function validation() {
                 before =  b;
                 after =  e;
                 if(special_O.includes(input.value[i])) {
-                    
-                    
+                    //
+                    //
                     if(!(before && after)) return false;
                    // 
                 }
@@ -250,18 +269,20 @@ function validation() {
                 after =  f;
                 if(special_C.includes(input.value[i])) { 
                    // 
-                    
+                    //
                     if(!(before && after)) return false;
-                    
+                    //
                 }
             }else {
                 // último caracter da string de entrada.
                 if(!(algarism.includes(input.value[i]) || special_C.includes(input.value[i]))) return false;
             }
         }
-    } else return false;   
+    } else return false; 
+
     return true; // passou   
 }
+
 // validação da entrada,que é usada pela função pow2.
 function validationPow() {
     //  
@@ -273,7 +294,7 @@ function validationPow() {
       // verificar se cada caracter de entrada é permitido .
       for(let i of input.value) {
           if(!(permitPow.includes(i))) { 
-              
+              //
               return false;      
           }
       }
@@ -286,8 +307,8 @@ function validationPow() {
           if(input.value[i] == 'e' || input.value[i] == 'E') {        
               let a=algarism.includes(input.value[i-1]);
               let b=(algarism.includes(input.value[i+1]) || permitPow.includes(input.value[i+1]));  
-              
-              
+              //
+              //
               if(!(a && b)) {               
                   return false;
               }
@@ -341,30 +362,29 @@ function root() {
     radical.style.background="#867E7D";
     radical.disabled=true;
 }
-
-function real() {
-    let array=[...input.value];
-    array.unshift('R$');
-    input.value=array.join("");    
-}
-
-function percentage() { 
-    if(validation()) {
-        aux=input.value+'*0.01*';
-        input.value="";
-        operControl=true; 
-    }else {
-        aux=input.value;
-        messageError(message0);
-        return false;
-    }         
-}
-// fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano.
+// fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,símbolo monetário do Real,porcentagem.
 function generic(param) {
     
     switch(param) {
         case 'euler': input.value=Math.E; return true;
-        case 'pi': input.value=Math.PI; return true;       
+
+        case 'pi': input.value=Math.PI; return true;
+
+        case 'real':    let array=[...input.value];
+                        array.unshift('R$');
+                        input.value=array.join("");
+                        return true;  
+
+        case '%':  if(validation()) {
+                        aux=input.value+'*0.01*';
+                        input.value="";
+                        operControl=true;
+                        return true;
+                    }else {
+                        aux=input.value;
+                        messageError(message0);
+                        return false;
+                    }                             
     }
     if(validation()) {        
         if(input.value.length!=0) {
@@ -408,16 +428,16 @@ function lock() {
     input.style.fontweight ="bold";
     input.disabled = true;
     buttons.forEach((item)=> { 
-        
+        //
         if(!(item.innerText == 'R' || item.innerText == 'MR')) item.disabled= true;        
-        
+        //
     });
 }
 
 function clearAll() {  
     input.value="";
     aux=""; 
-    callCount=0;
+    callCount0=0;
     callCount1=0;
     callCount2=0;
     operControl=false;  
@@ -432,27 +452,59 @@ function delAll() {
 function memory() {     
     input.value=aux;
 }
+//alternância entre os sinais '+' e  '-'.
+//alternância entre os sinais '(' e ')'.
+function sign(A,B) {
+    
+    
+    
+    let arr=[...input.value];  
+    switch(A) {
+        case '+':   
+                    if(arr.length!=0) {
+                        if(arr.includes(A) || arr.includes(B)) {
+                            if(callCount0%2==0) {
+                                arr.shift();
+                                arr.unshift(A);
+                                input.value=arr.join('');
+                            }
+                            else {
+                                arr.shift();
+                                arr.unshift(B)
+                                input.value=arr.join('');
+                            }       
+                            
+                        }else {
+                            if(callCount0%2==0) input.value=A+input.value;           
+                            else  input.value=B+input.value+B;  
+                        }
+                
+                    }else {
+                        if(callCount0%2==0) input.value=A+input.value;        
+                        else input.value=B+input.value;
+                    }
+                    
+                    ++callCount0; 
+                    break;
 
-function signMinus() {
-  // 
-   let arr=[...input.value];
-  // 
-    if(callCount%2==0) {
-        arr.unshift('-');
-        input.value=arr.join('');
-    }
-    else {
-        arr.shift();
-        input.value=arr.join('');
-    }
-   ++callCount;
+        case '(':  if(callCount2%2==0) {        
+                        arr.unshift(A);
+                        input.value=arr.join('');
+                    }else {
+                        arr.push(B);
+                        input.value=arr.join('');
+                    }
+                    ++callCount2;
+                    
+                    break;
+    } 
 }
 
-
+// alternada entre os caracteres :'e','E'.
 function signE() {
        // 
     let arr=[...input.value];
-        //  
+      // 
     if(arr.length!=0) {
         if(arr.includes('e') || arr.includes('E')) {
             if(callCount1%2==0) {
@@ -478,18 +530,5 @@ function signE() {
         ++callCount1;
     }
  }
-
- function signBrackets() {
-      // 
-   let arr=[...input.value];
-      
-    if(callCount2%2==0) {        
-        arr.unshift('(');
-        input.value=arr.join('');
-    }
-    else {
-        arr.push(')');
-        input.value=arr.join('');
-    }
-   ++callCount2;
- }
+ 
+ 
