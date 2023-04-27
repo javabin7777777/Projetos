@@ -18,9 +18,10 @@ let callCount0=0;
 let callCount1=0;
 let callCount2=0;
  controla as operações raiz e a porcentagem.
-let radix=false; Para operação raiz de qualquer níumero.
+let radix=false; Para operação raiz de qualquer número.
 let percentage=false; Para operação porcentagem.
 let radical;usada para travar e destravar o 'button' raiz.
+let power=false; Usada pela operação potência de base(número) qualquer e expoente(número) qualquer.
 mensagens de avisos de erros.
 let message0='not a number';
 let message1='overload';
@@ -58,6 +59,7 @@ div.innerHTML = div.innerHTML+'<button  onclick="clearAll()">'+'CL'+'</button>'+
 div.innerHTML = div.innerHTML+'<button onclick="memory()">'+'MR'+'</button>'+
 '<button  onclick="window.location.reload()">'+'R'+'</button>'+'<button onclick=equalSign()>'+'='+'</button>';
 
+radical=document.querySelector("#root"); Usada pelas funções root e clearAll.
 
 const buttons = document.querySelectorAll('button');
 
@@ -81,65 +83,52 @@ combined.forEach( (item) => {
         input.value = input.value + item.innerText;
         
     });    
-    
+     
     
 });
 
 Executa a operação ao pressionar o 'button =' .
 function equalSign() {  
-    
-    display(); 
-    if(validation() ) {  Para operação porcentagem.
-        if(percentage){
-            let str=input.value;
-            str=aux+str;
+        
+    if(input.value.length==0) return false;
+         
+         
+    Para operação raiz e outras operações que não raiz.
+   if(validation()) { 
+        if(percentage) {  Para operação porcentagem.
+            let str=aux+input.value; 
+            
             let number=Number(eval(str).toFixed(DECIMAL));
             aux=number; Para memory.
             display(new String(number));
             percentage=false;         
             return true;
         }
-    }else {
-        aux=aux+input.value;
-        percentage=false; 
-        messageError(message0);
-        return false;
-    }
-   
-   Para operação raiz e outras operações que não raiz.
-   
-   if(validation() || radix) {  Para raiz de qualquer número(radix=true),a string de entrada será validada em separado.       
-        if(radix) {  Raiz de índice(número) qualquer de um radicando(número) qualquer.Relacionado com a função root.
-            let str=aux+input.value;string que será validada,em seguida calculada a raiz a partir dela.
-               
-               
-            let str2=""; Índice.
-            let str1=""; Radicando.
-            for (let index = 0; index <str.length; index++) { Obter os dois valores(índice e radicando) da string de entrada.
-                if(str[index]=='*' && str[index+1]=='*') {
-                    str1=str.substring(0,index);
-                    str2=str.substring(index+2,str.length);
-                    break;                                                                            
-                }               
-            }
+         Para raiz de qualquer número(radix=true),a string de entrada será validada em separado.       
+        if(radix) {  Raiz de índice(número) qualquer e de um radicando(número) qualquer.Relacionado com a função root.
+            let str1=aux; Radicando.
                 
                 
-             Validação da string de entrada.
+            let str2=input.value; Índice.
+                
+                
+             Ínicio da validação das entradas str1 e str2.
             let number=(Number(str2))-(Math.trunc(Number(str2))); Índice inteiro.               
             let a=Number(str1)>0; str1(radicando) poderá ser positivo ou negativo,conforme for str2(c).
             let b=Number(str2)>=2; Somente índice maior ou igual a 2.
             let c=Number(str2)%2==0; Quando for par,str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
             let d=number==0; str2 deverá ser inteiro.
             if(!((a&&b&&d) || (b&&(!c)&&d))) { 
-                aux=str; Para memory.
+                aux='Filing= '+str1+' Index= '+str2; Para memory.               
                 radix=false; 
                 messageError(message2);              
                 return false;
             }
+             Término da validação das entradas str1 e str2.
             Operação raiz de índice qualquer e radicando qualquer.
             if((!a) && (!c)) {
                  Radicando negativo e índice ímpar.
-                number=(-1)*( Number(((Math.abs(Number(str1)))**(1/Number(str2))).toFixed(DECIMAL)));                                          
+                number=(-1)*(Number(((Math.abs(Number(str1)))**(1/Number(str2))).toFixed(DECIMAL)));                                          
                 display(new String(number));
             }else {
                  Para outros casos. 
@@ -153,99 +142,112 @@ function equalSign() {
             return true;
         }
         
+                 
                 
-                let str=input.value;
-                
-         Outras operações que não raiz.      
+                input.value=aux+input.value;
+        
+         Outras operações que não raiz.     
+        
+        if(power) { Para operação potência de qualquer base(número) e qualquer expoente(número).
+            input.value=aux+input.value;
+            power=false;
+        }      
         let number = Number(eval(input.value).toFixed(DECIMAL));
         aux=number;  para memory.
         if (number==Infinity) {
             messageError(message1);;
             return false;       
         }else {  
-                
+                 
             display(new String(number));           
             return true;        
         }
         
     }else {
-        aux=input.value; Para 'memory'.
-        
+        aux=input.value; Para 'memory'.       
         messageError(message0);
         return false;
     }       
 }
-Insere vírgula para separar os milhares.
+ Insere vírgula para separar os milhares.
 function display(disPlay) {
      let arr=[];
-            
+             
     if(disPlay.includes('.')) {
         let a=disPlay.indexOf('.');
-            
+             
         for(let i=a;i>0;i-=3) {
             arr.unshift(disPlay.substring((i-3),i));
         }   
-            
+             
         input.value=arr.join(',')+disPlay.substring(a,disPlay.length);
             
     }else {
          for(let i=disPlay.length;i>0;i-=3) {
             arr.unshift(disPlay.substring((i-3),i));
         }
-            
+             
         input.value=arr.join(',');
             
     }    
 }
 
- validar a string de entrada.
-function validation() { 
-        
-         início da verificação preliminar da string de entrada .
-        
+ Validar a string de entrada.
+function validation() {       
+     Ínício da verificação preliminar da string de entrada. 
+   if(Number(input.value)==0) return true;  
    let str=input.value.replaceAll(',','');
-        
-    let counter_O=0; quantidade de caracteres abertos.
-    let counter_C=0; quantidade de caracteres fechados.
+            
+          Verificação da string de entrada,se é somente número positivo ou negativo.
     let number=true;
-    let a=false;
-    let b=str[0] == '-';
-      
-      contagem dos caracteres special_O e special_C.  
+    let a=str.length>0; 
+    let b=str.length==1; 
+    let c=str[0] == '-' || str[0]=='+';
+    if( a&&!b || a&&!c) {
+        for(let i=0;i<str.length;i++) {
+            if(c && i==0) continue;      
+            if(!algarism.includes(str[i])) {
+                number=false;
+                break;
+            }
+        }  
+    }else number=false;   
+             
+    if(number) return true;
+     Término da verificação da string de entrada,se é somente número positivo ou negativo.    
+    contagem dos caracteres special_O e special_C.
+    let counter_O=0; quantidade de caracteres special_O.
+    let counter_C=0; quantidade de caracteres special_C.  
     for(let i=0;i<str.length;i++) {
         if(special_O.includes(str[i])) ++counter_O;    
         else  if(special_C.includes(str[i])) ++counter_C;
-         verifica se a string de entrada é somente número positivo ou negativo.
-        a=algarism.includes(str[i]);
-            
-            
-        if( (!a&&!b) || (!a&&b) ) number=false;    
-    }
-        
-    if(number) return true; verifica se a string de entrada é somente número positivo ou negativo.
-        
+         verifica se a string de entrada é somente número positivo ou negativo.         
+    }  
+    
+    
+    
     if(counter_O == counter_C) {
         let begin = str[0];
         let end = str[str.length-1];
-        a=str.length>2;
-        b=algarism.includes(begin) || special_O.includes(begin) || begin == '-';       
+        let a=str.length>2;
+        let b=algarism.includes(begin) || special_O.includes(begin) || begin == '-';       
         let c=algarism.includes(end) || special_C.includes(end) || begin=='+' ;       
         let d;let e;let f;let g;let h;let j;let k;let before;let after;
-        
-        
-        
-        
-        
+         
+         
+         
+         
+         
 
-         string de entrada com tamanho maior que dois.
-         iniciar com número ou um dos caracteres 'special_O',ou '+',ou '-'.
-         finalizar com número ou com um dos caracteres 'special_C'.
+         String de entrada com tamanho maior que dois.
+         Iniciar com número ou um dos caracteres 'special_O',ou '+',ou '-'.
+         Finalizar com número ou com um dos caracteres 'special_C'.
         if(!(a && b && c )) { 
            return false; 
         }
-         término da verificação preliminar da string de entrada .  
+         Término da verificação preliminar da string de entrada .  
 
-         verificar se string de entrada está no formato numero+operator+numero ... 
+         Verificar se string de entrada está no formato numero+operator+numero ... 
          e com os caracteres special_O e special_C.        
         for(let i=1;i<str.length;i++) {   percorre toda a string validando caracter por caracter.
             if(i != str.length-1) {
@@ -261,33 +263,33 @@ function validation() {
                 h=special_C.includes(str[i+1]);
                 k=others.includes(str[i+1]);               
 
-                caso str[i] seja número:antecessor dele pode ser número,ou operador,ou caracter special aberto,ou caracteres others.
-                caso str[i] seja número:sucessor dele pode ser número,ou operador,ou caracter special fechado,ou caracteres others.
+                 Caso str[i] seja número:antecessor dele pode ser número,ou operador,ou caracter special aberto,ou caracteres others.
+                 Caso str[i] seja número:sucessor dele pode ser número,ou operador,ou caracter special fechado,ou caracteres others.
                 before = a || b || c || j;  antecessor do caracters str[i];
                 after =  e || f || h || k;  sucessor do caracter str[i];
-                    
+                     
                 if(algarism.includes(str[i])) {
                     
                     
                     if(!(before && after)) return false;
-                    
+                     
                 }
 
-                 caso str[i] seja operador: antecessor dele pode ser número ou special fechado ou caracteres others.
-                 caso str[i] seja operador: sucessor dele pode ser número ou special aberto,exceto para o operador '**'.
+                 Caso str[i] seja operador: antecessor dele pode ser número ou special fechado ou caracteres others.
+                 Caso str[i] seja operador: sucessor dele pode ser número ou special aberto,exceto para o operador '**'.
                 before = a || d || j;
                 after =  e || g;
                 if(operator.includes(str[i])) {
                     
                     
                     if(!(before && after)) {
-                        if(str[i+1]=='*') i+=1;caso seja os caracteres '**'.
+                        if(str[i+1]=='*') i+=1;Caso seja os caracteres '**'.
                         else return false;
-                    
+                     
                     }
                 }
 
-                 caso str[i] seja um dos caracteres 'e' ou 'E'.
+                 Caso str[i] seja um dos caracteres 'e' ou 'E'.
                   antecessor deve ser número.
                   sucessor deve ser número ou caracter '-'.
                 before =  a;
@@ -296,23 +298,23 @@ function validation() {
                     
                     
                     if(!(before && after)) return false;
-                    
+                     
                 }
 
-                 caso str[i] seja caracter special_O: antes dele pode ser operador e depois pode ser número.
+                 Caso str[i] seja caracter special_O: antes dele pode ser operador e depois pode ser número.
                 before =  b;
                 after =  e;
                 if(special_O.includes(str[i])) {
                     
                     
                     if(!(before && after)) return false;
-                    
+                     
                 }
-                 caso str[i] seja caracter special_C: antes dele pode ser número e depois pode ser operador.
+                 Caso str[i] seja caracter special_C: antes dele pode ser número e depois pode ser operador.
                 before =  a ;
                 after =  f;
                 if(special_C.includes(str[i])) { 
-                    
+                     
                     
                     if(!(before && after)) return false;
                     
@@ -327,9 +329,9 @@ function validation() {
     return [input.value=str,true];  passou   
 }
 
- validação da entrada,que é usada pela função pow2.
+ Validação da entrada,que é usada pela função pow2.
 function validationPow() {
-          console.log(input.value);
+          
     let str=input.value;
     const permitPow=['0','1','2','3','4','5','6','7','8','9','.','-','e','E','+'];
     if(str.length==0){
@@ -362,8 +364,9 @@ function validationPow() {
     return true; passou
   }
 
-potência de base 2 .
+ Potência de base 2 .
 function pow2() { 
+    if(input.value.length==0) return false;
     let str=input.value;   
     if(validationPow()) {  validação da entrada .      
         let number=Number((Number(str)**2).toFixed(DECIMAL));        
@@ -372,7 +375,7 @@ function pow2() {
             return false;       
         }else {
             aux=number;   Para 'memory'.
-            disPlay(new String(number));                  
+            display(new String(number));                  
             return true;
         }
     }else {
@@ -381,14 +384,18 @@ function pow2() {
     }
 }
 
-Potência qualquer base e qualquer expoente.
-function pow() {       
-    input.value=input.value+'**';        
+ Potência de qualquer base e de qualquer expoente.
+function pow() {  
+   if(input.value.length==0) return false;     
+   aux=input.value+'**';
+   input.value=""; 
+   power=true;     
 }
 
  Raiz quadrada.
 function squareRoot() {
-    let srtr=input.value;
+    if(input.value.length==0) return false;
+    let str=input.value;
     aux=str; para 'memory'.
     if(validation()) {  validação da entrada .
         if(Number(str) < 0) {
@@ -408,18 +415,19 @@ function squareRoot() {
 
  Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
 function root() { 
-    aux=input.value+'**';
-    
+    if(input.value.length==0) return false;
+    aux=input.value;  
     input.value="";
     radix=true;
-    radical=document.querySelector("#root");
+    trava o 'button' raiz.   
     radical.style.background="#867E7D";
     radical.disabled=true;
 }
  Fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,
- Símbolo monetário do Real,porcentagem.
+ símbolo monetário do Real,porcentagem.
 function generic(param) {
-   
+    
+   if(input.value.length==0) return false;
     switch(param) {
         case 'euler': input.value=Math.E; return true;
 
@@ -430,10 +438,12 @@ function generic(param) {
                         input.value=array.join("");
                         return true;  
 
-        case '%':  if(validation()) {
+        case '%':   
+                    if(validation()) {
                         aux=input.value+'*0.01*';
                         input.value="";
                         percentage=true;
+                        
                         return true;
                     }else {
                         aux=input.value; Para 'memory'.
@@ -442,6 +452,7 @@ function generic(param) {
                         return false;
                     }                             
     }
+    
     if(validation()) {        
         if(input.value.length!=0) {
             let str=input.value;
@@ -473,13 +484,14 @@ function generic(param) {
     }   
 }
 
+ Mensagens de erros.
 function messageError(message) {   
     input.value=message.toUpperCase();
     lock();
     return false;        
 }
 
-desabilitar o campo texto e os 'buttons',exceto 'button R' e 'button MR' .
+Desabilitar o campo texto(input) e os 'buttons',exceto 'button R' e 'button MR' .
 function lock() {
     input.style.color = "red";
     input.style.fontweight ="bold";
@@ -497,7 +509,9 @@ function clearAll() {
     callCount0=0;
     callCount1=0;
     callCount2=0;
-    radix=false;  
+    radix=false; 
+    radical.disabled=false;
+    radical.style.background="lightblue";
 }
 
 function delAll() {
@@ -512,12 +526,14 @@ function memory() {
 Alternância entre os sinais '+' e  '-'.
 Alternância entre os sinais '(' e ')'.
 function sign(A,B) {
-    console.log('input= '+input.value);
-    console.log('callCount0= '+callCount0);
-    console.log('callCount2= '+callCount2); 
-    let arr=[...input.value];  
+    
+    
+    
+   
+    let arr=[...input.value]; 
+    
     switch(A) {
-        case '+':   console.log(arr);    
+        case '+':   
                     if(arr.length!=0) {
                         if(arr.includes(A) || arr.includes(B)) {
                             if(callCount0%2==0) {
@@ -533,14 +549,14 @@ function sign(A,B) {
                             
                         }else {
                             if(callCount0%2==0) input.value=A+input.value;           
-                            else  input.value=B+input.value+B;  
+                            else  input.value=B+input.value;  
                         }
                 
                     }else {
                         if(callCount0%2==0) input.value=A+input.value;        
                         else input.value=B+input.value;
                     }
-                    console.log(arr);  
+                    
                     ++callCount0; 
                     break;
 
@@ -552,16 +568,16 @@ function sign(A,B) {
                         input.value=arr.join('');
                     }
                     ++callCount2;
-                    console.log('input= '+arr);
+                    
                     break;
     } 
 }
 
  Alternância entre os caracteres :'e','E'.
 function signE() {
-       
+        
     let arr=[...input.value];
-      
+       
     if(arr.length!=0) {
         if(arr.includes('e') || arr.includes('E')) {
             if(callCount1%2==0) {
@@ -583,8 +599,7 @@ function signE() {
                input.value=input.value+'E';
             }   
         }
-          
+           
         ++callCount1;
     }
  }
- 
