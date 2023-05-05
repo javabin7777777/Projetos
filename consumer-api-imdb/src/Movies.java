@@ -1,4 +1,5 @@
 class Movies {
+   //Atributos do filmes.
    private String title;
    private String year;
    private String urlImage;

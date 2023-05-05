@@ -5,7 +5,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.net.URI;
 import java.io.IOException;
 
-class ConnectToApi { // resçponsável por fazer a conexão com a Api e devolver a resposta da mesma.
+class ConnectToApi { // Responsável por fazer a conexão com a Api e devolver a resposta da mesma.
    public String connection(String key) {
       try {
             String url="https://imdb-api.com/en/API/Top250Movies/";
@@ -19,7 +19,7 @@ class ConnectToApi { // resçponsável por fazer a conexão com a Api e devolver
             HttpResponse<String> response = client.send(
             request,
             BodyHandlers.ofString()
-            ); // exigi 'exception'.
+            ); // Exigi 'exception'.
             String body= response.body();
             return body;
       }catch (IOException | InterruptedException e) {

@@ -9,11 +9,13 @@ class Data { // responsável por obter a lista de filmes.
         (body.indexOf('[') + 1),
         (body.lastIndexOf(']') - 1)
       );
-      // Obter strings(os filmes) da string str.
+      /*
+       Obter as strings(os filmes) da string str.
+       Preencher a lista movie com os objetos da classe Movies.
+       Cada elemento de arr é um filme com suas descrições.
+       Para cada elemento de arr,extrai a string antes do ':',aspas e as vírgulas.
+      */
       String[] arr = str.split("},");
-       // Preencher a lista movie com os objetos da classe Movies.
-      // Cada elemento de arr é um filme com suas descrições.
-      // Para cada elemento de arr,extrai a string antes do ':',aspas e as vírgulas.
       for (int i = 0; i < arr.length; i++) {
          temporary=arr[i];
          String[] temp = temporary.split("\"[a-zA-z]{2,50}\":");
@@ -23,7 +25,6 @@ class Data { // responsável por obter a lista de filmes.
          }
          movies.add(new Movies(temp[3], temp[5],temp[6],temp[8]));
       }
-       //System.out.println("\nMovies: " + movies.size() + " " + movies + "\n");// lista dos objetos da classe Movies.
       return movies;
    }
 }
