@@ -6,8 +6,10 @@ import java.net.URI;
 import java.io.IOException;
 
 class ConnectToApi { // resçponsável por fazer a conexão com a Api e devolver a resposta da mesma.
-   public String connection(String url) {
+   public String connection(String key) {
       try {
+            String url="https://imdb-api.com/en/API/Top250Movies/";
+            url=url.concat(key);
             HttpRequest request = HttpRequest
             .newBuilder()
             .uri(URI.create(url))
