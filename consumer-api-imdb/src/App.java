@@ -5,7 +5,7 @@ import java.util.List;
 
 class App {
   public static void main(String[] args) throws Exception {
-      List<Movies> movies = new ArrayList<>();
+      List<Movies> movies = new ArrayList<>();// Lista de filmes.
       String key ="";
       ConnectToApi con=new ConnectToApi();
       String body=con.connection(key);

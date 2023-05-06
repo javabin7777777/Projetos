@@ -1,15 +1,15 @@
 import java.io.PrintWriter;
 import java.util.List;
-
+// Produz a página que será exibida em um browser.
 class HtmlGenerator {
    private PrintWriter wt;
   /**
    * @param wt
    */
   public HtmlGenerator(PrintWriter wt) {
-    this.wt = wt;
+      this.wt = wt;
   }
-  //Preencher cada template(divTemplate) com os dados dos filmes e criar a página.
+  //Gerador de página dos filmes.
   public void generator(List<Movies> movie) {
       // template que será exibida.
       String html =
