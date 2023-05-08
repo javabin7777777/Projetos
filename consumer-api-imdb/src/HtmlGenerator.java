@@ -29,7 +29,7 @@ class HtmlGenerator {
                %s
                <div class="card" style="width: 18rem;margin: 20px auto;border: none;">
                   <img src=\"https://img.freepik.com/vetores-premium/poster-de-cinema-realista-pipoca-balde-fita-de-filme-de-claquete-e-bobina-pipoca-voando-em-movimento_208581-1714.jpg
-                  \" class="card-img-top" alt="imagem de poster de cinema realista pipoca balde fita de filme claquete bobina pipoca" tilte="poster de cinema">
+                  \" class="card-img-top" alt="imagem de poster de cinema: balde de pipoca,fita de filme,claquete,bobina pipoca" tilte="poster de cinema">
                   <div class="card-body">
                      <h5 class="card-title">FILMES DO IMDB</h5>
                      <p  class="card-text">Quantidade:</p>
@@ -42,7 +42,7 @@ class HtmlGenerator {
      Template obj=new Template();
      obj=obj.genTemplate(movie);
      this.wt.println(String.format(html,obj.getTemp1(),obj.getCount()));// Geração do html.
-     File file=new File("Path name of the file html");
+     File file=new File("Path name of the html file");
      Desktop open= Desktop.getDesktop();
      if(file.exists())
       try {

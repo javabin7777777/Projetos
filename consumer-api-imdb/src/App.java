@@ -8,8 +8,7 @@ class App {
       List<Movies> movies = new ArrayList<>();// Lista de filmes.
       String key ="";
       ConnectToApi con=new ConnectToApi();
-      String body=con.connection(key);
-      System.out.println("\nBody: " + body.length() + " " + body + "\n");
+      String body=con.connection(key);      
       Data getListData=new Data();
       movies=getListData.getData(body);
 
