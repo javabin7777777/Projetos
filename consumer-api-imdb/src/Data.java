@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Data { // responsável por obter a lista de filmes.
+   // Responsável por obter a lista de filmes.
+class Data {
    private String temporary;
    private List<Movies> movies = new ArrayList<>();
    public List<Movies> getData(String body) {
@@ -9,7 +10,7 @@ class Data { // responsável por obter a lista de filmes.
         (body.indexOf('[') + 1),
         (body.lastIndexOf(']') - 1)
       );
-      // Obter strings(os filmes) da string str.
+      // Obter as strings(os filmes) da string str.
       String[] arr = str.split("},");
        // Preencher a lista movie com os objetos da classe Movies.
       // Cada elemento de arr é um filme com suas descrições.
@@ -23,6 +24,6 @@ class Data { // responsável por obter a lista de filmes.
          }
          movies.add(new Movies(temp[3], temp[5],temp[6],temp[8]));
       }
-      return movies;
+      return movies; // Lista de filmes.
    }
 }

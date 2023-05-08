@@ -1,6 +1,9 @@
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-// Produz a página que será exibida em um browser.
+import java.awt.Desktop;
+
 class HtmlGenerator {
    private PrintWriter wt;
   /**
@@ -23,10 +26,29 @@ class HtmlGenerator {
                   +integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">
             </head>
             <body>
-              %s
+               %s
+               <div class="card" style="width: 18rem;margin: 20px auto;border: none;">
+                  <img src=\"https://img.freepik.com/vetores-premium/poster-de-cinema-realista-pipoca-balde-fita-de-filme-de-claquete-e-bobina-pipoca-voando-em-movimento_208581-1714.jpg
+                  \" class="card-img-top" alt="imagem de poster de cinema realista pipoca balde fita de filme claquete bobina pipoca" tilte="poster de cinema">
+                  <div class="card-body">
+                     <h5 class="card-title">FILMES DO IMDB</h5>
+                     <p  class="card-text">Quantidade:</p>
+                     <a  class="btn btn-primary">%d</a>
+                  </div>
+               </div>
             </body>
          </html>
       """;
-     this.wt.println(String.format(html,new Template().genTemplate(movie)));
+     Template obj=new Template();
+     obj=obj.genTemplate(movie);
+     this.wt.println(String.format(html,obj.getTemp1(),obj.getCount()));// Geração do html.
+     File file=new File("Path name of the file html");
+     Desktop open= Desktop.getDesktop();
+     if(file.exists())
+      try {
+         open.open(file);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
    }
 }

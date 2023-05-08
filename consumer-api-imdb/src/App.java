@@ -9,13 +9,14 @@ class App {
       String key ="";
       ConnectToApi con=new ConnectToApi();
       String body=con.connection(key);
+      System.out.println("\nBody: " + body.length() + " " + body + "\n");
       Data getListData=new Data();
       movies=getListData.getData(body);
+
       //Exibir no browser a lista com os filmes.
       PrintWriter wt=new PrintWriter(new File("index.html"));
       HtmlGenerator genHtml=new HtmlGenerator(wt);
-      genHtml.generator(movies);
+      genHtml.generator(movies);// Geração do html.
       wt.close();
-    System.out.println("\nHello, World!");
   }
 }
