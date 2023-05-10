@@ -5,7 +5,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.net.URI;
 import java.io.IOException;
 
-      // Responsável por fazer a conexão com a Api e devolver a resposta da mesma.
+  // Responsável por fazer a conexão com a Api e devolver a resposta da mesma.
 class ConnectToApi {
    public String connection(String key) {
       try {
@@ -20,9 +20,9 @@ class ConnectToApi {
             HttpResponse<String> response = client.send(
             request,
             BodyHandlers.ofString()
-            );
+            ); 
             String body= response.body();
-            return body;// Resposta da API.
+            return body;
       }catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
       }

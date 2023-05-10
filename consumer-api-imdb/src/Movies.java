@@ -4,6 +4,7 @@ class Movies {
    private String year;
    private String urlImage;
    private String rating;
+   
    /**
     * @param title
     * @param year

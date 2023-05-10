@@ -1,10 +1,26 @@
-import java.util.List;
 
+import java.util.List;
 // Geradora das templates que compôem a página,esta última,gerada pela classe HtmlGenerator.
 class Template {
-   private int count=0; // Quantidade de filmes que preenchem as templates.
+   private int count=0; // Quantidade de filmes que preencherão as templates.
    private String temp1="";// São as templates preenchidas.
    private String temp2="";// São as templates preenchidas faltantes.
+
+
+   /**
+    *
+    */
+   public Template() {
+   }
+
+   /**
+    * @param count
+    * @param temp1
+    */
+    public Template(int count, String temp1) {
+      this.count = count;
+      this.temp1 = temp1;
+   }
 
    /**
     * @return the count
@@ -12,6 +28,7 @@ class Template {
    public int getCount() {
       return count;
    }
+
    /**
     * @param count the count to set
     */
@@ -32,7 +49,7 @@ class Template {
    }
 
    // Os filmes preencherão template A.
-   // Template B é complemento(padding) para linha,caso necessário.
+   // Template B é complemento(padding) para linha,caso seja necessário.
    private final String A=
          """
          <div class="col">
@@ -88,22 +105,22 @@ class Template {
       }
       return divTemplate;
    }
-      //Preencher as templates com os filmes,que serão posteriormente exibidos pela classe HtmlGenerator.
+    //Preencher as templates com os filmes,que serão posteriormente exibidos pela classe HtmlGenerator.
    public Template genTemplate(List<Movies> movie) {
       //template: Quatro card's para cada linha da página.
       int row=(movie.size()/4)-((movie.size()%4)/4);// Quantidade de linhas.
       for(int s=0;s<row;s++) {
-            temp1=temp1.concat(String.format(template(A,B,4), movie.get(count).getUrlImage(),movie.get(count).getTitle(),
-            movie.get(count).getTitle(), movie.get(count).getRating(), movie.get(count).getYear(),
-            movie.get(count+1).getUrlImage(),movie.get(count+1).getTitle(),movie.get(count+1).getTitle(),
-            movie.get(count+1).getRating(),movie.get(count+1).getYear(),
-            movie.get(count+2).getUrlImage(),movie.get(count+2).getTitle(),movie.get(count+2).getTitle(),movie.get(count+2).getRating(),
-            movie.get(count+2).getYear(),
-            movie.get(count+3).getUrlImage(),movie.get(count+3).getTitle(),movie.get(count+3).getTitle(),movie.get(count+3).getRating(),
-            movie.get(count+3).getYear()));
+         temp1=temp1.concat(String.format(template(A,B,4), movie.get(count).getUrlImage(),movie.get(count).getTitle(),
+         movie.get(count).getTitle(), movie.get(count).getRating(), movie.get(count).getYear(),
+         movie.get(count+1).getUrlImage(),movie.get(count+1).getTitle(),movie.get(count+1).getTitle(),
+         movie.get(count+1).getRating(),movie.get(count+1).getYear(),
+         movie.get(count+2).getUrlImage(),movie.get(count+2).getTitle(),movie.get(count+2).getTitle(),movie.get(count+2).getRating(),
+         movie.get(count+2).getYear(),
+         movie.get(count+3).getUrlImage(),movie.get(count+3).getTitle(),movie.get(count+3).getTitle(),movie.get(count+3).getRating(),
+         movie.get(count+3).getYear()));
          count+=4;
       }
-      // Os filmes faltantes,caso existam.
+      // Os filmes faltantes,casos existam.
       int x= movie.size()-(movie.size()%4);
       switch(String.valueOf(movie.size()%4)) {
          case "1":
@@ -128,9 +145,7 @@ class Template {
             break;
       }
       temp1=temp1.concat(temp2);
-      Template temp =new Template();
-      temp.setTemp1(temp1);
-      temp.setCount(count);
+      Template temp =new Template(count,temp1);
       return temp;
    }
 }
