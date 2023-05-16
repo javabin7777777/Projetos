@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) throws Exception {
+        Scanner input=new Scanner(System.in);
+        System.out.println("Enter with Zero to go out\n");
+        int out=1;
+        while(out!=0) {
+            System.out.println("1. Insert");
+            System.out.println("2. Remove");
+            System.out.println("3. List");
+            int in=input.nextInt();
+            out=in;
+            switch(String.valueOf(in)) {
+                case "1":  ListManager.add();break;
+                case "2":  ListManager.remove();break;
+                case "3":  ListManager.list();break;               
+            }
+        }
+        input.close();
+        System.out.println("\nSee you soon");
+        //System.out.println("Hello, World!");
+    }
+}
