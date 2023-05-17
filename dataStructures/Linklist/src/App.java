@@ -14,11 +14,13 @@ public class App {
             switch(String.valueOf(in)) {
                 case "1":  ListManager.add();break;
                 case "2":  ListManager.remove();break;
-                case "3":  ListManager.list();break;               
+                case "3":  ListManager.list();break;
+		case "0":  System.out.println("\nLOGOUT\n");break; 
+		default:   System.out.println("\nOptions 1,2 or 3\n");               
             }
         }
         input.close();
         System.out.println("\nSee you soon");
-        //System.out.println("Hello, World!");
+        System.out.println("Hello, World!");
     }
 }

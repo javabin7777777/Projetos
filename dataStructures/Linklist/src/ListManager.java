@@ -45,11 +45,12 @@ class ListManager {
          System.out.println();
          temp=head;
          while(temp!=null) {
-            if(temp.getName().equals(name)) {
+            if(temp.getName().equalsIgnoreCase(name)) {
+              before.setPointer(null);
               before.setPointer(temp.getPointer());
-              temp=null;// o que foi removido.
+              temp=null;
               find=true;
-              System.out.println("\n REMOVED\n");
+              System.out.println("\nREMOVED\n");
               break;
             }
             before=temp;

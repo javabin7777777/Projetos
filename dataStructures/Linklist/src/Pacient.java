@@ -4,7 +4,6 @@ class Pacient {
    private String state;
    private Pacient pointer;
 
-
    /**
     * @return the id
     */
@@ -53,5 +52,7 @@ class Pacient {
    public void setPointer(Pacient pointer) {
       this.pointer = pointer;
    }
+
+
 
 }
