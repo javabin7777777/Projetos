@@ -1,10 +1,10 @@
 class Product {
-   private String name;
-   private long barCode;
-   private double price;
-   private int quanty;
-   private Product pNext;
-   private Product pBack;
+   private String name;// nome do produto.
+   private long barCode;// código do produto.
+   private double price;// preço do produto.
+   private int quanty;// quantidade do produto.
+   private Product pNext;// aponta para o próximo nó.
+   private Product pBack;// aponta para o nó anterior.
    /**
     * @return the name
     */
@@ -24,10 +24,10 @@ class Product {
       return barCode;
    }
    /**
-    * @param barCode the barCode to set
+    * @param code the barCode to set
     */
-   public void setBarCode(long barCode) {
-      this.barCode = barCode;
+   public void setBarCode(long code) {
+      this.barCode = code;
    }
    /**
     * @return the price
@@ -38,7 +38,7 @@ class Product {
    /**
     * @param price the price to set
     */
-   public void setprice(int price) {
+   public void setprice(double price) {
       this.price = price;
    }
    /**
@@ -77,8 +77,4 @@ class Product {
    public void setpBack(Product pBack) {
       this.pBack = pBack;
    }
-
-
-
-
 }

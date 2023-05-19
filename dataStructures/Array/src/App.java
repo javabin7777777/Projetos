@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+// lista de compras.
 class App {
     public static void main(String[] args) throws Exception {
         Scanner input= new Scanner(System.in);
@@ -9,7 +10,7 @@ class App {
         list.setSize(size);
         int mark=-1;
 	int in=0;
-        String out="";        
+        String out="";
         System.out.println();
         while(!(out.equalsIgnoreCase("q"))) {
             do {
@@ -25,7 +26,6 @@ class App {
                         input.nextLine();
                         String nameProduct=input.nextLine();
                         if(nameProduct.equals("q")) break;
-                    // System.out.println("name: "+nameProduct);
                         System.out.printf(" Enter with quantify from this product: ");
                         int quanty=input.nextInt();
                         list.insertProduct(nameProduct, quanty, mark);
@@ -38,7 +38,7 @@ class App {
                     if(list.getProduct().length==0) {
                         System.out.println(" LIST IS EMPTY!\n");
                     }else {
-                        list.listProduct(mark);                       
+                        list.listProduct(mark);
                     }
                 }
 
@@ -47,7 +47,6 @@ class App {
             System.out.println("Enter with Q to go out");
             input.nextLine();
             out=input.nextLine();
-           // System.out.println("Out: "+out);
         }
         input.nextLine();
         input.close();

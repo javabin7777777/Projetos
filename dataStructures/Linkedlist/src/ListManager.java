@@ -3,10 +3,9 @@ import java.util.Scanner;
 
 class ListManager {
    private static Scanner input=new Scanner(System.in);
-   private static Pacient head;
-   private static Pacient tail;
-   private static Pacient temp;  
-   private static int id;
+   private static Pacient head;// cabeça da lista.
+   private static Pacient tail;// cauda da lista.
+   private static Pacient temp;
    private static Random rand=new Random(100);
 
    public static void add() {
@@ -15,7 +14,7 @@ class ListManager {
       System.out.printf("%nEnter with the state: ");
       String state=input.nextLine();
       System.out.println();
-      id=Math.abs(1000*rand.nextInt());
+      int id=Math.abs(1000*rand.nextInt());// id do paciente.
       Pacient pacient=new Pacient();
       pacient.setId(id);
       pacient.setName(name);
@@ -25,9 +24,9 @@ class ListManager {
          tail=pacient;
       }else {
          if(head.getPointer() == null) {
-            head.setPointer(pacient); 
+            head.setPointer(pacient);
             tail=pacient;
-         }else { 
+         }else {
             tail.setPointer(pacient);
             tail=pacient;
          }
@@ -35,6 +34,7 @@ class ListManager {
       System.out.println(("Insert okay\n"));
    }
 
+   // remove o paciente da lista
    public static void remove() {
       Boolean find=false;
       Pacient before=null;
@@ -43,23 +43,25 @@ class ListManager {
          System.out.printf("\nEnter with the name: ");
          String name=input.nextLine();
          System.out.println();
-         temp=head;
+         temp=head;before=head;
          while(temp!=null) {
-            if(temp.getName().equalsIgnoreCase(name)) {
+            if(temp.getName().equalsIgnoreCase(name)) { // match
               before.setPointer(null);
               before.setPointer(temp.getPointer());
               temp=null;
+              before=null;
               find=true;
-              System.out.println("\nREMOVED\n");
               break;
             }
             before=temp;
             temp=temp.getPointer();
          }
          if(!find) System.out.println("\nPatient not found!\n");
+         else System.out.println("\n PATIENT REMOVED\n");
       }
    }
 
+   // lista todos pacientes da lista.
    public static void list() {
       if(head==null) System.out.println("\nLIST is EMPTY\n");
       else {
