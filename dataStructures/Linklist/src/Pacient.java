@@ -1,9 +1,10 @@
 class Pacient {
    private int id;
-   private String name;// nome do paciente.
-   private String state;// estado do paciente.
-   private Pacient pointer;// aponta para o próximo nó.
+   private String name;
+   private String state;
+   private Pacient pointer;// aponta para o próximo nó
 
+   
    /**
     * @return the id
     */
@@ -52,7 +53,4 @@ class Pacient {
    public void setPointer(Pacient pointer) {
       this.pointer = pointer;
    }
-
-
-
 }

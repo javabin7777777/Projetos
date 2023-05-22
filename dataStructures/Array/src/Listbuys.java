@@ -1,15 +1,13 @@
 class Listbuys {
-      private int size;
-      private  String [] product;
-      private  int [] quantify;
+      private  String [] product;// nome do produto.
+      private  int [] quanty;// quantidade de produto.
 
-      // os atributos.
      /**
        * @param size the size to set
       */
       public void setSize(int size) {
             this.product=new String[size];
-            this.quantify= new int [size];
+            this.quanty= new int [size];
       }
 
 
@@ -22,22 +20,23 @@ class Listbuys {
 
 
       /**
-       * @return the quantify
+       * @return the quanty
        */
-      public int[] getQuantify() {
-            return quantify;
+      public int[] getquanty() {
+            return quanty;
       }
 
-      // insere os produtos.
-      public void insertProduct(String name, int quanty,int mark) {
-            product[mark]=name;
-            quantify[mark]=quanty;
+
+      // inserir produto.
+      public void insertProduct(String nameProduct, int quantyProduct,int mark) {
+            product[mark]=nameProduct;
+            quanty[mark]=quantyProduct;
      }
 
-     // lista os produtos.
+     // listar os produtos.
      public void listProduct(int mark) {
             for(int i=0;i<mark;i++) {
-                  System.out.printf(" %s  %d  ",product[i],quantify[i]);
+                  System.out.printf(" %s  %d  ",product[i],quanty[i]);
             }
             System.out.println("\n");
      }

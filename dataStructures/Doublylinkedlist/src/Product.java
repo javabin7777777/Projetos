@@ -1,8 +1,8 @@
 class Product {
-   private String name;// nome do produto.
-   private long barCode;// código do produto.
-   private double price;// preço do produto.
-   private int quanty;// quantidade do produto.
+   private String name; // nome do produto.
+   private long barCode; // código do produto.
+   private double price; // preço do produto.
+   private int quanty; // quantidade do produto referido.
    private Product pNext;// aponta para o próximo nó.
    private Product pBack;// aponta para o nó anterior.
    /**
@@ -32,13 +32,13 @@ class Product {
    /**
     * @return the price
     */
-   public double getprice() {
+   public double getPrice() {
       return price;
    }
    /**
     * @param price the price to set
     */
-   public void setprice(double price) {
+   public void setPrice(double price) {
       this.price = price;
    }
    /**

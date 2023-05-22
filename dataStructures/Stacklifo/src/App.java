@@ -1,25 +1,24 @@
 import java.util.Scanner;
 
-public class App {
+class App {
     public static void main(String[] args) throws Exception {
         Scanner input=new Scanner(System.in);
-        System.out.println("Enter with Zero to go out\n");
-        int out=1;
-        while(out!=0) {
+        while(true) {
             System.out.println("1. Insert Book");
             System.out.println("2. Remove Book");
-            System.out.println("3. List First Books");
-            System.out.println("4. See The First Book\n");
+            System.out.println("3. List Books");
+            System.out.println("4. See The First Book");
+            System.out.println("0. Zero to go\n");
             int in=input.nextInt();
-            out=in;
             switch(String.valueOf(in)) {
-                case "1":   ListManager.add();break;
-                case "2":   ListManager.remove();break;
-                case "3":   ListManager.list();break;
-                case "4":   ListManager.firstBook();break;
-                case "0":  System.out.println("\nLOGOUT\n");
-                default: System.out.println("Options 1,2 or 3 only.");
+                case "1":   ListManagerBooks.add();break;
+                case "2":   ListManagerBooks.remove();break;
+                case "3":   ListManagerBooks.list();break;
+                case "4":   ListManagerBooks.firstBook();break;
+                case "0":   System.out.println("\nLOGOUT\n");
+                default:    System.out.println("\nOptions 1,2,3,4 or 0 only.\n");
             }
+            if(in==0) break;
         }
         input.close();
         System.out.println("\nSee you soon");
