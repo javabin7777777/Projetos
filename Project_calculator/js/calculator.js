@@ -1,7 +1,6 @@
 "use strict";
 
 /* Inicialização de variáveis */
-
 const DECIMAL=16;// para precisão dos resultados.
 
 // Para validação da string de entrada.
@@ -17,7 +16,7 @@ const div= document.querySelector("#containerButton");// div dos 'buttons'.
 let aux="";// Guarda resultado da última operação.
 let lastOperation="";// Guarda a última operação.
 
-// Usadas para mostrar os caracteres +/-,e/E,() de forma alternada.
+// Usadas para mostrar os caracteres +,-,e,E,(,) de forma alternada.
 let callCount0=0;
 let callCount1=0;
 let callCount2=0;
@@ -63,7 +62,7 @@ radical=document.querySelector("#root");// Usada pelas funções root e clearAll
 const buttons = document.querySelectorAll('button');// lista com todos 'buttons'.
 //obter os 'buttons' de 0 a 9 e insere na lista elements .
 const elements = document.querySelectorAll('.number');
-//obter os 'buttons' '+,-,*,/,., , ,()' e insere na lista operators .
+//obter os 'buttons' '+,-,*,/,.,(,)' e insere na lista operators .
 const operators = document.querySelectorAll('.operator1');
 const combined = [...elements,...operators];
 
@@ -74,12 +73,14 @@ combined.forEach( (item) => {
 
 //Executa a operação ao pressionar o 'button =' .
 function equalSign() {
-       // console.log('input: '+input.value);
-    let number;
+     // console.log('input: '+input.value);
     if(input.value.length==0) return false;
+    let str=input.value;
+    let number=0;
 
-        // Para operação raiz,potência,porcentagem e outras operações.
-   if(validation()) {
+        // Para operação raiz e potência,e outras operações.
+   if(validation(str)) {
+        str=str.replaceAll(',','');
         if(percentage) { // Para operação porcentagem.
             let str=aux+input.value;
             let number=Number(eval(str).toFixed(DECIMAL));
@@ -110,6 +111,7 @@ function equalSign() {
             }
             // Término da validação das entradas str1 e str2.
 
+            //Operação raiz de índice qualquer e radicando qualquer.
             if((!a) && (!c)) {
                 // Radicando negativo e índice ímpar.
                 number=(-1)*(Number(((Math.abs(Number(str1)))**(1/Number(str2))).toFixed(DECIMAL)));
@@ -117,7 +119,7 @@ function equalSign() {
                 // Para outros casos.
                 number=Number((Number(str1)**(1/(Number(str2)))).toFixed(DECIMAL));
             }
-            aux=number; // Guarda na memória o último resultado.
+            aux=number; // Para memória.
             display(new String(number));// exibi o resultado da operação.
             radical.disabled=false;
             radical.style.background="lightblue";
@@ -125,18 +127,16 @@ function equalSign() {
             return true;
         }
 
-        /* Outras operações que não raiz. */
-
         // Para operação potência de qualquer base(número) e qualquer expoente(número).
         if(power) {
             lastOperation=aux+"**"+input.value;// Guarda para ser exibido como última operação.
             if(aux<0 & input.value%2!=0){
-                number = (-1)*Number(eval(Math.abs(aux)+"**"+input.value).toFixed(DECIMAL));
+                number = (-1)*Number(eval(Math.abs(aux)+"**"+str).toFixed(DECIMAL));
             }else
                 if(aux<0 & input.value%2==0) {
-                    number =Number(eval(Math.abs(aux)+"**"+input.value).toFixed(DECIMAL));
+                    number =Number(eval(Math.abs(aux)+"**"+str).toFixed(DECIMAL));
                 }else {
-                    number = Number(eval(Math.abs(aux)+"**"+input.value).toFixed(DECIMAL));
+                    number = Number(eval(Math.abs(aux)+"**"+str).toFixed(DECIMAL));
                 }
             aux=number; // Guarda o resultado da operação potência na memória.
             // exibição do resultado da operação potência.
@@ -147,7 +147,7 @@ function equalSign() {
             }
 
         }else { // Para outras operações.
-            number = Number(eval(input.value).toFixed(DECIMAL));
+            number = Number(eval(str).toFixed(DECIMAL));
             aux=number; // Guarda o resultado da última operação na memória.
             lastOperation=input.value;// Guarda para ser exibido como última operação.
 
@@ -168,29 +168,200 @@ function equalSign() {
     }
 }
 
-    // Insere vírgula para separar os milhares.
-function display(disPlay) {
-    let arr=[];
-    if(disPlay.includes('.')) {
-        let a=disPlay.indexOf('.');
-        for(let i=a;i>0;i-=3) {
-            arr.unshift(disPlay.substring((i-3),i));
-        }
-        input.value=arr.join(',')+disPlay.substring(a,disPlay.length);
+
+// Fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,potência,raiz,raiz quadrada
+// símbolo monetário do Real,porcentagem.
+function generic(param) {
+    let str=input.value;
+    if(commaVerification(str)) {
+        lastOperation="Error: "+input.value;
+        messageError(message0);
+        aux=input.value;
+        return false;
+    }
+    switch(param) {
+         case 'euler': input.value=Math.E; return true;
+
+         case 'pi': input.value=Math.PI; return true;
+
+         case 'real':    let array=[...input.value];
+                         array.unshift('R$');
+                         input.value=array.join("");
+                         return true;
+
+         case 'pow': // Potência de qualquer base e de qualquer expoente.Relacionado com a função equalSign.
+                     if(input.value.length==0) return false;
+                     aux=Number(str);
+                     input.value="";
+                     power=true;return true;
+
+         case 'root':    // Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
+                         if(input.value.length==0) return false;
+                         aux=str;
+                         input.value="";
+                         radix=true;
+                         //trava o 'button' raiz.
+                         radical.style.background="#867E7D";
+                         radical.disabled=true;return true;
+
+         case 'pow2':    // Potência de base 2 .
+                        if(validationPow(str)) { // validação da entrada .
+                            str=str.replaceAll(',','');
+                            let number=Number(Number((str)**2).toFixed(DECIMAL));
+                            if (number==Infinity) {
+                                messageError(message1);
+                                lastOperation=input.value;
+                                return false;
+                            }else {
+                                aux=number;  // Guarda na memória o último resultado.
+                                display(new String(number));
+                                return true;
+                            }
+                        }else {
+                            lastOperation="Error: "+input.value;
+                            messageError(message0);
+                            aux=input.value;
+                            return false;
+                        }
+    }
+
+     // Operação seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,raiz quadrada e porcentagem.
+    if(validation(str)) {
+         if(str.length!=0) {
+             switch(param) {
+                case 'sin': input.value=aux=Number( Math.sin((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );return true;
+                case 'cos': input.value=aux=Number( Math.cos((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );return true;
+                case 'tan': let a= Number( Math.sin((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );
+                            let b= Number( Math.cos((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );
+                            input.value=Number((a/b).toFixed(DECIMAL));
+                            return true;
+                case 'squareRoot':  // Raiz quadrada.
+                                     lastOperation="Filing: "+str;// Guarda na memória a última operação(radicando).
+                                     if(Number(str) < 0) {
+                                         messageError(message2);
+                                         aux=input.value;
+                                         return false;
+                                     }
+                                     let number = Number((Number(str)**(1/2)).toFixed(DECIMAL));
+                                     aux=number;// Guarda na memória o último resultado.
+                                     display(new String(number));// Exibi o resultado da operação.
+                                     return true;
+
+                case '%':   aux=str+'*0.01*';
+                            input.value="";
+                            percentage=true;
+                            return true;
+
+             }
+             if(Number(str)>0) {
+                 switch(param) {
+                     case 'log':input.value=aux=Number(Number(Math.log10(Number(str))).toFixed(DECIMAL));return true;
+                     case 'ln' :input.value=aux=Number(Number(Math.log(Number(str))).toFixed(DECIMAL));return true;
+                 }
+             }else {
+                 lastOperation="Logarithm: "+input.value;// Guarda na memória a causa do erro.
+                 messageError(message2);
+                 aux=input.value;
+                 return false;
+             }
+         }else return false;
+
     }else {
-         for(let i=disPlay.length;i>0;i-=3) {
-            arr.unshift(disPlay.substring((i-3),i));
+         lastOperation=input.value;// Guarda na memória a causa do erro.
+         messageError(message0);
+         aux=input.value;
+         percentage=false;
+         radix=false;
+         power=false;
+         return false;
+    }
+ }
+
+ // Verificar se as vírgulas separam os milhares corretamente.
+function commaVerification(str) {
+    if(str.indexOf(',')>0) {
+        if(str[0]!=0) {
+            if((str.indexOf(',')+3) > str.length) {
+                return true;
+            }
+            for(let i=0;i<str.length;i++) {
+                if(str[i]===',') {
+                    if((i+3)<str.length) {
+                        if(!((algarism.includes(str[i+1]))&(algarism.includes(str[i+2]))&(algarism.includes(str[i+3])))) return true;
+                        else i+=3;
+                    }else return true;
+                }else {
+                    if(str[i]=='.') return false;
+                    else {
+                        if((str.length-1)==i) return true;
+                    }
+                }
+            }
+            return false ;// Passou.
+        }else return true;
+    }return false;// Caso não existam vírgulas.
+}
+
+
+    // Insere vírgula para separar os milhares.
+function display(result) {
+    if(result.includes('e')||result.includes('E')) {
+        input.value=result;
+        return true;
+    }
+    let arr=[];
+    if(result.includes('.')) {
+        let a=result.indexOf('.');
+        for(let i=a;i>0;i-=3) {
+            arr.unshift(result.substring((i-3),i));
+        }
+        input.value=arr.join(',')+result.substring(a,result.length);
+    }else {
+        for(let i=result.length;i>0;i-=3) {
+            arr.unshift(result.substring((i-3),i));
         }
         input.value=arr.join(',');
     }
 }
 
-// Validar a string de entrada.
-function validation() {
-        // Ínício da verificação preliminar da string de entrada.
-   let str=input.value.replaceAll(',','');
-           // console.log('str='+str);
+// Validação da entrada,que é usada pela função pow2.
+function validationPow(str) {
+     // Se a String de entrada for vazia.
+    if(str.length==0) return false;
 
+     // Verificar se o primeiro caracter é número ou '-'.
+    if(!(algarism.includes(str[0]) || str[0]=='-')) {
+        return false;
+    }
+
+     // Caracteres permitidos na String de entrada.
+    const permitPow=['0','1','2','3','4','5','6','7','8','9','-','e','E','+','.',','];
+     // Verificar cada caracter de entrada.
+    for(let i of str) {
+        if(!(permitPow.includes(i))) {
+            return false;
+        }
+    }
+
+     // Para caracter e ou E (notação científica).
+    for(let i=0;i<str.length;i++) {
+        if(str[i] == 'e' || str[i] == 'E') {
+            let a=algarism.includes(str[i-1]);
+            let b=(algarism.includes(str[i+1]) || permitPow.includes(str[i+1]));
+            if(!(a && b)) {
+                return false;
+            }
+        }
+    }
+    return true;// Passou.
+}
+
+// Validar a string de entrada.
+function validation(str) {
+        // Ínício da verificação preliminar da string de entrada.
+    if(str.length==0) return false;// String vazia.
+    if(commaVerification(str)) return false;
+    str=str.replaceAll(',','');
     // Verificação da string de entrada,se é somente número,seja ele positivo ou negativo.
     let number=true;
     let a=str.length>0;
@@ -299,150 +470,9 @@ function validation() {
                 if(!(algarism.includes(str[i]) || special_C.includes(str[i]))) return false;
             }
         }
-    } else return false;
+    }else return false;
 
-    return [input.value=str,true]; // Passou.String de entrada validada.
-}
-
-// Validação da entrada,que é usada pela função pow2.
-function validationPow() {
-        // console.log(input.value);
-    let str=input.value;
-    const permitPow=['0','1','2','3','4','5','6','7','8','9','.','-','e','E','+'];
-    if(str.length==0){
-        messageError(message0);
-        return false;
-    }
-    // Verificar cada caracter de entrada.
-    for(let i of str) {
-        if(!(permitPow.includes(i))) {
-            return false;
-        }
-    }
-    // Verificar se o primeiro caracter é número ou '-'.
-    if(!(algarism.includes(str[0]) || str[0]=='-')) {
-        return false;
-    }
-    // Para caracter e ou E (notação científica).
-    for(let i=0;i<str.length;i++) {
-        if(str[i] == 'e' || str[i] == 'E') {
-            let a=algarism.includes(str[i-1]);
-            let b=(algarism.includes(str[i+1]) || permitPow.includes(str[i+1]));
-            if(!(a && b)) {
-                return false;
-            }
-        }
-    }
-    return true;// Passou.
-  }
-
-
-// Fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,potência,raiz,raiz quadrada
-// símbolo monetário do Real,porcentagem.
-function generic(param) {
-   // console.log(param);
-    let str=input.value.replaceAll(',','');
-    switch(param) {
-        case 'euler': input.value=Math.E; return true;
-
-        case 'pi': input.value=Math.PI; return true;
-
-        case 'real':    let array=[...input.value];
-                        array.unshift('R$');
-                        input.value=array.join("");
-                        return true;
-
-        case '%':   if(input.value.length==0) return false;
-                    if(validation()) {
-                        aux=str+'*0.01*';
-                        input.value="";
-                        percentage=true;
-                        return true;
-                    }else {
-                        lastOperation=input.value;// Guarda na memória a causa do erro.
-                        percentage=false;
-                        messageError(message0);
-                        aux=input.value;
-                        return false;
-                    }
-
-        case 'pow': // Potência de qualquer base e de qualquer expoente.Relacionado com a função equalSign.
-                    if(input.value.length==0) return false;
-                    aux=Number(str);
-                    input.value="";
-                    power=true;return true;
-
-        case 'root':    // Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
-                        if(input.value.length==0) return false;
-                        aux=str;
-                        input.value="";
-                        radix=true;
-                        //trava o 'button' raiz.
-                        radical.style.background="#867E7D";
-                        radical.disabled=true;return true;
-
-        case 'pow2':    // Potência de base 2 .
-                        if(input.value.length==0) return false;
-                        if(validationPow()) { // validação da entrada .
-                            let number=Number((Number(str)**2).toFixed(DECIMAL));
-                            if (number==Infinity) {
-                                messageError(message1);
-                                lastOperation=input.value;
-                                return false;
-                            }else {
-                                aux=number;  // Guarda na memória o último resultado.
-                                display(new String(number));
-                                return true;
-                            }
-                        }else {
-                            lastOperation="Error: "+input.value;
-                            messageError(message0);
-                            aux=input.value;
-                            return false;
-                        }
-    }
-
-    // Operação seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano e raiz quadrada.
-    if(validation()) {
-        if(input.value.length!=0) {
-            switch(param) {
-                case 'sin': input.value=aux=Number( Math.sin((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );return true;
-                case 'cos': input.value=aux=Number( Math.cos((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );return true;
-                case 'tan': let a= Number( Math.sin((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );
-                            let b= Number( Math.cos((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );
-                            input.value=Number((a/b).toFixed(DECIMAL));
-                            return true;
-                case 'squareRoot':  // Raiz quadrada.
-                                    lastOperation="Filing: "+str;// Guarda na memória a última operação(radicando).
-                                    if(Number(str) < 0) {
-                                        messageError(message2);
-                                        aux=input.value;
-                                        return false;
-                                    }
-                                    let number = Number((Number(str)**(1/2)).toFixed(DECIMAL));
-                                    aux=number;// Guarda na memória o último resultado.
-                                    display(new String(number));// Exibi o resultado da operação.
-                                    return true;
-            }
-            if(Number(str)>0) {
-                switch(param) {
-                    case 'log':input.value=aux=Number(Number(Math.log10(Number(str))).toFixed(DECIMAL));return true;
-                    case 'ln' :input.value=aux=Number(Number(Math.log(Number(str))).toFixed(DECIMAL));return true;
-                }
-            }else {
-                lastOperation="Logarithm: "+input.value;// Guarda na memória a causa do erro.
-                messageError(message2);
-                aux=input.value;
-                return false;
-            }
-        }else return false;
-
-    }else {
-        lastOperation=input.value;// Guarda na memória a causa do erro.
-        messageError(message0);
-        aux=input.value;
-        return false;
-    }
+    return true; // Passou.String de entrada validada.
 }
 
 // Mensagens de erros.
@@ -532,7 +562,7 @@ function sign(A,B) {
     }
 }
 
-// Alternância entre os caracteres :'e','E'(notação científica).
+// Alternância entre os caracteres :'e','E'.
 function signE() {
     let arr=[...input.value];
     if(arr.length!=0) {
