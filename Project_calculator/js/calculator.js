@@ -23,9 +23,9 @@ let callCount2=0;
 
 // Controla as operações raiz,porcentagem e potência.
 let radix=false;// Para operação raiz de qualquer número.
-let radical;//Usada para travar e destravar o 'button' raiz.
 let percentage=false;// Para operação porcentagem.
 let power=false;// Usada pela operação potência de base(número) qualquer e expoente(número) qualquer.
+let radical;//Usada para travar e destravar o 'button' raiz.
 
 // Mensagens de avisos de erros.
 let message0='not a number';
@@ -41,7 +41,9 @@ for (let i = 0; i < 10; i++) {
 }
 
 //criar os 'buttons' +,-,*,/,$,%,x²,pow,sqrt,root,Ln,Log,e,PI,sin,cos,tan,+-,E,(),.,',',CL,DEL,MR,LO,R,= .
+
 let divNumber=div.innerHTML;
+
 let X1=`<button class="operator1">+</button><button class="operator1">-</button><button class="operator1">*</button><button class="operator1">/</button>`;
 
 let X2=`<button onclick="generic(\'real\')">R$</button><button onclick="generic(\'%\')">%</button><button  onclick="generic(\'pow2\')">x²</button><button onclick="generic(\'pow\')">x<sup>y</sup></button>`;
@@ -65,7 +67,6 @@ const elements = document.querySelectorAll('.number');
 //obter os 'buttons' '+,-,*,/,.,(,)' e insere na lista operators .
 const operators = document.querySelectorAll('.operator1');
 const combined = [...elements,...operators];
-
 //adicionar eventos aos 'buttons' com as classes number e operator1.
 combined.forEach( (item) => {
     item.addEventListener('click',() => input.value += item.innerText);
@@ -73,19 +74,23 @@ combined.forEach( (item) => {
 
 //Executa a operação ao pressionar o 'button =' .
 function equalSign() {
-     // console.log('input: '+input.value);
     if(input.value.length==0) return false;
     let str=input.value;
     let number=0;
-
         // Para operação raiz e potência,e outras operações.
-   if(validation(str)) {
+    if(validation(str)) {
         str=str.replaceAll(',','');
         if(percentage) { // Para operação porcentagem.
-            let str=aux+input.value;
-            let number=Number(eval(str).toFixed(DECIMAL));
-            lastOperation=str;
-            aux=number;// Para memory.
+            str=eval(str);
+            aux=aux/100;
+            lastOperation=aux+' * '+str;// Guarda na memória a última operação.
+            if(aux<0 || str<0) {
+                messageError(message2);
+                percentage=false;
+                return false;
+            }
+            number=Number((eval(aux*str)).toFixed(DECIMAL));
+            aux=number;// Guarda na memória o último resultado.
             display(new String(number));
             percentage=false;
             return true;
@@ -94,19 +99,18 @@ function equalSign() {
         // Para raiz de qualquer número,seja índice ou radicando(radix=true),a string de entrada será validada em separado.
         if(radix) { // Raiz de índice(número) qualquer e radicando(número) qualquer.Relacionado com a função root.
             let str1=aux;// Radicando.
-            let str2=input.value.replaceAll(',','');// Índice.
-
+            let str2=eval(str);// Índice.
+            lastOperation='Filing= '+str1 +'Index= '+str2;//Guarda para ser exibido como última operação.
             // Ínicio da validação das entradas str1 e str2.
-            let number=(Number(str2))-(Math.trunc(Number(str2)));// Índice inteiro.
-            let a=Number(str1)>0;// str1(radicando) poderá ser positivo ou negativo,conforme for str2(c).
-            let b=Number(str2)>=2;// Somente índice maior ou igual a 2.
-            let c=Number(str2)%2==0;// Quando for par,str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
+            number=str2-Math.trunc(str2);// Índice inteiro.
+            let a=str1>0;// str1(radicando) poderá ser positivo ou negativo,conforme for str2(c).
+            let b=str2>=2;// Somente índice maior ou igual a 2.
+            let c=str2%2==0;// Quando for par,str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
             let d=number==0;// str2 deverá ser inteiro.
-            lastOperation='Filing= '+Number(str1).toFixed(4)+' Index= '+Number(str2).toFixed(4);// Última operação.
+            //validação do radicando(str1) e do índice(str2).
             if(!((a&&b&&d) || (b&&(!c)&&d))) {
-                radix=false;
                 messageError(message2);
-                aux=input.value;
+                radix=false;
                 return false;
             }
             // Término da validação das entradas str1 e str2.
@@ -114,13 +118,13 @@ function equalSign() {
             //Operação raiz de índice qualquer e radicando qualquer.
             if((!a) && (!c)) {
                 // Radicando negativo e índice ímpar.
-                number=(-1)*(Number(((Math.abs(Number(str1)))**(1/Number(str2))).toFixed(DECIMAL)));
+                number=(-1)*(Number(((Math.abs(str1))**(1/str2)).toFixed(DECIMAL)));
             }else {
                 // Para outros casos.
-                number=Number((Number(str1)**(1/(Number(str2)))).toFixed(DECIMAL));
+                number=Number((str1**(1/str2)).toFixed(DECIMAL));
             }
-            aux=number; // Para memória.
-            display(new String(number));// exibi o resultado da operação.
+            aux=number; // Guarda último resultado na memória.
+            display(new String(number));// Exibi o resultado da operação.
             radical.disabled=false;
             radical.style.background="lightblue";
             radix=false;
@@ -129,41 +133,36 @@ function equalSign() {
 
         // Para operação potência de qualquer base(número) e qualquer expoente(número).
         if(power) {
-            lastOperation=aux+"**"+input.value;// Guarda para ser exibido como última operação.
-            if(aux<0 & input.value%2!=0){
-                number = (-1)*Number(eval(Math.abs(aux)+"**"+str).toFixed(DECIMAL));
-            }else
-                if(aux<0 & input.value%2==0) {
-                    number =Number(eval(Math.abs(aux)+"**"+str).toFixed(DECIMAL));
-                }else {
-                    number = Number(eval(Math.abs(aux)+"**"+str).toFixed(DECIMAL));
-                }
-            aux=number; // Guarda o resultado da operação potência na memória.
+            let str1=aux;// Base.
+            let str2=eval(str);// Expoente.
+            lastOperation=str1+" ** "+str2;// Guarda para ser exibido como última operação.
+            if(str1<0){
+                if(str2%2!=0) number = (-1)*Number(eval(Math.abs(str1)+"**"+str2).toFixed(DECIMAL));// Base negativa e expoente ímpar.
+                else number =Number(eval(Math.abs(str1)+"**"+str2).toFixed(DECIMAL));// Base negativa e expoente par.
+            }else number = Number(eval(str1+"**"+str2).toFixed(DECIMAL));  // Base positiva e expoente negativo ou positivo.
+            aux=number; // Guarda o resultado da última operação na memória.
             // exibição do resultado da operação potência.
             if (number==Infinity) {
                 messageError(message1);
             }else {
                 display(new String(number));
             }
-
-        }else { // Para outras operações.
+            power=false;
+        }else { // Outras operações.
+            lastOperation=str;// Guarda para ser exibido como última operação.
             number = Number(eval(str).toFixed(DECIMAL));
             aux=number; // Guarda o resultado da última operação na memória.
-            lastOperation=input.value;// Guarda para ser exibido como última operação.
-
             // Exibição do resultado da operação.
             if (number==Infinity) {
                 messageError(message1);
             }else {
                 display(new String(number));
             }
-        }
-        power=false;
 
+        }
     }else {
-        lastOperation=input.value;// Guarda para ser exibido como última operação.
+        lastOperation=str;// Guarda para ser exibido como última operação.
         messageError(message0);
-        aux=input.value;
         return false;
     }
 }
@@ -174,43 +173,28 @@ function equalSign() {
 function generic(param) {
     let str=input.value;
     if(commaVerification(str)) {
-        lastOperation="Error: "+input.value;
+        lastOperation="Error: "+str;
         messageError(message0);
-        aux=input.value;
         return false;
     }
     switch(param) {
-         case 'euler': input.value=Math.E; return true;
+        case 'euler': input.value=Math.E; return true;
 
-         case 'pi': input.value=Math.PI; return true;
+        case 'pi': input.value=Math.PI; return true;
 
-         case 'real':    let array=[...input.value];
-                         array.unshift('R$');
-                         input.value=array.join("");
-                         return true;
+        case 'real':    let array=[...input.value];
+                        array.unshift('R$');
+                        input.value=array.join("");
+                        return true;
 
-         case 'pow': // Potência de qualquer base e de qualquer expoente.Relacionado com a função equalSign.
-                     if(input.value.length==0) return false;
-                     aux=Number(str);
-                     input.value="";
-                     power=true;return true;
-
-         case 'root':    // Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
-                         if(input.value.length==0) return false;
-                         aux=str;
-                         input.value="";
-                         radix=true;
-                         //trava o 'button' raiz.
-                         radical.style.background="#867E7D";
-                         radical.disabled=true;return true;
-
-         case 'pow2':    // Potência de base 2 .
+        case 'pow2':    // Potência de base 2 .
                         if(validationPow(str)) { // validação da entrada .
                             str=str.replaceAll(',','');
-                            let number=Number(Number((str)**2).toFixed(DECIMAL));
+                            lastOperation='Base: '+str;
+                            str=eval(str);
+                            let number=Number((str**2).toFixed(DECIMAL));
                             if (number==Infinity) {
                                 messageError(message1);
-                                lastOperation=input.value;
                                 return false;
                             }else {
                                 aux=number;  // Guarda na memória o último resultado.
@@ -218,66 +202,88 @@ function generic(param) {
                                 return true;
                             }
                         }else {
-                            lastOperation="Error: "+input.value;
+                            lastOperation='Error: '+'Base: '+str;
                             messageError(message0);
-                            aux=input.value;
                             return false;
                         }
     }
 
-     // Operação seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,raiz quadrada e porcentagem.
-    if(validation(str)) {
-         if(str.length!=0) {
-             switch(param) {
-                case 'sin': input.value=aux=Number( Math.sin((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );return true;
-                case 'cos': input.value=aux=Number( Math.cos((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );return true;
-                case 'tan': let a= Number( Math.sin((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );
-                            let b= Number( Math.cos((Math.abs(Number(str))*Math.PI)/180).toFixed(DECIMAL) );
-                            input.value=Number((a/b).toFixed(DECIMAL));
-                            return true;
-                case 'squareRoot':  // Raiz quadrada.
-                                     lastOperation="Filing: "+str;// Guarda na memória a última operação(radicando).
-                                     if(Number(str) < 0) {
-                                         messageError(message2);
-                                         aux=input.value;
-                                         return false;
-                                     }
-                                     let number = Number((Number(str)**(1/2)).toFixed(DECIMAL));
-                                     aux=number;// Guarda na memória o último resultado.
-                                     display(new String(number));// Exibi o resultado da operação.
-                                     return true;
+        // Operação seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,raiz quadrada,porcentagem e potência.
+    if(str.length!=0) {
+        if(validation(str)) {
+            str=str.replaceAll(',','');
+            str=eval(str);
+            switch(param) {
+                case 'sin': input.value=aux=angle(str,'sin');return true;
 
-                case '%':   aux=str+'*0.01*';
+                case 'cos': input.value=aux=angle(str,'cos');return true;
+
+                case 'tan': input.value=aux=Number((angle(str,'sin')/angle(str,'cos')).toFixed(DECIMAL));return true;
+
+                case 'squareRoot':  // Raiz quadrada.
+                                    lastOperation="Filing: "+str;// Guarda na memória a última operação(radicando).
+                                    if(str < 0) {
+                                        messageError(message2);
+                                        return false;
+                                    }
+                                    let number = Number(eval(str+'**(1/2)').toFixed(DECIMAL));
+                                    aux=number;// Guarda na memória o último resultado.
+                                    display(new String(number));// Exibi o resultado da operação.
+                                    return true;
+
+                case 'root':    // Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
+                                aux=str;
+                                input.value="";
+                                radix=true;
+                                //trava o 'button' raiz.
+                                radical.style.background="#867E7D";
+                                radical.disabled=true;
+                                return true;
+
+                case '%':   // Porcentagem.
+                            aux=str;
                             input.value="";
                             percentage=true;
                             return true;
 
-             }
-             if(Number(str)>0) {
-                 switch(param) {
-                     case 'log':input.value=aux=Number(Number(Math.log10(Number(str))).toFixed(DECIMAL));return true;
-                     case 'ln' :input.value=aux=Number(Number(Math.log(Number(str))).toFixed(DECIMAL));return true;
-                 }
-             }else {
-                 lastOperation="Logarithm: "+input.value;// Guarda na memória a causa do erro.
-                 messageError(message2);
-                 aux=input.value;
-                 return false;
-             }
-         }else return false;
-
-    }else {
-         lastOperation=input.value;// Guarda na memória a causa do erro.
-         messageError(message0);
-         aux=input.value;
-         percentage=false;
-         radix=false;
-         power=false;
-         return false;
+                case 'pow': // Potência de qualquer base e de qualquer expoente.Relacionado com a função equalSign.
+                            aux=str;
+                            input.value="";
+                            power=true;
+                            return true;
+            }
+            if(str > 0) {
+                switch(param) {
+                    case 'log': input.value=aux=Number(Math.log10(str).toFixed(DECIMAL));return true;
+                    case 'ln' : input.value=aux=Number(Math.log(str).toFixed(DECIMAL));return true;
+                }
+            }else {
+                lastOperation="Logarithm: "+str;// Guarda na memória a causa do erro.
+                messageError(message2);
+                return false;
+            }
+        }else {
+            lastOperation=str;// Guarda na memória a causa do erro.
+            messageError(message0);
+            percentage=false;
+            radix=false;
+            power=false;
+            return false;
+        }
     }
- }
 
- // Verificar se as vírgulas separam os milhares corretamente.
+}
+
+// Operação seno e cosseno.
+function angle(str,value) {
+    switch(value) {
+        case 'sin': return Number( Math.sin((Math.abs(str)*Math.PI)/180).toFixed(DECIMAL) );
+
+        case 'cos': return Number( Math.cos((Math.abs(str)*Math.PI)/180).toFixed(DECIMAL) );
+     }
+}
+
+// Verificar se as vírgulas separam os milhares corretamente.
 function commaVerification(str) {
     if(str.indexOf(',')>0) {
         if(str[0]!=0) {
@@ -299,7 +305,7 @@ function commaVerification(str) {
             }
             return false ;// Passou.
         }else return true;
-    }return false;// Caso não existam vírgulas.
+    }return false;
 }
 
 
@@ -326,24 +332,24 @@ function display(result) {
 
 // Validação da entrada,que é usada pela função pow2.
 function validationPow(str) {
-     // Se a String de entrada for vazia.
+    // Se a String de entrada for vazia.
     if(str.length==0) return false;
 
-     // Verificar se o primeiro caracter é número ou '-'.
+    // Verificar se o primeiro caracter é número ou '-'.
     if(!(algarism.includes(str[0]) || str[0]=='-')) {
         return false;
     }
 
-     // Caracteres permitidos na String de entrada.
+    // Caracteres permitidos na String de entrada.
     const permitPow=['0','1','2','3','4','5','6','7','8','9','-','e','E','+','.',','];
-     // Verificar cada caracter de entrada.
+    // Verificar cada caracter de entrada.
     for(let i of str) {
         if(!(permitPow.includes(i))) {
             return false;
         }
     }
 
-     // Para caracter e ou E (notação científica).
+    // Para caracter e ou E (notação científica).
     for(let i=0;i<str.length;i++) {
         if(str[i] == 'e' || str[i] == 'E') {
             let a=algarism.includes(str[i-1]);
@@ -364,19 +370,14 @@ function validation(str) {
     str=str.replaceAll(',','');
     // Verificação da string de entrada,se é somente número,seja ele positivo ou negativo.
     let number=true;
-    let a=str.length>0;
-    let b=str.length==1;
-    let c=str[0] == '-' || str[0]=='+';
-    if( a&&!b || a&&!c) {
-        for(let i=0;i<str.length;i++) {
-            if(c && i==0) continue;
-            if(!algarism.includes(str[i])) {
-                number=false;
-                break;
-            }
+    for(let i=0;i<str.length;i++) {
+        if((str[0]=='-' || str[0]=='+') & (i==0)) continue;
+        if(algarism.includes(str[i])) continue;
+        else {
+            number=false;
+            break;
         }
-    }else number=false;
-
+    }
     if(number) return true;
     // Término da verificação da string de entrada,se é somente número.
 
@@ -478,6 +479,7 @@ function validation(str) {
 // Mensagens de erros.
 function messageError(message) {
     input.value=message.toUpperCase();
+    aux=input.value;
     lock();
     return false;
 }
