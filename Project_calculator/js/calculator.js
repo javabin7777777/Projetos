@@ -1,6 +1,7 @@
 "use strict";
 
 /* Inicialização de variáveis */
+
 const DECIMAL=16;// para precisão dos resultados.
 
 // Para validação da string de entrada.
@@ -105,8 +106,8 @@ function equalSign() {
             number=str2-Math.trunc(str2);// Índice inteiro.
             let a=str1>0;// str1(radicando) poderá ser positivo ou negativo,conforme for str2(c).
             let b=str2>=2;// Somente índice maior ou igual a 2.
-            let c=str2%2==0;// Quando for par,str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
-            let d=number==0;// str2 deverá ser inteiro.
+            let c=str2%2===0;// Quando for par,str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
+            let d=number===0;// Verificar se str2 é inteiro.
             //validação do radicando(str1) e do índice(str2).
             if(!((a&&b&&d) || (b&&(!c)&&d))) {
                 messageError(message2);
@@ -136,30 +137,25 @@ function equalSign() {
             let str1=aux;// Base.
             let str2=eval(str);// Expoente.
             lastOperation=str1+" ** "+str2;// Guarda para ser exibido como última operação.
-            if(str1<0){
+            if(str1<0){// Base negativa
                 if(str2%2!=0) number = (-1)*Number(eval(Math.abs(str1)+"**"+str2).toFixed(DECIMAL));// Base negativa e expoente ímpar.
                 else number =Number(eval(Math.abs(str1)+"**"+str2).toFixed(DECIMAL));// Base negativa e expoente par.
             }else number = Number(eval(str1+"**"+str2).toFixed(DECIMAL));  // Base positiva e expoente negativo ou positivo.
             aux=number; // Guarda o resultado da última operação na memória.
-            // exibição do resultado da operação potência.
-            if (number==Infinity) {
-                messageError(message1);
-            }else {
-                display(new String(number));
-            }
+            // Exibição do resultado da operação potência.
+            if (number===Infinity)  messageError(message1);
+            else    display(new String(number));
             power=false;
+
         }else { // Outras operações.
             lastOperation=str;// Guarda para ser exibido como última operação.
             number = Number(eval(str).toFixed(DECIMAL));
             aux=number; // Guarda o resultado da última operação na memória.
             // Exibição do resultado da operação.
-            if (number==Infinity) {
-                messageError(message1);
-            }else {
-                display(new String(number));
-            }
-
+            if (number===Infinity)  messageError(message1);
+            else    display(new String(number));
         }
+
     }else {
         lastOperation=str;// Guarda para ser exibido como última operação.
         messageError(message0);
@@ -169,7 +165,7 @@ function equalSign() {
 
 
 // Fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,potência,raiz,raiz quadrada
-// símbolo monetário do Real,porcentagem.
+// símbolo monetário do real,porcentagem.
 function generic(param) {
     let str=input.value;
     if(commaVerification(str)) {
@@ -240,7 +236,7 @@ function generic(param) {
                                 radical.disabled=true;
                                 return true;
 
-                case '%':   // Porcentagem.
+                case '%':   // Porcentagem.Relacionado com a função equalSign.
                             aux=str;
                             input.value="";
                             percentage=true;
@@ -276,14 +272,15 @@ function generic(param) {
 
 // Operação seno e cosseno.
 function angle(str,value) {
+    let x=Number(((Math.abs(str)*Math.PI)/180).toFixed(DECIMAL));
     switch(value) {
-        case 'sin': return Number( Math.sin((Math.abs(str)*Math.PI)/180).toFixed(DECIMAL) );
+        case 'sin': return Number(Math.sin(x).toFixed(DECIMAL));
 
-        case 'cos': return Number( Math.cos((Math.abs(str)*Math.PI)/180).toFixed(DECIMAL) );
-     }
+        case 'cos': return Number(Math.cos(x).toFixed(DECIMAL));
+    }
 }
 
-// Verificar se as vírgulas separam os milhares corretamente.
+    // Verificar se as vírgulas separam os milhares corretamente.
 function commaVerification(str) {
     if(str.indexOf(',')>0) {
         if(str[0]!=0) {
@@ -305,11 +302,10 @@ function commaVerification(str) {
             }
             return false ;// Passou.
         }else return true;
-    }return false;
+    }return false;// Não há vírgula.
 }
 
-
-    // Insere vírgula para separar os milhares.
+    // Insere vírgula para separar os milhares(Exibição do resultado)
 function display(result) {
     if(result.includes('e')||result.includes('E')) {
         input.value=result;
@@ -351,7 +347,7 @@ function validationPow(str) {
 
     // Para caracter e ou E (notação científica).
     for(let i=0;i<str.length;i++) {
-        if(str[i] == 'e' || str[i] == 'E') {
+        if(str[i] === 'e' || str[i] === 'E') {
             let a=algarism.includes(str[i-1]);
             let b=(algarism.includes(str[i+1]) || permitPow.includes(str[i+1]));
             if(!(a && b)) {
@@ -371,7 +367,7 @@ function validation(str) {
     // Verificação da string de entrada,se é somente número,seja ele positivo ou negativo.
     let number=true;
     for(let i=0;i<str.length;i++) {
-        if((str[0]=='-' || str[0]=='+') & (i==0)) continue;
+        if((str[0]==='-' || str[0]==='+') & (i===0)) continue;
         if(algarism.includes(str[i])) continue;
         else {
             number=false;
@@ -389,7 +385,7 @@ function validation(str) {
         else  if(special_C.includes(str[i])) ++counter_C;
     }
 
-    if(counter_O == counter_C) {
+    if(counter_O === counter_C) {
         let begin = str[0];
         let end = str[str.length-1];
         let a=str.length>2;
@@ -409,7 +405,7 @@ function validation(str) {
         // e com os caracteres special_O e special_C.
         // Percorre toda a string validando caracter por caracter.
         for(let i=1;i<str.length;i++) {
-            if(i != str.length-1) {
+            if(i !== str.length-1) {
                 a=algarism.includes(str[i-1]);
                 b=operator.includes(str[i-1]);
                 c=special_O.includes(str[i-1]);
@@ -431,12 +427,12 @@ function validation(str) {
                 }
 
                 // Caso str[i] seja operador: Antecessor dele pode ser número ou special fechado ou caracteres others.
-                // Caso str[i] seja operador: Sucessor dele pode ser número ou special aberto,exceto para o operador '**'.
+                // Caso str[i] seja operador: Sucessor dele pode ser número ou special aberto,operador '**' é aceito.
                 before = a || d || j;
                 after =  e || g;
                 if(operator.includes(str[i])) {
                     if(!(before && after)) {
-                        if(str[i+1]=='*') i+=1; // Caso seja os caracteres '**'.
+                        if(str[i+1]==='*') i+=1; // Caso seja os caracteres '**'.
                         else return false;
                     }
                 }
@@ -445,8 +441,8 @@ function validation(str) {
                 // Antecessor deve ser número.
                 // Sucessor deve ser número ou caracter '-'.
                 before =a;
-                after = e || str[i]=='-' ;
-                if(str[i]=='e' || str[i]=='E') {
+                after = e || str[i]==='-' ;
+                if(str[i]==='e' || str[i]==='E') {
                     if(!(before && after)) return false;
                 }
 
@@ -461,8 +457,8 @@ function validation(str) {
                 // Caso str[i] seja caracter special_C:
                 // Antecessor pode ser número.
                 // Sucessor pode ser operador.
-                before =  a ;
-                after =  f;
+                before =a;
+                after =f;
                 if(special_C.includes(str[i])) {
                     if(!(before && after)) return false;
                 }
@@ -530,7 +526,7 @@ function sign(A,B) {
     switch(A) {
         case '+':   if(arr.length!=0) {
                         if(arr.includes(A) || arr.includes(B)) {
-                            if(callCount0%2==0) {
+                            if(callCount0%2===0) {
                                 arr.shift();
                                 arr.unshift(A);
                                 input.value=arr.join('');
@@ -542,18 +538,18 @@ function sign(A,B) {
                             }
 
                         }else {
-                            if(callCount0%2==0) input.value=A+input.value;
+                            if(callCount0%2===0) input.value=A+input.value;
                             else  input.value=B+input.value;
                         }
 
                     }else {
-                        if(callCount0%2==0) input.value=A+input.value;
+                        if(callCount0%2===0) input.value=A+input.value;
                         else input.value=B+input.value;
                     }
                     ++callCount0;
                     break;
 
-        case '(':  if(callCount2%2==0) {
+        case '(':  if(callCount2%2===0) {
                         arr.unshift(A);
                         input.value=arr.join('');
                     }else {
@@ -569,7 +565,7 @@ function signE() {
     let arr=[...input.value];
     if(arr.length!=0) {
         if(arr.includes('e') || arr.includes('E')) {
-            if(callCount1%2==0) {
+            if(callCount1%2===0) {
                  arr.pop();
                  arr.push('e');
                  input.value=arr.join('');
@@ -581,7 +577,7 @@ function signE() {
              }
 
         }else {
-            if(callCount1%2==0) {
+            if(callCount1%2===0) {
                input.value=input.value+'e';
             }
             else {

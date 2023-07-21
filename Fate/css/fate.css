@@ -11,14 +11,14 @@ body {
     font-family: sans-serif ;
 }
 
-#container{ 
-   width:80%;  
+#container{
+   width:80%;
    max-width:400px;
-   margin:35px auto;  
+   margin:auto;
 }
 
 h1{
-    margin:40px auto 10px auto;     
+    margin:40px auto 10px auto;
     opacity: 0.9;
 }
 
@@ -32,7 +32,7 @@ input,button{
     width:100%;
     padding: 20px;
     border-radius: 10px;
-    font-size: 20px; 
+    font-size: 20px;
     box-sizing:border-box;
 
 }
@@ -46,24 +46,24 @@ button{
     background-color:orange;
     color: black;
     font-weight: 700;
-    transition: filter .5s; /* atrasa a propriedade filter por 0.5s */  
-    
+    transition: filter .5s; /* atrasa a propriedade filter por 0.5s */
+
 }
 
-button:hover{ 
+button:hover{
     filter: brightness(2.0); /* ao passar ou flutuar mouse sobre o button o mesmo brilha*/
     cursor: alias;
 }
 
 #answer {
     font-size: 28px;
-    margin-top: 30px;
+    margin-top: 20px;
     transition: opacity 5s; /* o conteúdo do elemento <h3> demora 5s para desaparecer na tela(opacity zero setada no javascript) */
 }
 
 #answer div{
     font-size: 28px;
-    font-weight: 500;   
+    font-weight: 500;
     opacity: 0.8;
     margin-bottom: 10px; ;
 }
