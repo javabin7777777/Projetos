@@ -1,7 +1,7 @@
 # Projects  
 
-- Project: consumer-api-imdb
+- Project: projects-java
 - Project: Chronometer
 - Project: Calculator
-- Project: What
+- Project: Fate
 
