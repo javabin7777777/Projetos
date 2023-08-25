@@ -1,46 +1,39 @@
-*{
-    margin:0;
+* {
+    margin: 0;
     padding: 0;
     border: 0;
 }
+
 body {
     background-color: black;
-    color:white;
+    color: white;
     text-align: center;
-    font-family: sans-serif ;
+    font-family: sans-serif;
     box-sizing: border-box;
 }
 
-#container{
-   width: 80%;
-   max-width: 750px;
-   margin: auto;
-   display: block;
-}
-#containerButton{
-    width:80%;
-    margin:auto;
+#container {
+    width: 80%;
+    max-width: 750px;
+    margin: auto;
+    display: block;
 }
 
-h1{
+#containerButton {
+    width: 80%;
+    margin: auto;
+}
+
+h1 {
     font-size: 60px;
     font-weight: 900;
-    margin:40px auto 10px auto;
+    margin: 40px auto 10px auto;
     opacity: 0.9;
 }
-/*
-input,button#button{
-    width:100%;
-    height: 100px;
-    padding: auto;
-    border-radius: 7px;
-    font-size: 50px;
-    box-sizing:border-box;
-}
-*/
 
-input{
-    width:100%;
+
+input {
+    width: 100%;
     height: 100px;
     margin-bottom: 20px;
     padding: auto;
@@ -48,50 +41,43 @@ input{
     font-size: 50px;
     text-align: center;
 }
-/*
-button#button,button{
-    border:none;
-    color: black;
-    background-color:orange;
-    font-weight: 900;
-}
-*/
 
-.number{
+
+.number {
     width: 50px;
     height: 50px;
     margin: 10px 5px;
     border-radius: 80px;
-    border:none;
+    border: none;
     text-align: center;
-    vertical-align: middle ;
+    vertical-align: middle;
     font-size: 30px;
     font-weight: 900;
     color: black;
-    background-color:#c7ff1f;
-
+    background-color: #c7ff1f;
 }
 
-.operator1,button{
+.operator1,
+button {
     width: 55px;
     height: 50px;
     margin: 10px 3px;
     border-radius: 10px;
-    border:none;
+    border: none;
     text-align: center;
     vertical-align: middle;
     font-size: 20px;
     font-weight: 900;
     color: black;
-    background-color:lightblue;
+    background-color: lightblue;
 }
 
-button:hover{
+#equal {
+    width: 90%;
+    font-size: 35px;
+}
+
+button:hover {
     filter: brightness(2.0);
-    cursor: alias;
+    cursor: pointer;
 }
-
-/* display: flex;
-    flex-basis: 50px;
-    flex-flow: row wrap;
-*/
