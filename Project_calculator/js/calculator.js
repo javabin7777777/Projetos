@@ -9,6 +9,7 @@ const operator = ['*', '/', '+', '-'];
 const special_O = ['(', '[', '{',];
 const special_C = [')', ']', '}'];
 const others = ['.', 'e', 'E'];
+//const permit=[...algarism,...operator,...special_O,...special_C,...others];
 
 const input = document.querySelector("#input");// Campo texto .
 const div = document.querySelector("#containerButton");// div dos 'buttons'.
@@ -22,16 +23,16 @@ let callCount2 = 0;
 
 // Controla as operações raiz,porcentagem e potência.
 let radix = false;// Para operação raiz de qualquer número.
-let radical;// Usada para travar e destravar o 'button' raiz.
 let percentage = false;// Para operação porcentagem.
 let power = false;// Usada pela operação potência de base(número) qualquer e expoente(número) qualquer.
+let radical;// Usada para travar e destravar o 'button' raiz.
 
 // Mensagens de avisos de erros.
 let message0 = 'not a number';
 let message1 = 'overload';
 let message2 = 'there is no';
 
-// Inicialização do campo texto.
+//Inicialização do campo texto.
 input.value = "";
 
 // Criar os 'buttons' de '0 a 9'
@@ -59,9 +60,9 @@ div.innerHTML = `${divNumber}${X1}${X2}${X3}${X4}${X5}${X6}${X7}`;
 
 radical = document.querySelector("#root");// Usada pelas funções root e clearAll.
 const buttons = document.querySelectorAll('button');// Lista com todos 'buttons'.
-// Obter os 'buttons' de 0 a 9 e insere na lista elements .
+//obter os 'buttons' de 0 a 9 e insere na lista elements .
 const elements = document.querySelectorAll('.number');
-// Obter os 'buttons' '+,-,*,/,.,(,)' e inserir na lista operators .
+// Obter os 'buttons' '+,-,*,/,.,(,)' e insere na lista operators .
 const operators = document.querySelectorAll('.operator1');
 const combined = [...elements, ...operators];
 
@@ -75,7 +76,7 @@ function equalSign() {
     if (input.value.length == 0) return false;
     let str = input.value;
     let number = 0;
-    // Para operação raiz,potência,e outras.
+    // Para operação raiz e potência,e outras operações.
     if (validation(str)) {
         str = str.replaceAll(',', '');
         if (percentage) { // Para operação porcentagem.
@@ -94,7 +95,7 @@ function equalSign() {
             return true;
         }
 
-        // Para raiz de qualquer número,seja índice ou radicando(radix=true),a string de entrada será validada aqui.
+        // Para raiz de qualquer número,seja índice ou radicando(radix=true),a string de entrada será validada em separado.
         if (radix) { // Raiz de índice(número) qualquer e radicando(número) qualquer.Relacionado com a função root.
             let str1 = aux;// Radicando.
             let str2 = eval(str);// Índice.
@@ -105,7 +106,7 @@ function equalSign() {
             let b = str2 >= 2;// Somente índice maior ou igual a 2.
             let c = str2 % 2 == 0;// Quando for par,str1 deverá ser positivo,caso contrário,str1 pode ser positivo ou negativo.
             let d = number == 0;// str2 deverá ser inteiro.
-            //validação do radicando(str1) e do índice(str2).
+            // Validação do radicando(str1) e do índice(str2).
             if (!((a && b && d) || (b && (!c) && d))) {
                 messageError(message2);
                 radix = false;
@@ -113,7 +114,7 @@ function equalSign() {
             }
             // Término da validação das entradas str1 e str2.
 
-            //Operação raiz de índice qualquer e radicando qualquer.
+            // Operação raiz de índice qualquer e radicando qualquer.
             if ((!a) && (!c)) {
                 // Radicando negativo e índice ímpar.
                 number = (-1) * (Number(((Math.abs(str1)) ** (1 / str2)).toFixed(DECIMAL)));
@@ -133,13 +134,13 @@ function equalSign() {
         if (power) {
             let str1 = aux;// Base.
             let str2 = eval(str);// Expoente.
-            lastOperation = str1 + " ** " + str2;// Armazena a última operação.
+            lastOperation = str1 + " ** " + str2;// Guarda para ser exibido como última operação.
             if (str1 < 0) {
                 if (str2 % 2 != 0) number = (-1) * Number(eval(Math.abs(str1) + "**" + str2).toFixed(DECIMAL));// Base negativa e expoente ímpar.
                 else number = Number(eval(Math.abs(str1) + "**" + str2).toFixed(DECIMAL));// Base negativa e expoente par.
             } else number = Number(eval(str1 + "**" + str2).toFixed(DECIMAL));  // Base positiva e expoente negativo ou positivo.
-            aux = number; // Armazena o resultado da última operação.
-            // Exibição do resultado da operação potência.
+            aux = number; // Guarda o resultado da última operação na memória.
+            // exibição do resultado da operação potência.
             if (number == Infinity) {
                 messageError(message1);
             } else {
@@ -147,9 +148,9 @@ function equalSign() {
             }
             power = false;
         } else { // Outras operações.
-            lastOperation = str;// Armazena a última operação.
+            lastOperation = str;// Guarda para ser exibido como última operação.
             number = Number(eval(str).toFixed(DECIMAL));
-            aux = number; // Armazena o resultado da última operação.
+            aux = number; // Guarda o resultado da última operação na memória.
             // Exibição do resultado da operação.
             if (number == Infinity) {
                 messageError(message1);
@@ -160,7 +161,7 @@ function equalSign() {
 
         }
     } else {
-        lastOperation = str;// Guarda para ser exibido como última operação.
+        lastOperation = str;// Armazena para ser exibido como última operação.
         messageError(message0);
         return false;
     }
@@ -217,16 +218,16 @@ function generic(param) {
 
                 case 'cos': input.value = aux = angle(str, 'cos'); return true;
 
-                case 'tan': input.value = aux = Number((angle(str, 'sin') / angle(str, 'cos')).toFixed(DECIMAL)); return true;
+                case 'tan': angle(str, 'tan'); return true;
 
                 case 'squareRoot':  // Raiz quadrada.
-                    lastOperation = "Filing: " + str;// Guarda na memória a última operação(radicando).
+                    lastOperation = "Filing: " + str;// Armazena a última operação(radicando).
                     if (str < 0) {
                         messageError(message2);
                         return false;
                     }
                     let number = Number(eval(str + '**(1/2)').toFixed(DECIMAL));
-                    aux = number;// Guarda na memória o último resultado.
+                    aux = number;// Armazena o último resultado.
                     display(new String(number));// Exibi o resultado da operação.
                     return true;
 
@@ -270,20 +271,43 @@ function generic(param) {
             return false;
         }
     }
+
 }
 
-// Operação seno e cosseno.
-function angle(str, value) {
+// Operação seno,cosseno e tangente.
+function angle(str, value) {    
+    str = Math.abs(Number(str));
+    let num = str / 90 - Math.trunc(str / 90);
+    let deg = (str * Math.PI) / 180;// Transforma para radianos.
     switch (value) {
-        case 'sin': return Number((Math.sin(Number(Math.abs(str)) * Math.PI / 180)).toFixed(DECIMAL));
+        case 'sin': if (num === 0) {
+            if ((str / 90) % 2 === 0) { // Se for par,o seno é zero.
+                return 0;
+            }
+        }
+            lastOperation = `sin(${deg} radians)`;
+            return Math.sin(deg);
 
-        case 'cos': return Number((Math.cos(Number(Math.abs(str)) * Math.PI / 180)).toFixed(DECIMAL));
+        case 'cos': if (num === 0) {
+            if ((str / 90) % 2 !== 0) { // Se for ímpar,o cosseno é zero.
+                return 0;
+            }
+        }
+            lastOperation = `cos(${deg} radians) `;
+            return Math.cos(deg);
+
+        case 'tan': if (angle(str, 'cos') === 0) {
+            messageError(message2);
+        } else {
+            input.value = aux = angle(str, 'sin') / angle(str, 'cos');
+            lastOperation = `tan = sin: ${angle(str, 'sin')} / cos: ${angle(str, 'cos')} `;
+        }
     }
 }
 
 // Verificar se as vírgulas separam os milhares corretamente.
 function commaVerification(str) {
-    if (str.indexOf(',') > 0) { // Se a primeira vírgula foi encontrada,valor será positivo,caso contrário será negativo.
+    if (str.indexOf(',') > 0) { // Determina se existe vírgula.
         if (str[0] != 0) {
             if ((str.indexOf(',') + 3) > str.length) {
                 return true;
@@ -307,7 +331,7 @@ function commaVerification(str) {
 }
 
 
-// Inserir vírgulas para separação dos milhares.(Exibição de resultado).
+// Insere vírgula para separar os milhares.
 function display(result) {
     if (result.includes('e') || result.includes('E')) {
         input.value = result;
@@ -360,7 +384,7 @@ function validationPow(str) {
     return true;// Passou.
 }
 
-// Validar a string de entrada.
+// Validar a string de entrada. // erro: não aceita começar com sinal de +
 function validation(str) {
     // Ínício da verificação preliminar da string de entrada.
     if (str.length == 0) return false;// String vazia.
@@ -368,6 +392,21 @@ function validation(str) {
     str = str.replaceAll(',', '');
     // Verificação da string de entrada,se é somente número,seja ele positivo ou negativo.
     let number = true;
+    /*
+    let a=str.length>0;
+    let b=str.length==1;
+    let c=str[0] =='-' || str[0]=='+';
+    if( a&&!b || a&&!c) {
+        for(let i=0;i<str.length;i++) {
+            if(c && i==0) continue;
+            if(!algarism.includes(str[i])) {
+                number=false;
+                break;
+            }
+        }
+    }else number=false;
+    */
+
     for (let i = 0; i < str.length; i++) {
         if ((str[0] == '-' || str[0] == '+') & (i == 0)) continue;
         if (algarism.includes(str[i])) continue;
@@ -471,13 +510,13 @@ function validation(str) {
         }
     } else return false;
 
-    return true; // Passou.A "String" de entrada validada.
+    return true; // Passou.String de entrada validada.
 }
 
 // Mensagens de erros.
 function messageError(message) {
     input.value = message.toUpperCase();
-    aux = input.value;// Armazena último resultado.
+    aux = input.value;
     lock();
     return false;
 }
@@ -519,10 +558,12 @@ function lastOper() {
     input.value = lastOperation;
 }
 
-// Alternância entre os sinais: '+' e '-' .
-// Alternância entre os sinais: '(' e ')' .
+// Alternância entre os sinais: '+' e '-'.
+// Alternância entre os sinais: '(' e ')'.
 function sign(A, B) {
+    //console.log('input= '+input.value);
     let arr = [...input.value];
+    //console.log(arr);
     switch (A) {
         case '+': if (arr.length != 0) {
             if (arr.includes(A) || arr.includes(B)) {
