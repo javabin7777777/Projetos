@@ -1,0 +1,3 @@
+Erros
+funcão validationPow:  Aceita caracter ponto e vírgula após e ou E.
+função validation:  Não aceita começar com sinal de + | não aceita 1e+1 ou 1e-1 (notação científica)
