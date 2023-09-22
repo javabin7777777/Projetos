@@ -1,6 +1,7 @@
 import { radical, buttons } from "./calculator.js";
 import { generic } from "./gen.js";
 
+//const permit=[...algarism,...operator,...special_O,...special_C,...others];
 const obj = {
     lastOperation: '',  // Armazena a última operação.
     aux: '',    // Armazena o resultado da última operação.
@@ -8,6 +9,7 @@ const obj = {
     radix: false,   // Para operação raiz de qualquer número.
     power: false,   // Usada pela operação potência de base(número) qualquer e expoente(número) qualquer.
     percentage: false,  // Para operação porcentagem.
+    modulo: false,  // Para operação modulo.
     // Mensagens de avisos de erros.
     message0: 'not a number',
     message1: 'overload',
@@ -25,7 +27,20 @@ const obj = {
 
 export default obj;
 
-// Verificar se as vírgulas separam os milhares corretamente.
+function fatorial(str) {
+    obj.lastOperation = str + '!';// Armazena a última operação.
+    let x = str - Math.trunc(str);
+    if (str < 0 || x !== 0) {
+        messageError(obj.message2);
+        return false;
+    }
+    x = str;
+    for (let i = 1; i < str; i++) x = x * (str - i);
+    if (x === Infinity) messageError(obj.message1);
+    else input.value = obj.aux = x;
+}
+
+//Verificar se as vírgulas separam os milhares corretamente.
 function commaVerification(str) {
     if (str.indexOf(',') > 0) { // Determina se existe vírgula.
         if (str[0] != 0) {
@@ -121,7 +136,6 @@ function lastOper() {
 let callCount0 = 0;
 let callCount1 = 0;
 let callCount2 = 0;
-
 // Alternância entre os sinais: '+' e '-'.
 // Alternância entre os sinais: '(' e ')'.
 function sign(A, B) {
@@ -209,15 +223,21 @@ function eventsButtons() {
     document.getElementById('percentage').addEventListener('click', () => generic('%'));
     document.getElementById('real').addEventListener('click', () => generic('real'));
     document.getElementById('pow').addEventListener('click', () => generic('pow'));
+    document.getElementById('ln').addEventListener('click', () => generic('ln'));
+    document.getElementById('log').addEventListener('click', () => generic('log'));
+    document.getElementById('fatorial').addEventListener('click', () => generic('fatorial'));
+    document.getElementById('abs').addEventListener('click', () => generic('abs'));
+    document.getElementById('mod').addEventListener('click', () => generic('mod'));
+
 
     document.getElementById('sign').addEventListener('click', () => sign('+', '-'));
     document.getElementById('parenthesis').addEventListener('click', () => sign('(', ')'));
     document.getElementById('signE').addEventListener('click', () => signE());
     document.getElementById('memory').addEventListener('click', () => memory());
     document.getElementById('lastOper').addEventListener('click', () => lastOper());
-
-
-
 }
 
-export { signE, sign, lastOper, memory, lock, messageError, display, commaVerification, eventsButtons };
+export {
+    signE, sign, lastOper, memory, lock, messageError, display, commaVerification, eventsButtons,
+    fatorial
+};

@@ -1,7 +1,7 @@
 import { buildElements } from "./buildingElements.js";
 import { validation } from "./validate.js";
 import obj from "./utilities.js";
-import  * as utils from "./utilities.js";
+import * as utils from "./utilities.js";
 
 const input = document.querySelector("#input");// Campo texto .
 const div = document.querySelector("#containerButton");// div dos 'buttons'.
@@ -21,7 +21,6 @@ const elements = document.querySelectorAll('.number');
 // Obter os 'buttons' '+,-,*,/,.,(,)' e insere na lista operators .
 const operators = document.querySelectorAll('.operator1');
 const combined = [...elements, ...operators];//'buttons' com as classes number e operator1.
-
 // Adicionar eventos aos 'buttons' com as classes number e operator1.
 combined.forEach((item) => {
     item.addEventListener('click', () => input.value += item.innerText);
@@ -40,7 +39,15 @@ function equalSign() {
     let number = 0;
     // Para operação raiz e potência,e outras operações.
     if (validation(str)) {
-        str = str.replaceAll(',', '');        
+        str = str.replaceAll('R$', '');
+        str = str.replaceAll(',', '');
+        if (obj.modulo) {
+            obj.lastOperation = 'Rest of: ' + obj.aux + '/' + str;
+            input.value = obj.aux = Math.trunc(Math.abs(obj.aux)) % Math.trunc(Math.abs(str));
+            obj.modulo = false;
+            return true;
+        }
+
         if (obj.percentage) { // Para operação porcentagem.
             str = eval(str);
             obj.aux = obj.aux / 100;
@@ -102,7 +109,7 @@ function equalSign() {
                 else number = Number(eval(Math.abs(str1) + "**" + str2).toFixed(obj.DECIMAL));// Base negativa e expoente par.
             } else number = Number(eval(str1 + "**" + str2).toFixed(obj.DECIMAL));  // Base positiva e expoente negativo ou positivo.
             obj.aux = number; // Guarda o resultado da última operação na memória.
-            // exibição do resultado da operação potência.
+            // Exibição do resultado da operação potência.
             if (number == Infinity) {
                 utils.messageError(obj.message1);
             } else {

@@ -1,5 +1,5 @@
 import { validation, validationPow } from "./validate.js";
-import { messageError, display,commaVerification } from "./utilities.js";
+import { messageError, display, commaVerification, fatorial } from "./utilities.js";
 import obj from "./utilities.js";
 import { radical } from "./calculator.js";
 
@@ -46,9 +46,11 @@ export function generic(param) {
             }
     }
 
-    // Operação seno,cosseno,tangente,logaritmo DECIMAL,logaritmo neperiano,raiz quadrada,porcentagem e potência.
+    // Operação seno,cosseno,tangente,logaritmo DECIMAL,logaritmo neperiano,raiz quadrada,porcentagem,potência,
+    // inverso e absoluto.
     if (str.length != 0) {
         if (validation(str)) {
+            str = str.replaceAll('R$', '');
             str = str.replaceAll(',', '');
             str = eval(str);
             switch (param) {
@@ -61,6 +63,14 @@ export function generic(param) {
                 case 'inv':
                     input.value = obj.aux = 1 / str;
                     obj.lastOperation = '1/' + str;
+                    return true;
+
+                case 'abs': input.value = Math.abs(str); return true;
+
+                case 'mod':
+                    obj.aux = str;
+                    input.value = "";
+                    obj.modulo = true;
                     return true;
 
                 case 'squareRoot':  // Raiz quadrada.
@@ -94,17 +104,29 @@ export function generic(param) {
                     input.value = "";
                     obj.power = true;
                     return true;
+
+                case 'fatorial':
+                    fatorial(str);
+                    return true;
             }
+            // Operação logaritmo decimal e neperiano.
             if (str > 0) {
                 switch (param) {
-                    case 'log': input.value = aux = Number(Math.log10(str).toFixed(obj.DECIMAL)); return true;
-                    case 'ln': input.value = aux = Number(Math.log(str).toFixed(obj.DECIMAL)); return true;
+                    case 'log':
+                        input.value = obj.aux = Number(Math.log10(str).toFixed(obj.DECIMAL));
+                        obj.lastOperation = "decimal Logarithm  of: " + str;
+                        return true;
+                    case 'ln':
+                        input.value = obj.aux = Number(Math.log(str).toFixed(obj.DECIMAL));
+                        obj.lastOperation = "Neperian Logarithm of: " + str;
+                        return true;
                 }
             } else {
                 obj.lastOperation = "Logarithm: " + str;// Armazena a causa do erro.
                 messageError(obj.message2);
                 return false;
             }
+
         } else {
             obj.lastOperation = str;// Armazena a causa do erro.
             messageError(obj.message0);
