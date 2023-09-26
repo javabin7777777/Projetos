@@ -1,8 +1,9 @@
 # Projects  
 
 - Project: projects-java
-- Project: Chronometer
-- Project: Calculator
-![Alt text](calculator.jpg)
-- Project: Fate
-
+- Project: Chronometer  
+![Alt text](timer.jpg)  
+- Project: Calculator  
+![Alt text](calculator.jpg)  
+- Project: Fate  
+![Alt text](fate.jpg)
