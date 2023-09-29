@@ -5,7 +5,7 @@ import { radical } from "./calculator.js";
 
 // Fornece número de euler,valor de PI,seno,cosseno,tangente,logaritmo obj.DECIMAL,logaritmo neperiano,potência,raiz.
 // raiz quadrada,símbolo monetário do Real,porcentagem.
-export function generic(param) {
+export default function generic(param) {
     let str = input.value;
     if (commaVerification(str)) {
         obj.lastOperation = "Error: " + str;
@@ -13,9 +13,13 @@ export function generic(param) {
         return false;
     }
     switch (param) {
-        case 'euler': input.value = Math.E; return true;
+        case 'euler':
+            input.value = Math.E;
+            return true;
 
-        case 'pi': input.value = Math.PI; return true;
+        case 'pi':
+            input.value = Math.PI;
+            return true;
 
         case 'real':
             let array = [...input.value];
@@ -23,7 +27,9 @@ export function generic(param) {
             input.value = array.join("");
             return true;
 
-        case 'ctt': input.value = ""; return true;
+        case 'ctt':
+            input.value = "";
+            return true;
 
         case 'pow2':    // Potência de base 2 .
             if (validationPow(str)) { // validação da entrada .
@@ -54,18 +60,26 @@ export function generic(param) {
             str = str.replaceAll(',', '');
             str = eval(str);
             switch (param) {
-                case 'sin': input.value = obj.aux = angle(str, 'sin'); return true;
+                case 'sin':
+                    input.value = obj.aux = angle(str, 'sin');
+                    return true;
 
-                case 'cos': input.value = obj.aux = angle(str, 'cos'); return true;
+                case 'cos':
+                    input.value = obj.aux = angle(str, 'cos');
+                    return true;
 
-                case 'tan': angle(str, 'tan'); return true;
+                case 'tan':
+                    angle(str, 'tan');
+                    return true;
 
                 case 'inv':
                     input.value = obj.aux = 1 / str;
                     obj.lastOperation = '1/' + str;
                     return true;
 
-                case 'abs': input.value = Math.abs(str); return true;
+                case 'abs':
+                    input.value = Math.abs(str);
+                    return true;
 
                 case 'mod':
                     obj.aux = str;
@@ -84,7 +98,7 @@ export function generic(param) {
                     display(new String(number));// Exibi o resultado da operação.
                     return true;
 
-                case 'root':    // Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
+                case 'root': // Raiz de índice qualquer e radicando qualquer.Relacionado com a função equalSign.
                     obj.aux = str;
                     input.value = "";
                     obj.radix = true;
@@ -142,8 +156,8 @@ export function generic(param) {
 // Operação seno,cosseno e tangente.
 function angle(str, value) {
     str = Math.abs(Number(str));
-    let num = str / 90 - Math.trunc(str / 90);
-    let deg = (str * Math.PI) / 180;// Transforma para radianos.
+    let num = str / 90 - Math.trunc(str / 90);  
+    let deg = (str * Math.PI) / 180;// Transforma para radianos.   
     switch (value) {
         case 'sin':
             obj.lastOperation = `sin(${deg} radians)`;

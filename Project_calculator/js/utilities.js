@@ -1,7 +1,7 @@
 import { radical, buttons } from "./calculator.js";
-import { generic } from "./gen.js";
+import generic from "./gen.js";
+import equalSign from "./equal.js"
 
-//const permit=[...algarism,...operator,...special_O,...special_C,...others];
 const obj = {
     lastOperation: '',  // Armazena a última operação.
     aux: '',    // Armazena o resultado da última operação.
@@ -9,23 +9,21 @@ const obj = {
     radix: false,   // Para operação raiz de qualquer número.
     power: false,   // Usada pela operação potência de base(número) qualquer e expoente(número) qualquer.
     percentage: false,  // Para operação porcentagem.
-    modulo: false,  // Para operação modulo.
+    modulo: false,  // Para operação módulo.
     // Mensagens de avisos de erros.
     message0: 'not a number',
     message1: 'overload',
     message2: 'there is no',
-    // Para validação da string de entrada.
+    // Para validação da 'string' de entrada.
     algarism: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     operator: ['*', '/', '+', '-'],
     special_O: ['(', '[', '{',],
     special_C: [')', ']', '}'],
     others: ['.', 'e', 'E'],
-    // Caracteres permitidos na String de entrada.Usado na função pow2
+    // Caracteres permitidos na 'string' de entrada.Usado na função pow2
     permitPow: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', 'e', 'E', '+', '.', ','],
     DECIMAL: 16// Para precisão dos resultados.
 }
-
-export default obj;
 
 function fatorial(str) {
     obj.lastOperation = str + '!';// Armazena a última operação.
@@ -208,8 +206,6 @@ function signE() {
 }
 
 function eventsButtons() {
-    document.getElementById('clear').addEventListener('click', () => clearAll());
-    document.getElementById('del').addEventListener('click', () => delAll());
     document.getElementById('tan').addEventListener('click', () => generic('tan'));
     document.getElementById('cos').addEventListener('click', () => generic('cos'));
     document.getElementById('sen').addEventListener('click', () => generic('sin'));
@@ -228,8 +224,11 @@ function eventsButtons() {
     document.getElementById('fatorial').addEventListener('click', () => generic('fatorial'));
     document.getElementById('abs').addEventListener('click', () => generic('abs'));
     document.getElementById('mod').addEventListener('click', () => generic('mod'));
+    //Adicionar evento à função equalSign.
+    document.getElementById('equal').addEventListener('click', () => equalSign());
 
-
+    document.getElementById('clear').addEventListener('click', () => clearAll());
+    document.getElementById('del').addEventListener('click', () => delAll());
     document.getElementById('sign').addEventListener('click', () => sign('+', '-'));
     document.getElementById('parenthesis').addEventListener('click', () => sign('(', ')'));
     document.getElementById('signE').addEventListener('click', () => signE());
@@ -237,7 +236,5 @@ function eventsButtons() {
     document.getElementById('lastOper').addEventListener('click', () => lastOper());
 }
 
-export {
-    signE, sign, lastOper, memory, lock, messageError, display, commaVerification, eventsButtons,
-    fatorial
-};
+export default obj;
+export { signE, sign, lastOper, memory, lock, messageError, display, commaVerification, eventsButtons, fatorial };

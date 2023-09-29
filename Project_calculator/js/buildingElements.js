@@ -1,5 +1,5 @@
 
-export function buildElements(div) {
+export default  function buildElements(div) {
 
     // Criar os 'buttons' de '0 a 9'
     for (let i = 0; i < 10; i++) {

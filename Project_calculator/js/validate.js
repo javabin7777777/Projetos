@@ -4,14 +4,15 @@ import obj from "./utilities.js";
 // Validar a string de entrada.
  function validation(str) {
         // Ínício da verificação preliminar da string de entrada.
-        if (str.length === 0) return false;// String vazia.
-        str = str.replaceAll('R$','');        
+        if (str.length == 0) return false;// String vazia.
+        str = str.replaceAll('R$','');
+        //console.log(str);
         if (commaVerification(str)) return false;
         str = str.replaceAll(',', '');
-        // Verificação da string de entrada,se é somente número,seja positivo ou negativo.
+        // Verificação da string de entrada,se é somente número,seja ele positivo ou negativo.
         let number = true;
         for (let i = 0; i < str.length; i++) {
-            if ((str[0] === '-' || str[0] === '+') & (i === 0)) continue;
+            if ((str[0] == '-' || str[0] == '+') & (i == 0)) continue;
             if (obj.algarism.includes(str[i])) continue;
             else {
                 number = false;
@@ -29,12 +30,12 @@ import obj from "./utilities.js";
             else if (obj.special_C.includes(str[i])) ++counter_C;
         }
 
-        if (counter_O === counter_C) {
+        if (counter_O == counter_C) {
             let begin = str[0];
             let end = str[str.length - 1];
             let a = str.length > 2;
-            let b = obj.algarism.includes(begin) || obj.special_O.includes(begin) || begin === '-';
-            let c = obj.algarism.includes(end) || obj.special_C.includes(end) || begin === '+';
+            let b = obj.algarism.includes(begin) || obj.special_O.includes(begin) || begin == '-';
+            let c = obj.algarism.includes(end) || obj.special_C.includes(end) || begin == '+';
             let d; let e; let f; let g; let h; let j; let k; let before; let after;
 
             // String de entrada com tamanho maior que dois.
@@ -85,7 +86,7 @@ import obj from "./utilities.js";
                     // Antecessor deve ser número.
                     // Sucessor deve ser número ou caracter '-'.
                     before = a;
-                    after = e || str[i] === '-';
+                    after = e || str[i] == '-';
                     if (str[i] == 'e' || str[i] == 'E') {
                         if (!(before && after)) return false;
                     }
