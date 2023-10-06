@@ -54,11 +54,13 @@ export default function generic(param) {
 
     // Operação seno,cosseno,tangente,logaritmo DECIMAL,logaritmo neperiano,raiz quadrada,porcentagem,potência,
     // inverso e absoluto.
+   
     if (str.length != 0) {
         if (validation(str)) {
             str = str.replaceAll('R$', '');
             str = str.replaceAll(',', '');
             str = eval(str);
+           
             switch (param) {
                 case 'sin':
                     input.value = obj.aux = angle(str, 'sin');
@@ -73,8 +75,12 @@ export default function generic(param) {
                     return true;
 
                 case 'inv':
-                    input.value = obj.aux = 1 / str;
                     obj.lastOperation = '1/' + str;
+                    if(str===0) {
+                        messageError(obj.message2);
+                        return false;
+                    }
+                    input.value = obj.aux = 1 / str;                   
                     return true;
 
                 case 'abs':
@@ -88,7 +94,7 @@ export default function generic(param) {
                     return true;
 
                 case 'squareRoot':  // Raiz quadrada.
-                    obj.lastOperation = "Filing: " + str;// Armazerna última operação(radicando).
+                    obj.lastOperation = 'Filing= ' + str + ' Index= ' + 2;// Armazerna última operação(radicando).
                     if (str < 0) {
                         messageError(obj.message2);
                         return false;

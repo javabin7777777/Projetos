@@ -12,7 +12,9 @@ export default function equalSign() {
     if (validation(str)) {
         str = str.replaceAll(',', '');
         str = str.replaceAll('R$', '');
-        
+        // str = Number(str);
+        //console.log(str);
+
         if (obj.modulo) {
             obj.lastOperation = 'Rest of: ' + obj.aux + '/' + str;
             input.value = obj.aux = Math.trunc(Math.abs(obj.aux)) % Math.trunc(Math.abs(str));
@@ -29,7 +31,7 @@ export default function equalSign() {
                 obj.percentage = false;
                 return false;
             }
-            number = Number((eval(obj.aux * str)).toFixed(obj.DECIMAL));
+            number = Number((obj.aux * str).toFixed(obj.DECIMAL));
             obj.aux = number;// Armazena o último resultado.
             utils.display(new String(number));
             obj.percentage = false;
@@ -40,7 +42,7 @@ export default function equalSign() {
         if (obj.radix) { // Raiz de índice(número) qualquer e radicando(número) qualquer.Relacionado com a função root.
             let str1 = obj.aux;// Radicando.
             let str2 = eval(str);// Índice.
-            obj.lastOperation = 'Filing= ' + str1 + 'Index= ' + str2;//Guarda para ser exibido como última operação.
+            obj.lastOperation = 'Filing= ' + str1 + ' Index= ' + str2;//Guarda para ser exibido como última operação.
             // Ínicio da validação das entradas str1 e str2.
             number = str2 - Math.trunc(str2);// Índice inteiro.
             let a = str1 > 0;// str1(radicando) poderá ser positivo ou negativo,conforme for str2(c).

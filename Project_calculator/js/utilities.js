@@ -1,7 +1,8 @@
 import { radical, buttons } from "./calculator.js";
 import generic from "./gen.js";
-import equalSign from "./equal.js"
+import equalSign from "./equal.js";
 
+//const permit=[...algarism,...operator,...special_O,...special_C,...others];
 const obj = {
     lastOperation: '',  // Armazena a última operação.
     aux: '',    // Armazena o resultado da última operação.
@@ -27,11 +28,16 @@ const obj = {
 
 function fatorial(str) {
     obj.lastOperation = str + '!';// Armazena a última operação.
+    if (Number(str) === 0 | Number(str) === 1) {
+        input.value = obj.aux = 1;
+        return true;
+    }
     let x = str - Math.trunc(str);
     if (str < 0 || x !== 0) {
         messageError(obj.message2);
         return false;
     }
+
     x = str;
     for (let i = 1; i < str; i++) x = x * (str - i);
     if (x === Infinity) messageError(obj.message1);
@@ -40,7 +46,7 @@ function fatorial(str) {
 
 //Verificar se as vírgulas separam os milhares corretamente.
 function commaVerification(str) {
-    if (str.indexOf(',') > 0) { // Determina se existe vírgula.
+    if (str.indexOf(',') > 0) { // Determina se existe vírgula,e caso exista,não poderá ser o primeiro caracter da 'string'.
         if (str[0] != 0) {
             if ((str.indexOf(',') + 3) > str.length) {
                 return true;
@@ -60,10 +66,11 @@ function commaVerification(str) {
             }
             return false;// Passou.
         } else return true;
-    } return false;
+    }
+    return false;
 }
 
-// Insere vírgula para separar os milhares.
+// Mostra o resultado da operação.
 function display(result) {
     if (result.includes('e') || result.includes('E')) {
         input.value = result;
