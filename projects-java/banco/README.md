@@ -15,7 +15,7 @@
   adicionarConta(Conta conta)
   removerConta(Conta conta)
 
-- Adicione os seguintes métodos nas classes de ContaCorrente e ContaPoupanca para realizar   depósitos,saques,transferências e retornar o saldo atual.  
+- Adicione os seguintes métodos nas classes de ContaCorrente e ContaPoupanca para realizar depósitos,saques,transferências e retornar o saldo atual.  
   depositar(double valor)   
   sacar(double valor)    
   transferencia(Conta contaOrigem, Conta contaDestino, double valor)    
@@ -24,29 +24,39 @@
 Obs.:  
 Implemente um método na classe Conta para calcular o saldoTotal.Para contas poupança,aplique  
 a taxa de juros.
-O chequeEspecial funciona como uma reserva ao saldo da conta; por exemplo, se o saldo é 100 e  o chequeEspecial é 20, então o retorno de saldoAtual é a soma.    
-Contas devem ter o construtor com os parâmetros.    
-Considere também a validação de operações,como não permitir saques que ultrapassem o saldo disponível.    
-Não é possível transferir,depositar nem sacar valores negativos.    
-Utilize conceitos avançados de orientação a objetos,como herança,polimorfismo e encapsulamento.  
+O chequeEspecial funciona como uma reserva ao saldo da conta,por exemplo,se   
+o saldo é 100 e o chequeEspecial é 20,então o retorno de saldoAtual é a soma.      
+Contas devem ter o construtor com os parâmetros.     
+Considere também a validação de operações,como não permitir saques que ultrapassem o saldo disponível.      
+Não é possível transferir,depositar nem sacar valores negativos.      
+Utilize conceitos avançados de orientação a objetos,como herança,polimorfismo e encapsulamento.    
 
 ### Entradas  
   
+    
   ![alt text](Input1.jpg)  
-
+    
   ![alt text](Input2.jpg)  
-   
+    
   ![alt text](Input3.jpg)  
 
+
 ### Saídas  
+  
+  ![alt text](Output1.jpg)  
 
-    ![alt text](Output1.jpg)  
 
-    ![alt text](Output2.jpg)  
+  ![alt text](Output2.jpg)  
 
-    ![alt text](Output3.jpg)  
+  ![alt text](Output3.jpg)  
 
-    ![alt text](Output4.jpg)  
+  ![alt text](Output4.jpg)  
+    
+
+    
+  
+
+      
 
 
   
