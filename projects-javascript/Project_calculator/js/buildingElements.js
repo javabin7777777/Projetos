@@ -14,7 +14,7 @@ export default  function buildElements(div) {
 
     let X3 = `<button id="fatorial">n!</button><button id="mod">mod</button><button id="pow">x<sup>y</sup></button><button id='squareRoot' title="Square Root"><img src="img/square-root-50.png" alt="square root icon "></button><button  id="root" title="Root"><img src="img/square-root-50-N.png" alt="generic root icon "></button><button id='ln' title='Neperian logarithm'>ln</button><button id='log' title='Decimal logarithm'>log</button>`;
 
-    let X4 = `<button id="euler" title="Euler Number">e</button><button id="pi">PI</button><button id="sen">sin</button><button id="cos">cos</button>`;
+    let X4 = `<button id="euler" title="Euler Number">e</button><button id="pi">&pi;</button><button id="sen">sin</button><button id="cos">cos</button>`;
 
     let X5 = `<button id="tan">tan</button><button id="sign" >+-</button><button id="signE" title="Scientific Notation">E</button><button id="parenthesis">( )</button>`;
 
