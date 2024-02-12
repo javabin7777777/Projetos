@@ -34,23 +34,22 @@ Utilize conceitos avançados de orientação a objetos,como herança,polimorfism
 ### Entradas  
   
     
-  ![alt text](Input1.jpg)  
+  ![alt text](Input1.jpg)       
     
-  ![alt text](Input2.jpg)  
+  ![alt text](Input2.jpg)           
     
-  ![alt text](Input3.jpg)  
+  ![alt text](Input3.jpg)          
 
 
 ### Saídas  
   
-  ![alt text](Output1.jpg)  
+  ![alt text](Output1.jpg)      
 
+  ![alt text](Output2.jpg)     
 
-  ![alt text](Output2.jpg)  
+  ![alt text](Output3.jpg)      
 
-  ![alt text](Output3.jpg)  
-
-  ![alt text](Output4.jpg)  
+  ![alt text](Output4.jpg)      
     
 
     
