@@ -1,7 +1,5 @@
 # PROJECTS
 
 ### Exercício em C  
-
-### Java-projects  
-
-### Javascript-projects  
+### Java-projects   
+### Javascript-projects    
