@@ -1,13 +1,11 @@
 # EXERCÍCIOS EM C
 
 ### Criptografia  
-A intelitrader foi contratada para traduzir uma mensagem capturada na rede de um  
-navio e ela está criptografada. Não sabemos que tipo de criptografia eles usaram,a  
-única coisa que sabemos até agora, é que, a cada 8 bits, os dois últimos estão  
-invertidos e a cada 4 bits, os 4 bits foram trocados com os próximos 4.  
-Mensagem criptografada:  
-10010110 11110111 01010110 00000001 00010111 00100110 01010111 00000001
-00010111 01110110 01010111 00110110 11110111 11010111 01010111 00000011  
+A intelitrader foi contratada para traduzir uma mensagem capturada na rede de um navio e ela está criptografada.  
+Não sabemos que tipo de criptografia eles usaram,a única coisa que sabemos até agora, é que, a cada 8 bits,  
+os dois últimos estão invertidos e a cada 4 bits, os 4 bits foram trocados com os próximos 4.   
+> Mensagem criptografada:    
+  10010110 11110111 01010110 00000001 00010111 00100110 01010111 00000001 00010111 01110110 01010111 00110110 11110111   11010111 01010111 00000011  
   
     
 ### Menor distância de dois arrays  

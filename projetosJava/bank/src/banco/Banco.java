@@ -14,19 +14,21 @@ import java.util.List;
  * @author Jupiter
  */
 public class Banco {    
-    private static List<Conta> contas = new ArrayList<>();       
+   final private static List<Conta> contas = new ArrayList<>();       
 
     public static List<Conta> getContas() {
         return contas;
     }   
     
     public void adicionarConta(Conta conta) {
+        
        contas.add(conta);
        System.out.printf("Conta adicionada: %d%n",conta.getNumeroConta());
 
     }    
     
     public void removerConta(Conta conta){
+        
         if(contas.isEmpty()) System.out.printf("%n%nNao ha contas no banco");
         else {
                 if(contas.contains(conta)) 
@@ -40,5 +42,6 @@ public class Banco {
                     System.out.printf("%nEsta conta nao existe");
                 }
         }
+        
     }
 }
