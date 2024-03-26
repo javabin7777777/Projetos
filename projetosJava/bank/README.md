@@ -32,30 +32,23 @@ Não é possível transferir,depositar nem sacar valores negativos.
 Utilize conceitos avançados de orientação a objetos,como herança,polimorfismo e encapsulamento.    
 
 ### Entradas  
-  ![alt text](<imgBank/bank-4.jpg>)      
-
-
-  ![alt text](<imgBank/bank-5.jpg>)           
-
-
-  ![alt text](<imgBank/bank-6.jpg>)   
     
- 
+  ![alt text](<imagemdoprojetobancoLjava/Input1-1.jpg>)      
+    
+  ![alt text](imagemdoprojetobancoLjava/Input2-1.jpg)           
+    
+  ![alt text](imagemdoprojetobancoLjava/Input3-1.jpg)          
+
 
 ### Saídas  
   
-  ![alt text](<imgBank/bank-1.jpg>)      
+  ![alt text](imagemdoprojetobancoLjava/Output1-1.jpg)      
 
+  ![alt text](imagemdoprojetobancoLjava/Output2-1.jpg)     
 
-  ![alt text](<imgBank/bank-2.jpg>)           
+  ![alt text](imagemdoprojetobancoLjava/Output3-1.jpg)      
 
-
-  ![alt text](<imgBank/bank-3.jpg>)   
-    
-    
-  ![alt text](<imgBank/bank-4.jpg>)
-
-    
+  ![alt text](imagemdoprojetobancoLjava/Output4-1.jpg)      
     
 
     

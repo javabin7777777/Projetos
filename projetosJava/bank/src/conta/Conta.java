@@ -40,13 +40,13 @@ public class Conta {
 
     public void transferencia(Conta origem, Conta destino, double valor, boolean tipoConta) {
         if (tipoConta) { // Transferencia conta corrente
-            if (valor <= 1.00) {
+            if ( valor < 1.00 ) {
 
-                System.out.printf("%n%nVoce nao pode transferir da conta corrente,valores menores ou igual a um.");
+                System.out.printf("%n%nVoce nao pode transferir da conta corrente,valores menores a 1 real.");
 
             } else {
 
-                if ((origem.saldoAtual() - valor) <= 1) {
+                if ( (origem.saldoAtual() - valor) < 1 ) {
                     System.out.printf("%n%nVoce tentou transferir %.2f ,mas,nao ha saldo suficiente na conta"
                             + " corrente para transferencia.", valor);
                     System.out.printf("%nSaldo na sua conta nao pode ser inferior a 1 real.");
@@ -61,12 +61,12 @@ public class Conta {
             }
 
         }else {
-            if (valor <= 1.00) { // Transferencia conta poupanca
+            if ( valor < 1.00 ) { // Transferencia conta poupanca
 
-                System.out.printf("%n%nVoce nao pode transferir da conta poupanca,valores menores ou igual a um.");
+                System.out.printf("%n%nVoce nao pode transferir da conta poupanca,valores menores a 1 real.");
 
             } else {
-                if ((origem.saldo - valor) <= 1) {
+                if ( (origem.saldo - valor) < 1 ) {
 
                     System.out.printf("%n%nvoce tentou transferir %.2f ,mas,nao ha saldo suficiente na conta poupanca"
                             + " para transferencia.", valor);
@@ -88,8 +88,7 @@ public class Conta {
     }
 
     // public void transferencia(ContaCorrente origem, ContaPoupanca destino, double valor) {}    
-    // public void transferencia(ContaPoupanca origem, ContaCorrente destino, double valor) {}
-    
+    // public void transferencia(ContaPoupanca origem, ContaCorrente destino, double valor) {}    
     
     public double saldoAtual() {
         return 0;

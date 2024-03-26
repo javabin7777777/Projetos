@@ -24,9 +24,9 @@ public class ContaCorrente extends Conta {
 
     @Override
     public void depositar(double valor) {
-        if (valor <= 0.00) {
+        if ( valor < 1.00 ) {
 
-            System.out.printf("%n%nVoce nao pode depositar na conta corrente,valores menores ou igual a um.");
+            System.out.printf("%n%nVoce nao pode depositar na conta corrente,valores menores a 1 real.");
 
         } else {
             
@@ -39,12 +39,12 @@ public class ContaCorrente extends Conta {
 
     @Override
     public void sacar(double valor) { // saldo(incluindo o cheque especial) não poderá ser zero e nem negativo.
-        if (valor <= 0.00) {
+        if ( valor < 1.00 ) {
 
-            System.out.printf("%n%nVoce nao pode sacar da conta corrente,valores menores ou igual a um.");
+            System.out.printf("%n%nVoce nao pode sacar da conta corrente,valores menores a 1 real.");
 
         } else {
-            if ((saldoAtual() - valor) <= 1) {
+            if ((saldoAtual() - valor) <= 1 ) {
 
                 System.out.printf("%n%nVoce tentou sacar o valor de %.2f ,mas,nao ha saldo suficiente na sua conta corrente.", valor);
                 System.out.printf("%nSaldo na conta nao pode ser inferior a 1 real.");

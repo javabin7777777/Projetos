@@ -23,8 +23,8 @@ public class BancoPrincipal {
         // Inicialização das contas corrente e poupança.
         Banco banco = new Banco();
         Conta conta;
-        ContaCorrente.chequeEspecial = 901.00;
-        ContaPoupanca.taxaJuros = 0.25;
+        ContaCorrente.chequeEspecial = 903.50;
+        ContaPoupanca.taxaJuros = 5.00;
         ContaCorrente cc = new ContaCorrente(10001, 7002.60);
         banco.adicionarConta(cc);
         ContaPoupanca cp = new ContaPoupanca(20001, 4005.53);

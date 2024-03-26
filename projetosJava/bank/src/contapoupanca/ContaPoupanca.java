@@ -24,9 +24,9 @@ public class ContaPoupanca extends Conta {
 
     @Override
     public void depositar(double valor) {
-        if (valor <= 1.00) {
+        if ( valor < 1.00 ) {
 
-            System.out.printf("%n%nVoce nao pode depositar na conta poupanca,valores menores ou igual a um.");
+            System.out.printf("%n%nVoce nao pode depositar na conta poupanca,valores menores a 1 real.");
 
         } else {
 
@@ -39,13 +39,13 @@ public class ContaPoupanca extends Conta {
 
     @Override
     public void sacar(double valor) { // saldo não poderá ser abaixo de um.
-        if (valor <= 1.00) {
+        if ( valor < 1.00 ) {
 
-            System.out.printf("%n%nVoce nao pode sacar da conta poupanca,valores menores ou igual a um.");
+            System.out.printf("%n%nVoce nao pode sacar da conta poupanca,valores menores a 1 real.");
 
         } else {
             
-            if ((saldo - valor) <= 1) {
+            if ((saldo - valor) <= 1 ) {
                 System.out.printf("%n%nVoce tentou sacar o valor de %.2f ,mas,nao ha saldo suficiente na sua conta poupanca.", valor);
                 System.out.printf("%nSaldo na conta nao pode ser inferior a 1 real");
             } else {
@@ -62,5 +62,6 @@ public class ContaPoupanca extends Conta {
     public double saldoAtual() {
         
         return saldo * (1 + (taxaJuros / 100));
+        
     }
 }
