@@ -1,10 +1,10 @@
-- Project: Chronometer  
+- Cronômetro  
     ![Alt text](Project_chronometer/timer.jpg)  
       
       
-- Project: Calculator  
-     ![Alt text](Project_calculator/img/calculator-1.jpg)  
+- Calculadora  
+     ![Alt text](calculadora/img/calculadora.jpg)  
        
 
-- Project: Fate  
+- Projeto: O que tem para hoje?  
     ![Alt text](Fate/img/fate.jpg)
