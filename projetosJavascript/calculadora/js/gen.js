@@ -141,15 +141,15 @@ export default function generic(param) {
                 switch (param) {
                     case 'log':
                         input.value = obj.aux = Number(Math.log10(str).toFixed(obj.DECIMAL));
-                        obj.lastOperation = "decimal Logarithm  of: " + str;
+                        obj.lastOperation = "logaritmo Decimal de: " + str;
                         return true;
                     case 'ln':
                         input.value = obj.aux = Number(Math.log(str).toFixed(obj.DECIMAL));
-                        obj.lastOperation = "Neperian Logarithm of: " + str;
+                        obj.lastOperation = "Logaritmo Neperiano de: " + str;
                         return true;
                 }
             } else {
-                obj.lastOperation = "Logarithm: " + str;// Armazena a causa do erro.
+                obj.lastOperation = "Logaritmando: " + str;// Armazena a causa do erro.
                 messageError(obj.message2);
                 return false;
             }
@@ -169,7 +169,7 @@ export default function generic(param) {
 // Operacao seno,cosseno e tangente.
 function angle(str, value) {
     str = Math.abs(Number(str));
-    let num = str /(90 - Math.trunc(str / 90));  
+    let num = (str /90) - (Math.trunc(str / 90));    
     let deg = (str * Math.PI) / 180;// Transforma para radianos.   
     switch (value) {
         case 'sin':

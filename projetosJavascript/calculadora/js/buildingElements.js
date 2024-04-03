@@ -13,7 +13,7 @@ export default  function buildElements(div) {
     let divNumber = div.innerHTML;
     let X1 = `<button class="operator1">+</button><button class="operator1">-</button><button class="operator1">*</button><button class="operator1">/</button>`;
 
-    let X2 = `<button id="real">R$</button><button id="percentage" class="operator1">%</button><button id="pow2")">x²</button><button id="inverse" >1/x</button><button id="abs">|x|</button>`;
+    let X2 = `<button id="real">R$</button><button id="percentage" class="operator1">%</button><button id="pow2")">x²</button><button id="inv" >1/x</button><button id="abs">|x|</button>`;
 
     let X3 = `<button id="fatorial" title="numeros inteiros positivos">n!</button><button id="mod" title="numeros inteiros">mod</button><button id="pow">x<sup>y</sup></button><button id='squareRoot' title="Raiz quadrada"><img src="img/square-root-50.png" alt="square root icon "></button><button  id="root" title="Raiz"><img src="img/square-root-50-N.png" alt="generic root icon "></button><button id='ln' title='Logaritmo Neperiano'>ln</button><button id='log' title='Logaritmo Decimal'>log</button>`;
 

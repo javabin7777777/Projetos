@@ -14,9 +14,9 @@ const obj = {
     percentage: false,  // Para operação percentagem.
     modulo: false,  // Para operação modulo(obtém o resto da operacao divisao inteira).
     // Mensagens de avisos de erros.
-    message0: 'not a number',
-    message1: 'overload',
-    message2: 'there is no',
+    message0: 'não é número',//'not a number',
+    message1: 'sobrecarga', //'overload',
+    message2: 'não existe', //'there is no',
     // Para validação da 'string' de entrada.
     algarism: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     operator: ['*', '/', '+', '-'],
@@ -149,21 +149,21 @@ function radiano(str) {
     callCount3+=1;
     if(callCount3 % 2 !== 0) {
 
-        obj.aux = str; // valor grau.               
-        input.value = ( (Math.PI*str)/180 ).toFixed(2)+' rad'; // valor radianos.       
+        obj.aux = str+'º'; // valor grau.               
+        input.value = ( (Math.PI*str)/180 )+'rad'; // valor radianos.       
 
     } else {
 
-        input.value = obj.aux+'º';
+        input.value = obj.aux;
 
     }
 }
 
-// Usadas para mostrar os caracteres +,-,e,E,(,) .
-let callCount0 = 0;
-let callCount1 = 0;
-let callCount2 = 0;
-let callCount3 = 0; // funcao radiano.
+// Usadas para mostrar os caracteres +,-,e,E,(,) . 
+let callCount0 = 0; // funcao sign
+let callCount1 = 0; // funcao signE
+let callCount2 = 0; // funcao sign
+let callCount3 = 0; // funcao radiano
 
 // Alternância entre os sinais: '+' e '-'.
 // Alternância entre os sinais: '(' e ')'.
@@ -237,11 +237,12 @@ function signE() {
 }
 
 // Criar os eventos para os 'buttons' .
-const array = ['tan','cos','sin','pow2','pi','euler','clearText','inverse','root','squareRoot',
+const array = ['tan','cos','sin','pow2','pi','euler','clearText','inv','root','squareRoot',
                 'percentage','real','pow','ln','log','fatorial','abs','mod','rad'];
 
 function eventsButtons() {
 
+    // adicionar eventos ao 'buttons' conforme array .
     for( let str of array) {        
         document.getElementById(str).addEventListener('click', () => generic(str));
     }    
@@ -249,7 +250,7 @@ function eventsButtons() {
     //Adicionar evento ao 'button =' .
     document.getElementById('equal').addEventListener('click', () => equalSign());
 
-    // Adicinar eventos a outros 'buttons'
+    // Adicinar eventos a outros 'buttons' .
     document.getElementById('clear').addEventListener('click', () => clearAll());
     document.getElementById('del').addEventListener('click', () => delAll());
     document.getElementById('sign').addEventListener('click', () => sign('+', '-'));
