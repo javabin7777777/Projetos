@@ -1,10 +1,10 @@
 - Cronômetro  
-    ![Alt text](Project_chronometer/timer.jpg)  
+    ![Alt text](cronometro/timer.jpg)  
       
       
 - Calculadora  
      ![Alt text](calculadora/img/calculadora.jpg)  
        
 
-- Projeto: O que tem para hoje?  
-    ![Alt text](Fate/img/fate.jpg)
+- Projeto: Faça sua pergunta  
+    ![Alt text](facasuapergunta/img/fate.jpg)

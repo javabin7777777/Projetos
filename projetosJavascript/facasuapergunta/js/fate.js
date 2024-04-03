@@ -2,7 +2,7 @@
 const answer=["sim.","não.","provávelmente.","pode ser.","Certeza!",
 "Não tenho tanta certeza.",
 "É decididamente assim.",
-"Não conte com isso.",
+"Não conte com isso.","Um gato maravilhoso",
 "Sem dúvidas!",
 "Pergunte novamente mais tarde.",
 "Sim, definitivamente!",
@@ -11,13 +11,14 @@ const answer=["sim.","não.","provávelmente.","pode ser.","Certeza!",
 "Melhor não te dizer agora.",
 "A meu ver, sim.",
 "Minhas fontes dizem não.",
-"Provavelmente.",
+"Provavelmente.","Uma gata maravilhosa",
 "Não é possível prever agora.",
 "Perspectiva boa.",
 "As perspectivas não são tão boas.",
 "Sim.","A vida é um caminho,faça disso uma aventura.",
 "Concentre-se e pergunte novamente.",
-"Sinais apontam que sim.","Passa amanhã.","É bom não saber.","Está tudo bem,vai em frente.","Viva La Vida.","Numa boa.","Tô correndo"
+"Sinais apontam que sim.","Passa amanhã.","É bom não saber.","Está tudo bem,vai em frente.","Viva La Vida.","Numa boa.",
+"Tô correndo"
 ];
 
 const elementH3=document.querySelector("#answer");
