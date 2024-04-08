@@ -48,23 +48,37 @@ function fatorial(str) {
 
 //Verificar se as virgulas separam os milhares corretamente.
 function commaVerification(str) {
+
     if (str.indexOf(',') > 0) { // Determina se existe vírgula,e caso exista,não poderá ser o primeiro caracter da 'string'.
-        if (str[0] != 0) {
+        let array1 = [...str];
+        let array2 = array1.filter( (elemento) => elemento === ',' );
+        let contaVirgula = 0;
+        if (str[0] !== 0) {
             if ((str.indexOf(',') + 3) > str.length) {
                 return true;
             }
             for (let i = 0; i < str.length; i++) {
-                if (str[i] === ',') {
-                    if ((i + 3) < str.length) {
-                        if (!((obj.algarism.includes(str[i + 1])) & (obj.algarism.includes(str[i + 2])) & (obj.algarism.includes(str[i + 3])))) return true;
-                        else i += 3;
-                    } else return true;
-                } else {
-                    if (str[i] == '.') return false;
-                    else {
-                        if ((str.length - 1) == i) return true;
+
+                if (array2.length !== contaVirgula) {
+
+                    if (str[i] === ',') {
+                        if ((i + 3) < str.length) {
+                            if (!((obj.algarism.includes(str[i + 1])) & (obj.algarism.includes(str[i + 2])) & (obj.algarism.includes(str[i + 3])))) return true;
+                            else {
+                                i += 3;
+                                contaVirgula+=1;
+                            }
+
+                        } else return true;
+                        
+                    } else {
+                        if (str[i] === '.') return false;
+                        else {
+                            if ((str.length - 1) === i) return true;
+                        }
                     }
-                }
+
+                } else break;
             }
             return false;// Passou.
         } else return true;
@@ -146,11 +160,11 @@ function lastOper() {
 
 //Converter graus em radianos.
 function radiano(str) {
-    callCount3+=1;
-    if(callCount3 % 2 !== 0) {
+    callCount3 += 1;
+    if (callCount3 % 2 !== 0) {
 
-        obj.aux = str+'º'; // valor grau.               
-        input.value = ( (Math.PI*str)/180 )+'rad'; // valor radianos.       
+        obj.aux = str + 'º'; // valor grau.               
+        input.value = ((Math.PI * str) / 180) + 'rad'; // valor radianos.       
 
     } else {
 
@@ -237,16 +251,16 @@ function signE() {
 }
 
 // Criar os eventos para os 'buttons' .
-const array = ['tan','cos','sin','pow2','pi','euler','clearText','inv','root','squareRoot',
-                'percentage','real','pow','ln','log','fatorial','abs','mod','rad'];
+const array = ['tan', 'cos', 'sin', 'pow2', 'pi', 'euler', 'clearText', 'inv', 'root', 'squareRoot',
+    '%', 'real', 'pow', 'ln', 'log', 'fatorial', 'abs', 'mod', 'rad'];
 
 function eventsButtons() {
 
     // adicionar eventos ao 'buttons' conforme array .
-    for( let str of array) {        
+    for (let str of array) {
         document.getElementById(str).addEventListener('click', () => generic(str));
-    }    
-   
+    }
+
     //Adicionar evento ao 'button =' .
     document.getElementById('equal').addEventListener('click', () => equalSign());
 
@@ -261,5 +275,7 @@ function eventsButtons() {
 }
 
 export default obj;
-export { signE, sign, lastOper, memory, lock, messageError, display, 
-            commaVerification, eventsButtons, fatorial, radiano };
+export {
+    signE, sign, lastOper, memory, lock, messageError, display,
+    commaVerification, eventsButtons, fatorial, radiano
+};

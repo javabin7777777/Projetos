@@ -7,9 +7,9 @@ import { radical } from "./main.js";
 
 export default function equalSign() {
     if (input.value.length === 0) return false;
-    let str = input.value;
+    let str = input.value;   
     let number = 0;
-    // Para operação raiz e potência,e outras operações.
+    // Para operação raiz,potencia,e outras operacoes.
     if (validation(str)) {
         str = str.replaceAll(',', '');
         str = str.replaceAll('R$', '');

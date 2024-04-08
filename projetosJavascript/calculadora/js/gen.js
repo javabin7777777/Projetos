@@ -28,12 +28,14 @@ export default function generic(param) {
             input.value = array.join("");
             return true;
 
-        case 'clearText': 
+        case 'clearText':
             input.value = "";
             return true;
 
         case 'pow2':    // Potência de base 2 .
+        
             if (validationPow(str)) { // validação da entrada .
+
                 str = str.replaceAll(',', '');
                 obj.lastOperation = 'Base: ' + str;
                 str = eval(str);
@@ -46,23 +48,28 @@ export default function generic(param) {
                     display(new String(number));
                     return true;
                 }
+
             } else {
-                obj.lastOperation = 'Error: ' + 'Base: ' + str;
-                messageError(obj.message0);
-                return false;
+
+                if (str.length !== 0) {
+                    obj.lastOperation = 'Erro: ' + 'Base: ' + str;
+                    messageError(obj.message0);
+                    return false;
+                }
             }
     }
 
     /* Operacao seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,raiz quadrada,porcentagem,potência,
      inverso,absoluto,converter grau para radiano */
-   
+
     if (str.length != 0) {
         if (validation(str)) {
             str = str.replaceAll('R$', '');
             str = str.replaceAll(',', '');
-            str = str.replaceAll('º','');
-            str = str.replaceAll('rad', '');            
-            str = eval(str);           
+            str = str.replaceAll('º', '');
+            str = str.replaceAll('rad', '');
+            str = str.replaceAll('%', '');
+            str = eval(str);
             switch (param) {
                 case 'sin':
                     input.value = obj.aux = angle(str, 'sin');
@@ -78,11 +85,11 @@ export default function generic(param) {
 
                 case 'inv':
                     obj.lastOperation = '1/' + str;
-                    if(str===0) {
+                    if (str === 0) {
                         messageError(obj.message2);
                         return false;
                     }
-                    input.value = obj.aux = 1 / str;                   
+                    input.value = obj.aux = 1 / str;
                     return true;
 
                 case 'abs':
@@ -96,7 +103,7 @@ export default function generic(param) {
                     return true;
 
                 case 'squareRoot':  // Raiz quadrada.
-                    obj.lastOperation = 'Filing= ' + str + ' Index= ' + 2;// Armazerna última operação(radicando).
+                    obj.lastOperation = 'Radicando= ' + str + ' Índice= ' + 2;// Armazerna última operação(radicando).
                     if (str < 0) {
                         messageError(obj.message2);
                         return false;
@@ -116,6 +123,7 @@ export default function generic(param) {
                     return true;
 
                 case '%':   // Porcentagem.
+                   
                     obj.aux = str;
                     input.value = "";
                     obj.percentage = true;
@@ -163,13 +171,12 @@ export default function generic(param) {
             return false;
         }
     }
-
 }
 
 // Operacao seno,cosseno e tangente.
 function angle(str, value) {
     str = Math.abs(Number(str));
-    let num = (str /90) - (Math.trunc(str / 90));    
+    let num = (str / 90) - (Math.trunc(str / 90));
     let deg = (str * Math.PI) / 180;// Transforma para radianos.   
     switch (value) {
         case 'sin':
