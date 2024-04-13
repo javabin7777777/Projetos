@@ -28,5 +28,5 @@ export default  function buildElements(div) {
     let X8 = `<button id="clearText" title="limpa texto">CTT</button>`;
     
     div.innerHTML = `${divNumber}${X1}${X2}${X3}${X4}${X5}${X6}${X8}${X7}`;
-    //console.log(div);
+
 }

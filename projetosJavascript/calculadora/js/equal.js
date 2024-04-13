@@ -11,10 +11,9 @@ export default function equalSign() {
     let number = 0;
     // Para operação raiz,potencia,e outras operacoes.
     if (validation(str)) {
-        str = str.replaceAll(',', '');
-        str = str.replaceAll('R$', '');
-        // str = Number(str);
-        //console.log(str);
+
+        str = utils.Clear(str);
+        str = str.replaceAll(',','');       
 
         if (obj.modulo) { // Obtem o resto da divisao de dois inteiros
             // Somente numeros inteiros
@@ -104,8 +103,9 @@ export default function equalSign() {
                 utils.display(new String(number));
             }
             obj.power = false;
+
         } else { // Outras operações.
-            obj.lastOperation = str;// Guarda para ser exibido como última operação.
+            obj.lastOperation = str;// Guarda para ser exibido como última operação.          
             number = Number(eval(str).toFixed(obj.DECIMAL));
             obj.aux = number; // Guarda o resultado da última operação na memória.
             // Exibição do resultado da operação.
@@ -116,6 +116,7 @@ export default function equalSign() {
                 utils.display(new String(number));
             }
         }
+
     } else {
         obj.lastOperation = str;// Armazena para ser exibido como última operação.
         utils.messageError(obj.message0);

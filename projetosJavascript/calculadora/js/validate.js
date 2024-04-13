@@ -1,38 +1,22 @@
-import { commaVerification } from "./utilities.js";
+import { Clear, commaVerification, verificarOctal } from "./utilities.js";
 import obj from "./utilities.js";
 
 // Validar a string de entrada.
 function validation(str) {
     // Inicio da verificacao preliminar da string de entrada.   
     
-    if (str.length === 0) return false;// String vazia.
-    str = str.replaceAll('R$', '');
-    str = str.replaceAll('º', '');
-    str = str.replaceAll('rad', '');
-    str = str.replaceAll('%', '');
+    if (str.length === 0) return false;// String vazia.  
 
-    // Um numero nao pode iniciar com zero (octal)
-    // Verificar formato: zero.numero ou zero operator 
-    if (Number(str[0]) === 0) {
-        if (!(obj.algarism.includes(str[1]))) {
+    str = Clear(str);
 
-            if (!(obj.operator.includes(str[1]))) {
-
-                if (str[1] === '.') {
-
-                    if (!(obj.algarism.includes(str[2]))) return false;
-
-                } else false;
-            }
-
-        } else return false;
-    }
-    
     //Verificar se as vírgulas separam os milhares corretamente.
-    if (commaVerification(str)) return false;
- 
-    str = str.replaceAll(',', '');    
+    if (commaVerification(str)) return false; 
 
+    str = str.replaceAll(',', '');
+
+    // Verificar se e numero octal.
+    if(verificarOctal(str)) return false;
+    
     //contagem dos caracteres special_O e special_C.
     let counter_O = 0;// quantidade de caracteres special_O.
     let counter_C = 0;// quantidade de caracteres special_C.

@@ -28,6 +28,58 @@ const obj = {
     DECIMAL: 16// precisão dos resultados.
 }
 
+function Clear(str) {
+
+    str = str.replaceAll('R$', '');
+    str = str.replaceAll('º', '');
+    str = str.replaceAll('rad', '');
+    str = str.replaceAll('%', '');
+    str = str.replaceAll('!', '');
+
+    return str;
+}
+
+// Verificar se o numero é octal,ou seja,começa com zero.
+function verificarOctal(str) {
+
+    let array = [];
+
+    // captura os operadores.
+    for (let i = 0; i < str.length; i++) {
+        if (obj.operator.includes(str[i])) array.push(i);
+        //if (str[i] === '.') {}
+    }
+
+    // verificar se existe numero octal.
+    if (str.length > 1) {
+        if (array.length !== 0) {
+            let verificar = false;
+
+            let subStr = str.substring(0, array[0]);
+            if (!(subStr.includes('.'))) {
+                if (Number(str[0]) === 0) return true;
+            }
+            for (let i = 0; i < array.length; i++) {
+                if ((Number(str[array[i] + 1]) === 0) & !(array[i] + 1 === str.length - 1)) {
+                    if (!(str[array[i] + 2] === '.')) {
+                        verificar = true;
+                        break;
+                    }
+                }
+            }
+            if (verificar) return true;
+            else return false;
+
+        } else {
+            if (!(str.includes('.'))) {
+                if (Number(str[0]) === 0) return true;
+            }
+        }
+
+    } else return false;
+}
+
+
 function fatorial(str) {
     obj.lastOperation = str + '!';// Armazena a ultima operacao.
     if (Number(str) === 0 | Number(str) === 1) {
@@ -51,7 +103,7 @@ function commaVerification(str) {
 
     if (str.indexOf(',') > 0) { // Determina se existe vírgula,e caso exista,não poderá ser o primeiro caracter da 'string'.
         let array1 = [...str];
-        let array2 = array1.filter( (elemento) => elemento === ',' );
+        let array2 = array1.filter((elemento) => elemento === ',');
         let contaVirgula = 0;
         if (str[0] !== 0) {
             if ((str.indexOf(',') + 3) > str.length) {
@@ -66,11 +118,11 @@ function commaVerification(str) {
                             if (!((obj.algarism.includes(str[i + 1])) & (obj.algarism.includes(str[i + 2])) & (obj.algarism.includes(str[i + 3])))) return true;
                             else {
                                 i += 3;
-                                contaVirgula+=1;
+                                contaVirgula += 1;
                             }
 
                         } else return true;
-                        
+
                     } else {
                         if (str[i] === '.') return false;
                         else {
@@ -182,9 +234,8 @@ let callCount3 = 0; // funcao radiano
 // Alternância entre os sinais: '+' e '-'.
 // Alternância entre os sinais: '(' e ')'.
 function sign(A, B) {
-    //console.log('input= '+input.value);
-    let arr = [...input.value];
-    //console.log(arr);
+    
+    let arr = [...input.value];    
     switch (A) {
         case '+': if (arr.length != 0) {
             if (arr.includes(A) || arr.includes(B)) {
@@ -220,6 +271,7 @@ function sign(A, B) {
         }
             ++callCount2;
     }
+
 }
 
 // Alternância entre os caracteres 'e' e 'E' para notacao cientifica.
@@ -277,5 +329,5 @@ function eventsButtons() {
 export default obj;
 export {
     signE, sign, lastOper, memory, lock, messageError, display,
-    commaVerification, eventsButtons, fatorial, radiano
+    commaVerification, eventsButtons, fatorial, radiano, verificarOctal, Clear
 };
