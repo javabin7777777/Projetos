@@ -1,4 +1,5 @@
-### funcão validationPow  
+***  
+### Funcão validationPow  
 Aceita caracter ' ; ' após ' e ou E '. 
 
 ~~um número não pode começar com zero,pois assim,seria um nmero octal.Exceção,quando existir ponto na segunda posição e não haver vírgulas.076.12 passa mas dar erro na função equalSign.fatorial de zero dar not a number.Alteração na função validatuion do arquivo validate.js~~
@@ -22,11 +23,11 @@ Ao colocar somente o caracter '+' resulta em: Uncaught SyntaxError: Unexpected e
     at equalSign (equal.js:109:34)
     at HTMLButtonElement.<anonymous> (utilities.js:265:70) 
 
-Ao colocar caracter '*' resulta em : Uncaught SyntaxError: Unexpected token '*'
+Ao colocar somente o caracter '*' resulta em : Uncaught SyntaxError: Unexpected token '*'
     at equalSign (equal.js:109:34)
     at HTMLButtonElement.<anonymous> (utilities.js:265:70)  
 
-Ao colocar caracter  '/' resulta em : Uncaught SyntaxError: Invalid regular expression: missing /
+Ao colocar somente o caracter  '/' resulta em : Uncaught SyntaxError: Invalid regular expression: missing /
     at equalSign (equal.js:109:34)
     at HTMLButtonElement.<anonymous> (utilities.js:265:70)
 

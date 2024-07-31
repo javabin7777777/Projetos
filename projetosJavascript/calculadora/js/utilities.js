@@ -35,11 +35,12 @@ function Clear(str) {
     str = str.replaceAll('rad', '');
     str = str.replaceAll('%', '');
     str = str.replaceAll('!', '');
+    str = str.replaceAll(',', '');
 
     return str;
 }
 
-// Verificar se o numero é octal,ou seja,começa com zero.
+// Verificar se o numero é octal( começa com zero ).
 function verificarOctal(str) {
 
     let array = [];
@@ -53,6 +54,7 @@ function verificarOctal(str) {
     // verificar se existe numero octal.
     if (str.length > 1) {
         if (array.length !== 0) {
+            
             let verificar = false;
 
             let subStr = str.substring(0, array[0]);

@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    border: 0;
+}
+
+body {
+    background-color: lightblue;
+    color: black;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+#imagemLetraA {
+    width: 7.5rem;
+    height: 3rem;
+    position: relative;
+    left: 2.5rem;
+    top: 3.8rem;
+}
+
+#texto-entrada {
+    width: 40rem;
+    line-height: 3rem;
+    position: absolute;
+    top: 5.5rem;
+    left: 15rem;
+    border-radius: 0.625rem;
+    text-align: left;
+}
+
+#texto-entrada-label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+#texto-entrada-input {
+    font-size: 2rem;
+    outline: none;
+    resize: none;
+}
+
+#criptografado {
+    width: 25rem;
+    height: 34.5rem;
+    position: relative;
+    left: 58.5rem;
+    border: 1px solid whitesmoke;
+    border-radius: 2rem;
+    background-color: white;
+    margin: 0 5rem 1rem 0;
+}
+
+#criptografado-resultado {
+    font-size: 1rem;
+    font-weight: 500;
+    position: absolute;
+    top: 5rem;
+    margin: auto 1rem;
+    outline: none;
+    resize: none;
+}
+
+#criptografado-imagemDaJovemComLupa {
+    width: 21rem;
+    height: 19rem;
+    position: absolute;
+    top: 3rem;
+    margin: auto 2rem;
+    text-align: center;
+}
+
+
+#criptografado-botao {
+    width: 21rem;
+    height: 7.625rem;
+    position: absolute;
+    top: 31rem;
+    margin: 0 2rem;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+#criptografado-botao-copiar {
+    width: 20rem;
+    height: 2rem;
+    border-radius: 1rem;
+    margin: 1rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    background-color: grey;
+}
+
+#botoes {
+    width: 55rem;
+    height: 4.1875rem;
+    position: absolute;
+    left: 6rem;
+    top: 34.5rem;
+}
+
+#botoes-aviso {
+    font-size: 0.7rem;
+    font-weight: 250;
+}
+
+.botoes-button {
+    width: 20rem;
+    height: 2rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+#botoes-limpar {
+    background-color: aquamarine;
+    width: 7rem;
+}
+
+
+#botoes-criptografar {
+    background-color: mediumblue;
+}
+
+#botoes-descriptografar {
+    background-color: lightskyblue;
+}
+
+#rodape {
+
+    margin-left: 5rem;
+    font-size: 0.75rem;
+    font-weight: 200;
+}
+
+#rodape-rede-social {
+    width: 1rem;
+    margin-top: 0.4rem;
+    margin-left: 5 rem;
+}
+
+#rodape-link {
+    text-decoration: none;
+}

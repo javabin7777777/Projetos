@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criptografia de Texto</title>
+    <link rel="shortcut icon" href="./img/icone-titulo" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="./css/cripto.css" />
+    <script defer src="./js/cripto.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <img id="imagemLetraA" src="./img/letra-A.png" alt="imagem letra A estilizada." />
+    </header>
+    <main>
+        <div id="texto-entrada">
+            <label id="texto-entrada-label" for="texto-entrada-input">Seu texto aqui:</label>
+            <textarea id="texto-entrada-input" rows="10" cols="35" placeholder="Digite o texto que você pretende criptografar ou descriptografar."></textarea>
+        </div>       
+
+        <section id="criptografado">
+            <textarea id="criptografado-resultado" rows="10" cols="39"
+                placeholder="texto criptografado aqui"></textarea>           
+            <img id="criptografado-imagemDaJovemComLupa" src="./img/High quality products 1 1.svg"
+                alt="Imagem de uma jovem,portando uma lupa." />
+            <div id="criptografado-botao">
+                <button id="criptografado-botao-copiar">Copiar</button>
+            </div>
+        </section>
+
+        <section id="botoes">
+            <p id="botoes-aviso">&#9873; Apenas letras minúsculas e sem acento. &#10057; exceto acento grave.</p>
+            <button id="botoes-limpar" class="botoes-button">Limpar</button>
+            <button id="botoes-criptografar" class="botoes-button">Criptografar</button>
+            <button id="botoes-descriptografar" class="botoes-button">Descriptografar</button>
+        </section>
+    </main>
+    <footer id="rodape">
+       <div>&copy;Todos direitos reservados</div> 
+        <img id="rodape-rede-social" src="./img/linkedin.png" alt="simbolo da rede social linkedin"/> 
+        <a  id="rodape-link" href="https://www.linkedin.com/in/samzubeli" target="_blank"> @samzubeli </a>
+    </footer>
+   
+</body>
+
+</html>
