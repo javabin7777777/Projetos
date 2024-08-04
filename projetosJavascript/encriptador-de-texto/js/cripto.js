@@ -19,7 +19,7 @@ botaoCriptografar.addEventListener('click', () => criptoDescripto(input));
 botaoDescriptografar.addEventListener('click', () => criptoDescripto(input, false));
 botaoCopiar.addEventListener('click', () => copiar());
 
-// As funções que serão executadas ao acionar os botoes: limpar, criptografar,descriptografar e copiar.
+// As funções que serão executadas ao acionar os botoes: limpar, criptografar,descriptografar e copiar .
 function limpar() {
     input.disabled = false;
     botaoCriptografar.disabled = false;
@@ -45,7 +45,7 @@ function criptoDescripto(input, criptoDes = true) {
             apresentarResultado(auxiliarEncripto);
 
         } else {
-            apresentarResultadoError(); 
+            apresentarResultadoError();
         }
 
     } else {  // descriptografar o texto digitado .             
@@ -62,7 +62,7 @@ function verificarTextoDigitado(input) {
     let texto = input.value;
     for (let i = 0; i < texto.length; i++) {
         if ((texto.codePointAt(i) > 64 && texto.codePointAt(i) < 91)) return false; // letras maiúsculas nao sao permitidas .
-        if (!(texto.codePointAt(i) > 31 && texto.codePointAt(i) < 127)) return false; // caracteres não permitidos.
+        if (!(texto.codePointAt(i) > 31 && texto.codePointAt(i) < 127)) return false; // caracteres não permitidos .
     }
     return true;
 }
@@ -71,16 +71,19 @@ function apresentarResultado(params) {
     botaoCopiar.style.display = null;
     criptografadoImagemDaJovemComLupa.style.display = "none";
     resultado.style.display = null;
+    resultado.disabled = false;
     resultado.value = params;
+    resultado.disabled = true;
 }
 
-function apresentarResultadoError() {    
+function apresentarResultadoError() {
     botaoCriptografar.disabled = true;
     botaoDescriptografar.disabled = true;
-    botaoCopiar.disabled = true;   
+    botaoCopiar.disabled = true;
+    botaoCopiar.style.display = null;
     criptografadoImagemDaJovemComLupa.style.display = "none";
     resultado.style.display = null;
-    botaoCopiar.style.display = null;
+    resultado.disabled = false;
     resultado.style.color = '#ffabcd';
     resultado.style.fontWeight = '700';
     resultado.value = '\n\n Olhe o que você digitou: \n\n '.concat(input.value);
