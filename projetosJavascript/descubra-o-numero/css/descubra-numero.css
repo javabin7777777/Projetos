@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    border: 0;
+}
+
+body {
+    background-color: lightseagreen;
+    color: black;   
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 450; 
+}
+
+header {
+    text-align: center;
+    margin-top: 0.3rem;   
+    font-size: 3rem;
+    color: #ffaeea;
+}
+
+#entrada {    
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;  
+    margin-top: 0.1rem;
+    margin-left: 12rem;
+}
+#entrada-label {
+    margin-bottom: 0.1rem;
+}
+#entrada-input {
+    width: 14rem;
+    height: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 0.4rem;   
+    margin-bottom: 0.4rem;
+    outline: none;
+    resize: none;    
+}
+#entrada-input:hover{
+    background-color: #aaffcc;
+    font-size: 1rem;
+    font-weight: 900;
+}
+#entrada-selecao-de-intervalo-label {
+    margin-bottom: 0.1rem;
+}
+#entrada-selecao-de-intervalo-select {
+    width: 14rem;
+    height: 2.5rem; 
+    border-radius: 0.4rem;     
+    outline: none; 
+}
+#entrada-selecao-de-intervalo-select:hover{
+    background-color: #ddffcc;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+#entrada-selecao-de-intervalo-select > option {
+    background-color: #7baf82;
+    font-weight: 700;
+}
+#entrada-resultado {
+    width: 25rem;
+    height: 15rem;    
+    background-color: #ffffff;
+    border: 0.1rem solid grey;
+    border-radius: 0.75rem; 
+    margin-left: 45rem;   
+}
+#entrada-resultado-texto {
+    width: 25rem;
+    height:15rem;    
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;   
+    background-color: #98a19c;
+    filter: brightness(80%);
+    outline: none;
+    resize: none;
+}
+#entrada-resultado-imagemBolinhas {
+    width: 23rem;
+    height: 13rem;
+    margin: 1rem;    
+}
+
+#botoes {
+  margin-left: 12rem;
+  margin-bottom: 0.1rem;
+}
+#botoes-saudacao {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+}
+#botoes-jogar {
+    background-color: #1469be;
+    margin-right: 1.7rem;
+}
+#botoes-jogar:hover {
+    filter: brightness(50%);
+}
+#botoes-novo-jogo {
+    background-color: #6289af;
+    margin-right: 1.7rem;
+}
+#botoes-novo-jogo:hover {
+    filter: brightness(60%);
+}
+#botoes-limpar {
+    background-color: #abcdef;
+}
+#botoes-limpar:hover {
+   filter: brightness(50%);
+}
+button {
+    width: 15rem;
+    height: 4rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+#rodape {
+    margin-left: 3rem;
+    font-size: 0.8rem;
+}
+#rodape-rede-social {
+    width: 2rem;    
+}
+#rodape-link {
+    margin-right: 0.8rem;
+    text-decoration: none;
+}

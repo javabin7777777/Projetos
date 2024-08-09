@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra o numero</title>
+    <link rel="shortcut icon" href="./img/icone-jogo.jpeg" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="./css/descubra-numero.css" />
+    <script defer src="./js/descubra-numero.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <h1>Descubra o Número</h1>
+    </header>
+    <main>
+
+        <section id="entrada">
+
+            <label id="entrada-label" for="entrada-input">Seu número aqui:</label>
+            <input id="entrada-input" placeholder="Digite o seu número aqui." />
+
+            <label id="entrada-selecao-de-intervalo-label" for="entrada-selecao-de-intervalo-select">Escolha intervalo
+                de números:
+            </label>
+            <select name="lista" id="entrada-selecao-de-intervalo-select">
+                <option value="0">Intervalo</option> 
+                <option value="10">De 1 a 10</option>              
+                <option value="100">De 1 a 100</option>
+                <option value="1000">De 1 a 1000</option>
+                <option value="10000">De 1 a 10000</option>
+            </select> 
+            <section id="entrada-resultado">
+                <textarea id="entrada-resultado-texto" rows="10" cols="39" placeholder="Seu resultado aqui."></textarea>
+                <img id="entrada-resultado-imagemBolinhas" src="./img/bolinhas.jpg" alt="Imagem de bolas de jogo de azar." />
+            </section>
+
+        </section>       
+
+        <section id="botoes">
+            <p id="botoes-saudacao">&#9873; Tenha boa jogada.</p>
+            <button id="botoes-jogar">Jogar</button>
+            <!-- <button id="botoes-novo-jogo" >Novo Jogo</button> -->
+            <button id="botoes-limpar">Limpar</button>
+        </section>
+
+    </main>
+
+    <footer id="rodape">        
+        <a id="rodape-link" href="https://www.linkedin.com/in/samzubeli" target="_blank"> <img id="rodape-rede-social" src="./img/logo-linkedin-black.png" alt="simbolo da rede social linkedin" /> </a>
+        &copy;Todos direitos reservados
+    </footer>
+
+</body>
+
+</html>

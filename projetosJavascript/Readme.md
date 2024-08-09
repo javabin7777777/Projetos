@@ -6,10 +6,15 @@
      ![Alt text](calculadora/img/calculadora.jpg)  
        
 
-- Faça sua pergunta  
+- Faça Sua Pergunta  
     ![Alt text](facasuapergunta/img/fate.jpg)  
       
         
-- Criptografia de texto   
+- Criptografia de Texto   
    
-- ![Alt text](encriptador-de-texto/img/tela-principal.jpg) 
+- ![Alt text](encriptador-de-texto/img/tela-principal.jpg)   
+
+
+- Descubra o Número   
+   
+- ![Alt text](descubra-o-numero/img/tela-descubra-o-numero.jpg) 
