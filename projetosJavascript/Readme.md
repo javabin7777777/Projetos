@@ -17,4 +17,10 @@
 
 - Descubra o Número   
    
-- ![Alt text](descubra-o-numero/img/tela-descubra-o-numero.jpg) 
+- ![Alt text](descubra-o-numero/img/tela-descubra-o-numero.jpg)   
+
+
+- Gerador de Senha   
+   
+- ![Alt text](gerador-de-senha/img/tela-principal-gerador-de-senha.jpg)   
+

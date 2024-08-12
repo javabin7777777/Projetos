@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400;600&display=swap');
+
+:root {
+    --cor: #ce7f17;
+}
+* {
+    margin: 0;
+    border: 0;
+}
+
+body {
+    background-color: #2d198a;
+    color: black;   
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    font-family: 'Montserrat','Krona',sans-serif;
+    font-weight: 450; 
+}
+
+header {
+    text-align: center;
+    margin-top: 0.3rem;   
+    font-size: 3rem;
+    color: #1386a0;  
+}
+h1 {
+    display: inline;
+}
+#cabecalho-imagem-cadeado {
+    width: 7rem;
+    height: 4rem;   
+}
+
+#senha {    
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;  
+    margin-top: 0.1rem;
+    margin-left: 12rem;
+}
+#senha-label {
+    margin-bottom: 0.1rem;
+    color: var(--cor);
+    font-weight: 700;    
+}
+#senha-input {
+    width: auto;
+    height: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 0.4rem;   
+    margin-bottom: 0.7rem;
+    outline: none;
+    resize: none;  
+    text-align: center;  
+}
+#senha-input:hover{
+    background-color: #aaffcc;
+    font-size: 1rem;
+    font-weight: 900;
+}
+#senha-tamanho-label {
+    margin-bottom: 0.1rem;
+    color:var(--cor);
+    font-weight: 700;
+}
+#senha-tamanho-select {
+    width: 18rem;
+    height: 2.5rem; 
+    border-radius: 0.4rem;     
+    outline: none; 
+    text-align: center;
+}
+#senha-tamanho-select:hover{
+    background-color: #ddffcc;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+#senha-tamanho-select > option {
+    background-color: #a57d49;
+    font-weight: 700;
+}
+#senha-imagem {
+    width: 25rem;
+    height: 15rem;    
+    background-color: #ffffff;
+    border: none;   
+    margin-left: 45rem;   
+}
+#senha-imagem-principal {
+    width: 25rem;
+    height: 15rem;      
+}
+
+#botoes {  
+  margin-bottom: 0.1rem;
+}
+#botoes-gerador-senha {
+    background-color: #1469be;
+    margin-right: 6rem;
+    color: var(--cor);    
+}
+#botoes-gerador-senha:hover {
+    filter: brightness(60%);
+}
+#botoes-limpar {
+    background-color: #abcdef;
+    color:var(--cor);
+    
+}
+#botoes-limpar:hover {
+   filter: brightness(50%);
+}
+button {
+    width: 15rem;
+    height: 4rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+#rodape {
+    margin-left: 3rem;
+    font-size: 0.8rem;
+}
+#rodape-rede-social {
+    width: 2rem;    
+}
+#rodape-link {
+    margin-right: 0.8rem;
+    text-decoration: none;
+}
