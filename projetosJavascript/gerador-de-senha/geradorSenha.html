@@ -13,39 +13,29 @@
 <body>
 
     <header>
-
         <h1>Gerador de Senha</h1>
-        <img id="cabecalho-imagem-cadeado" src="./img/password.png" alt="Imagem de um cadeado ." />
-        
+        <img id="cabecalho-imagem-cadeado" src="./img/password.png" alt="Imagem de um cadeado ." />        
     </header>
+
     <main>
 
-        <section id="senha"> <!-- Onde é inserido a senha -->
+        <section id="senha">
 
             <label id="senha-label" for="senha-input">SENHA:</label>
-            <input id="senha-input" placeholder="Sua senha aparece aqui." />
-            <label id="senha-tamanho-label" for="senha-tamanho-select">
+            <input id="senha-input" placeholder="Sua senha aparece aqui." />  <!-- Onde é inserido a senha -->
+            <label id="senha-tamanho-label" for="senha-tamanho-input">
                 ESCOLHA O TAMANHO DA SENHA:
             </label>
-            <select name="lista" id="senha-tamanho-select">
-                <option value="0">Tamanho da senha</option>
-                <option value="8">8</option>
-                <option value="16">16</option>
-                <option value="24">24</option>
-                <option value="32">32</option>
-                <option value="40">40</option>
-                <option value="48">48</option>
-                <option value="56">56</option>
-                <option value="64">64</option>
-                <option value="72">72</option>
-                <option value="80">80</option>
-               <option value="96">96</option>
-            </select>
-            <div id="senha-imagem">               
+            <input id="senha-tamanho-input"  type='number' value='8' max="96" min="8"  placeholder="Entre com tamanho aqui." />
+           
+            <div id="senha-imagem"> 
+                <span id="mensagem-aviso"></span>              
                <img id="senha-imagem-principal" src="./img/numero-binario.jpg" alt="Imagem de numeros binarios ." />            
             </div>
-            <div id="botoes">
+
+            <div id="botoes"> <!-- Aqui fica os botoes de acionamentos -->
                 <button id="botoes-gerador-senha">Gerar Senha</button>
+                <button id="botoes-copiar-senha">Copiar Senha</button>
                 <button id="botoes-limpar">Limpar</button>
             </div>
 
@@ -54,8 +44,8 @@
     </main>
 
     <footer id="rodape">
-        <a id="rodape-link" href="https://www.linkedin.com/in/samzubeli" target="_blank"> 
-            <img id="rodape-rede-social" src="./img/logo-linkedin-black.png" alt="simbolo da rede social linkedin" />
+        <a id="rodape-rede-social" href="https://www.linkedin.com/in/samzubeli" target="_blank" rel="noopener"> 
+            <img id="rodape-rede-social-imagem" src="./img/logo-linkedin-black.png" alt="simbolo da rede social linkedin" />
         </a>
         &copy;Todos direitos reservados.
     </footer>

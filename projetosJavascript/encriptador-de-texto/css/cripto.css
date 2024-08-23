@@ -18,17 +18,14 @@ body {
     height: 3rem;
     position: relative;
     left: 2.5rem;
-    top: 3.8rem;
+    top: 2rem;
 }
 
 #texto-entrada {
     width: 40rem;
-    line-height: 3rem;
     position: absolute;
     top: 5.5rem;
     left: 15rem;
-    border-radius: 0.625rem;
-    text-align: left;
 }
 
 #texto-entrada-label {
@@ -38,13 +35,19 @@ body {
 
 #texto-entrada-input {
     font-size: 2rem;
+    line-height: 2rem;
+    border-radius: 0.625rem;
+    text-align: left;
     outline: none;
     resize: none;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
 }
 
 #criptografado {
     width: 25rem;
-    height: 34.5rem;
+    height: 30rem;
     position: relative;
     left: 58.5rem;
     border: 1px solid whitesmoke;
@@ -61,6 +64,9 @@ body {
     margin: auto 1rem;
     outline: none;
     resize: none;
+    background-color: white;
+    padding-left: 1rem;
+    padding-top: 1rem;
 }
 
 #criptografado-imagemDaJovemComLupa {
@@ -72,12 +78,11 @@ body {
     text-align: center;
 }
 
-
 #criptografado-botao {
     width: 21rem;
     height: 7.625rem;
     position: absolute;
-    top: 31rem;
+    top: 26rem;
     margin: 0 2rem;
     font-size: 0.7rem;
     text-align: center;
@@ -99,7 +104,7 @@ body {
     height: 4.1875rem;
     position: absolute;
     left: 6rem;
-    top: 34.5rem;
+    top: 32rem;
 }
 
 #botoes-aviso {
@@ -123,7 +128,6 @@ body {
     width: 7rem;
 }
 
-
 #botoes-criptografar {
     background-color: mediumblue;
 }
@@ -133,14 +137,14 @@ body {
 }
 
 #rodape {
-
-    margin-left: 5rem;
+    margin-left: 1rem;
     font-size: 0.75rem;
     font-weight: 200;
+    margin-top: 3rem;
 }
 
 #rodape-rede-social {
-    width: 1rem;
+    width: 1.7rem;
     margin-top: 0.4rem;
     margin-left: 5 rem;
 }

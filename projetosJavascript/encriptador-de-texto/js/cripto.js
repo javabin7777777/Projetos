@@ -3,10 +3,11 @@ let mensagem = `Caracteres permitidos:
 espaco,a-z,0-9,[,],+,-,%,$,#,@,!,?, . , : , ; ,\`, , ,^,-,<,>,=,\\,&,*,(,),\",',/,{,},|,~` ;
 
 let resultado = document.getElementById('criptografado-resultado');
-resultado.style.display = "none";
+resultado.style.display = 'none';
 let criptografado = document.getElementById('criptografado');
 let criptografadoImagemDaJovemComLupa = document.getElementById('criptografado-imagemDaJovemComLupa');
 let input = document.getElementById('texto-entrada-input');
+input.placeholder = ' Digite o texto que você pretende \n criptografar ou descriptografar.';
 let botaoLimpar = document.getElementById('botoes-limpar');
 let botaoCriptografar = document.getElementById('botoes-criptografar');
 let botaoDescriptografar = document.getElementById('botoes-descriptografar');
@@ -28,7 +29,7 @@ function limpar() {
     resultado.disabled = false;
     resultado.style.color = null;
     resultado.style.fontWeight = null;
-    input.value = '';
+    input.value = ' ';
     resultado.value = '';
 }
 
