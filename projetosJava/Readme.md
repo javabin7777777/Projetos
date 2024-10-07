@@ -8,4 +8,7 @@
 - Estruturas de dados em java.   
 
 ## Consumer-Api-Imdb  
-- Consumidor da API IMDB.  
+- Consumidor de API IMDB.   
+
+## com.samzubeli.ConversorDeMoedas 
+- Consumidor de API ExchangeRate-API.
