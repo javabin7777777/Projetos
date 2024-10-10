@@ -34,12 +34,12 @@ public class Conexao {
  * json a taxa de câmbio
  * 
  * EUR -> moeda base USD -> moeda alvo key =
- * "6f7d444c2c79803d656753f8/pair/EUR/GBP" ou
- * "6f7d444c2c79803d656753f8/pair/EUR/GBP/AMOUNT"
+ * "YOUR-API-KEY/pair/EUR/GBP" ou
+ * "YOUR-API-KEY/pair/EUR/GBP/AMOUNT"
  * 
  * GET https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/EUR/GBP/AMOUNT ->
  * devolve no json moeda alvo já convertida.
  * 
- * Ex: https://v6.exchangerate-api.com/v6/6f7d444c2c79803d656753f8/latest/USD ->
+ * Ex: https://v6.exchangerate-api.com/v6/YOUR-API-KEY/latest/USD ->
  * devolve todas moedas convertidas em relação ao dollar.
  */

@@ -31,7 +31,7 @@ public class Principal {
 			switch (valor) {
 
 			case 1:
-				key = "6f7d444c2c79803d656753f8/pair/USD/BRL";
+				key = "YOUR KEY/pair/USD/BRL";
 				parMoedas = " usd - brl: ".toUpperCase();
 				moeda = util.entradaDeValores(true);				
 				taxaCambio = util.obterTaxaDeCambio(con, key);
@@ -40,7 +40,7 @@ public class Principal {
 				break;
 
 			case 2:
-				key = "6f7d444c2c79803d656753f8/pair/USD/BRL";
+				key = "YOUR KEY/pair/USD/BRL";
 				parMoedas = " brl - usd: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
 				taxaCambio = util.obterTaxaDeCambio(con, key);
@@ -49,7 +49,7 @@ public class Principal {
 				break;
 
 			case 3:
-				key = "6f7d444c2c79803d656753f8/pair/USD/COP";
+				key = "YOUR KEY/pair/USD/COP";
 				parMoedas = " usd - cop: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
 				taxaCambio = util.obterTaxaDeCambio(con, key);
@@ -58,7 +58,7 @@ public class Principal {
 				break;
 
 			case 4:
-				key = "6f7d444c2c79803d656753f8/pair/USD/COP";
+				key = "YOUR KEY/pair/USD/COP";
 				parMoedas = " cop - usd: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
 				taxaCambio = util.obterTaxaDeCambio(con, key);
@@ -67,7 +67,7 @@ public class Principal {
 				break;
 
 			case 5:
-				key = "6f7d444c2c79803d656753f8/pair/USD/ARS";
+				key = "YOUR KEY/pair/USD/ARS";
 				parMoedas = " usd - ars: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
 				taxaCambio = util.obterTaxaDeCambio(con, key);
@@ -76,7 +76,7 @@ public class Principal {
 				break;
 
 			case 6:
-				key = "6f7d444c2c79803d656753f8/pair/USD/ARS";
+				key = "YOUR KEY/pair/USD/ARS";
 				parMoedas = " ars - usd: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
 				taxaCambio = util.obterTaxaDeCambio(con, key);
