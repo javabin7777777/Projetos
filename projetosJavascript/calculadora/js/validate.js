@@ -4,17 +4,19 @@ import obj from "./utilities.js";
 // Validar a string de entrada.
 function validation(str) {
     // Inicio da verificacao preliminar da string de entrada.   
-
+    
     if (str.length === 0) return false;// String vazia.  
 
-    //Verificar se as vírgulas separam os milhares corretamente.
-    if (commaVerification(str)) return false;
+    str = Clear(str);
 
-    str = Clear(str);   
+    //Verificar se as vírgulas separam os milhares corretamente.
+    if (commaVerification(str)) return false; 
+
+    str = str.replaceAll(',', '');
 
     // Verificar se e numero octal.
-    if (verificarOctal(str)) return false;
-
+    if(verificarOctal(str)) return false;
+    
     //contagem dos caracteres special_O e special_C.
     let counter_O = 0;// quantidade de caracteres special_O.
     let counter_C = 0;// quantidade de caracteres special_C.
@@ -24,7 +26,7 @@ function validation(str) {
             if (obj.special_C.includes(str[i])) ++counter_C;
         }
     }
-
+   
     if (counter_O === counter_C) {
 
         let begin = str[0];
@@ -38,7 +40,7 @@ function validation(str) {
         // Iniciar com número ou um dos caracteres 'obj.special_O','+',ou '-'.
         // Finalizar com número ou com um dos caracteres 'obj.special_C'.        
         if (((!a) && (b && c))) return false;// 'String' de entrada não validada.
-
+      
 
         // Verificar se string de entrada está no formato numero+obj.operator+numero ...
         // e com os caracteres obj.special_O e obj.special_C.
@@ -103,7 +105,7 @@ function validation(str) {
                 }
             } else {
                 // último caracter da string de entrada.               
-                if (!(obj.algarism.includes(str[i]) || obj.special_C.includes(str[i]))) return false;
+                if (!(obj.algarism.includes(str[i]) || obj.special_C.includes(str[i])))  return false;                
             }
         }
     } else return false;
@@ -114,18 +116,18 @@ function validation(str) {
 // Validação da string de entrada,que é usada pela função pow2.
 function validationPow(str) {
     // Se a String de entrada for vazia.
-    if (!(str.length !== 0)) return false;
-    str = str.replaceAll(',', '');
-
+    if (!(str.length !== 0)) return false;  
+    str = str.replaceAll(',', '');  
+    
     // Verificar se o primeiro caracter é número ou '-'.
     if (!(obj.algarism.includes(str[0]) || str[0] === '-')) {
         return false;
     }
-
+   
     // Verificar cada caracter de entrada.
     for (let i of str) {
         if (!(obj.permitPow.includes(i))) {
-
+            
             return false;
         }
     }

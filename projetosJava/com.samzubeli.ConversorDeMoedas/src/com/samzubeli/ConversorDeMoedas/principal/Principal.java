@@ -23,7 +23,7 @@ public class Principal {
 			int valor = (int) util.entradaDeValores(false);			
 			if (valor == 7)
 				break;
-			String key = "";
+			String url = "";
 			String parMoedas = "";
 			double moeda = 0.0;
 			double taxaCambio = 0.0;
@@ -31,55 +31,55 @@ public class Principal {
 			switch (valor) {
 
 			case 1:
-				key = "YOUR KEY/pair/USD/BRL";
+				url = "https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/USD/BRL";
 				parMoedas = " usd - brl: ".toUpperCase();
 				moeda = util.entradaDeValores(true);				
-				taxaCambio = util.obterTaxaDeCambio(con, key);
+				taxaCambio = util.obterTaxaDeCambio(con, url);			
 				moeda = moeda * taxaCambio;
 				util.imprimirValores(parMoedas, moeda, taxaCambio);
 				break;
 
 			case 2:
-				key = "YOUR KEY/pair/USD/BRL";
+				url = "https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/USD/BRL";
 				parMoedas = " brl - usd: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
-				taxaCambio = util.obterTaxaDeCambio(con, key);
+				taxaCambio = util.obterTaxaDeCambio(con, url);
 				moeda = moeda / taxaCambio;
 				util.imprimirValores(parMoedas, moeda, taxaCambio);
 				break;
 
 			case 3:
-				key = "YOUR KEY/pair/USD/COP";
+				url = "https://v6.exchangerate-api.com/YOUR-API-KEY/pair/USD/COP";
 				parMoedas = " usd - cop: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
-				taxaCambio = util.obterTaxaDeCambio(con, key);
+				taxaCambio = util.obterTaxaDeCambio(con, url);
 				moeda = moeda * taxaCambio;
 				util.imprimirValores(parMoedas, moeda, taxaCambio);
 				break;
 
 			case 4:
-				key = "YOUR KEY/pair/USD/COP";
+				url = "https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/USD/COP";
 				parMoedas = " cop - usd: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
-				taxaCambio = util.obterTaxaDeCambio(con, key);
+				taxaCambio = util.obterTaxaDeCambio(con, url);
 				moeda = moeda / taxaCambio;
 				util.imprimirValores(parMoedas, moeda, taxaCambio);
 				break;
 
 			case 5:
-				key = "YOUR KEY/pair/USD/ARS";
+				url = "https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/USD/ARS";
 				parMoedas = " usd - ars: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
-				taxaCambio = util.obterTaxaDeCambio(con, key);
+				taxaCambio = util.obterTaxaDeCambio(con, url);
 				moeda = moeda * taxaCambio;
 				util.imprimirValores(parMoedas, moeda, taxaCambio);
 				break;
 
 			case 6:
-				key = "YOUR KEY/pair/USD/ARS";
+				url = "https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/USD/ARS";
 				parMoedas = " ars - usd: ".toUpperCase();
 				moeda = util.entradaDeValores(true);								
-				taxaCambio = util.obterTaxaDeCambio(con, key);
+				taxaCambio = util.obterTaxaDeCambio(con, url);
 				moeda = moeda / taxaCambio;
 				util.imprimirValores(parMoedas, moeda, taxaCambio);
 				break;

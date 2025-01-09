@@ -3,8 +3,8 @@ import { messageError, display, commaVerification, fatorial, radiano } from "./u
 import obj from "./utilities.js";
 import { radical } from "./main.js";
 
-/* Numero de euler,valor de PI,seno,cosseno,tangente,logaritmo DECIMAL,logaritmo neperiano,potência,raiz.
- raiz quadrada,símbolo monetário do Real,porcentagem.*/
+/* Numero de euler,valor de PI,seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,potência,raiz,
+   raiz quadrada,símbolo monetário do Real,porcentagem.*/
 
 export default function generic(param) {
     let str = input.value;
@@ -33,9 +33,8 @@ export default function generic(param) {
             return true;
 
         case 'pow2':    // Potência de base 2 .
-        
-            if (validationPow(str)) { // validação da entrada .
 
+            if (validationPow(str)) { // validação da entrada .
                 str = str.replaceAll(',', '');
                 obj.lastOperation = 'Base: ' + str;
                 str = eval(str);
@@ -59,8 +58,8 @@ export default function generic(param) {
             }
     }
 
-    /* Operacao seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,raiz quadrada,porcentagem,potência,
-     inverso,absoluto,converter grau para radiano */
+    /* Operacao seno,cosseno,tangente,logaritmo decimal,logaritmo neperiano,raiz quadrada,
+       porcentagem,potência,inverso,absoluto,converter grau para radiano */
 
     if (str.length != 0) {
         if (validation(str)) {
@@ -123,7 +122,7 @@ export default function generic(param) {
                     return true;
 
                 case '%':   // Porcentagem.
-                   
+
                     obj.aux = str;
                     input.value = "";
                     obj.percentage = true;
@@ -180,7 +179,7 @@ function angle(str, value) {
     let deg = (str * Math.PI) / 180;// Transforma para radianos.   
     switch (value) {
         case 'sin':
-            obj.lastOperation = `sin(${str}º)`;
+            obj.lastOperation = `sen(${str}º)`;
             if (num === 0) {
                 if ((str / 90) % 2 === 0) { // Se for par o seno é zero.
                     return 0;
@@ -202,7 +201,7 @@ function angle(str, value) {
                 messageError(obj.message2);
             } else {
                 input.value = obj.aux = angle(str, 'sin') / angle(str, 'cos');
-                obj.lastOperation = `tan = sin(${str}º) / cos(${str}º)`;
+                obj.lastOperation = `tan = sen(${str}º) / cos(${str}º)`;
             }
     }
 }

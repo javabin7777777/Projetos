@@ -5,14 +5,15 @@ import { eventsButtons } from "./utilities.js";
 const input = document.querySelector("#input");// Campo texto .
 const div = document.querySelector("#containerButton");// div dos 'buttons'.
 
-//Inicializacao do campo texto.
+//Inicialização do campo texto.
 input.value = "";
 
-// Construcao dos elementos(botoes) da calculadora.
+// Construção dos elementos(botões) da calculadora.
 buildElements(div);
 
-// Usada para travar e destravar o 'button' raiz.
-export const radical = document.querySelector("#root");// Usada pelas funcoes root e clearAll.
+// Para travar e destravar o 'button' raiz.
+// Usada pelas funções root e clearAll.
+export const radical = document.querySelector("#root");
 // Lista com todos 'buttons'.
 export const buttons = document.querySelectorAll('button');
 //obter os 'buttons' de 0 a 9 e insere na lista elements .
@@ -21,10 +22,11 @@ const elements = document.querySelectorAll('.number');//'elements': Lista do tip
 const operators = document.querySelectorAll('.operator1');
 const combined = [...elements, ...operators];//'buttons' com as classes number e operator1.
 
-// Adicionar eventos aos 'buttons' com as classes number e operator1.
+/* Adicionar eventos aos 'buttons' com as classes number e operator1,
+   para inserir o valor do 'button' no campo texto.*/
 combined.forEach((item) => {
     item.addEventListener('click', () => input.value += item.innerText);
 });
 
-// Adicionar eventos aos 'buttons' da calculadora,para executar diversas operacoes.
-eventsButtons(); // pacote utilities.js
+// Adicionar eventos aos 'buttons' restantes da calculadora,para executar diversas operações.
+eventsButtons(); // utilities.js
