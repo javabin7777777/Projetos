@@ -23,6 +23,7 @@ out/
 .springBeans
 .sts4-cache
 .idea
+.metadata
 /bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
